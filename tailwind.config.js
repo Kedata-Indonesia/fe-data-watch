@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -7,12 +8,21 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontFamily: {
+        sans: ['"Open Sans"', ...defaultTheme.fontFamily.sans],
+        archivo: ['Archivo'],
+      },
+      colors: {
+        'c-neutral-900': '#091E42',
+        'c-gray-100': '#F4F4F5',
+        'c-gray-300': '#D4D4D8',
+        'c-gray-600': '#52525B',
+        'c-red-50': '#FFE5EA',
+        'c-red-300': '#FF8098',
+        'c-red-400': '#FF4C6F',
+        'c-red-600': '#FF0031',
       },
     },
   },
-  plugins: [],
-}
+  plugins: [require('daisyui'), require('@tailwindcss/forms')],
+};

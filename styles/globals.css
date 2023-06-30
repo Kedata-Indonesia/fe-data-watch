@@ -2,26 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+  body {
+    @apply text-c-neutral-900;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer components {
+  .product-features > div:nth-child(1),
+  .product-features > div:nth-child(2),
+  .product-features > div:nth-child(4),
+  .product-features > div:nth-child(5) {
+    @apply border-r-transparent md:border-r md:border-r-[#DFE2E6];
+  }
+  .product-features > div:nth-child(1),
+  .product-features > div:nth-child(2),
+  .product-features > div:nth-child(3) {
+    @apply border-b border-b-[#DFE2E6];
+  }
+  .product-features > div:nth-child(4),
+  .product-features > div:nth-child(5) {
+    @apply border-b border-b-[#DFE2E6] md:border-b-transparent;
+  }
+}
+
+@layer utilities {
+  .skew-right-top {
+    clip-path: polygon(
+      /* left top */ 0 5%,
+      /* right top */ 100% 0,
+      /* right bottom */ 100% 100%,
+      /* left bottom */ 0 100%
+    );
+  }
+  .skew-left-top-right-bottom {
+    clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%);
+  }
+  .skew-right-bottom {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 95%);
+  }
+  .skew-right {
+    clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 95%);
+  }
+}
+
+.swiper-pagination .swiper-pagination-bullet {
+  @apply bg-c-red-600;
 }

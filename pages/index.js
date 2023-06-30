@@ -1,118 +1,107 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import Link from 'next/link';
+import Image from 'next/image';
+import { Button } from '@/components/base/button';
+import Section from '@/components/pages/home-page/section';
+import BenefitList from '@/components/pages/home-page/benefit-list';
+import FeatureList from '@/components/pages/home-page/feature-list';
+import UserWaitlist from '@/components/pages/home-page/user-waitlist';
+import FormWaitlist from '@/components/pages/home-page/form-waitlist';
+import { RightArrowIcon } from '@/components/icons';
+import { LandingPageLayout } from '@/components/layouts';
+import useTestimonialWaitlist from '@/services/features/waitlist/hooks/use-testimonial-waitlist';
 
 export default function Home() {
+  const { data: testimonials } = useTestimonialWaitlist();
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
+    <LandingPageLayout>
+      <Section>
+        <div className="flex py-10">
+          <div className="w-6/12">
+            <h1 className="mb-10 mt-16 font-archivo text-[42px] font-bold leading-[46px] tracking-tight">
+              <span className="text-c-red-600">Empowering Data Analysis with Free: </span>
+              <span>Experience Quality Insights with Kalkula - DataWatch!</span>
+            </h1>
+            <p className="mb-12">
+              Unlock the full potential of your data with our cutting-edge solution, empowering you
+              to regain control and elevate the quality of your information.
+            </p>
+            <Link href="#join" scroll={false} passHref>
+              <Button IconEnd={<RightArrowIcon classname="h-5 w-5" />}>Join Our Waitlist</Button>
+            </Link>
+          </div>
+          <div className="relative h-[240px] w-6/12 self-start lg:h-[578px]">
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+              alt="kalkula image"
+              src="/images/home-img-1.png"
+              style={{ objectFit: 'contain' }}
+              fill
             />
-          </a>
+          </div>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+      </Section>
+      <Section className="skew-left-top-right-bottom bg-[#FFF5F7]">
+        <div id="benefits" className="flex flex-col py-28">
+          <div className="mb-20 w-full flex-col text-center">
+            <h2 className="mb-5 font-archivo text-[28px] font-bold">
+              Key Benefits of Embracing Our Solution
+            </h2>
+            <p>
+              Empower Your Business with Enhanced Data Control and Quality for Optimal Performance
+            </p>
+          </div>
+          <BenefitList />
+        </div>
+      </Section>
+      <Section>
+        <div id="features" className="flex flex-col py-28">
+          <div className="mb-14 w-full flex-col text-center">
+            <h2 className="mb-5 font-archivo text-[28px] font-bold">
+              Advanced Features for Unleashing the Potential of Your Data
+            </h2>
+            <p>Discover the Power of Our Solution to Elevate Data Quality and Boost Performance</p>
+          </div>
+          <FeatureList />
+        </div>
+      </Section>
+      {testimonials && testimonials.payload.length > 0 && (
+        <Section className="skew-right-bottom bg-[#FFF5F7]">
+          <div className="flex flex-col py-28">
+            <div className="mb-20 w-full flex-col text-center">
+              <h2 className="mb-5 font-archivo text-[28px] font-bold">
+                Here&apos;s Why They Join Our Waitlist
+              </h2>
+              <p>
+                Unlock Enhanced Data Control and Quality with Our Open-Source Micro SaaS Solution
+              </p>
+            </div>
+            <UserWaitlist testimonials={testimonials} />
+          </div>
+        </Section>
+      )}
+      <Section>
+        <div id="join" className="flex gap-10 py-28">
+          <div className="w-5/12">
+            <h1 className="mb-6 mt-16 font-archivo text-[42px] font-bold leading-[46px] tracking-tight">
+              <span className="text-c-red-600"> Join the Waitlist</span> and Harness the Power of
+              Data Ownership
+            </h1>
+            <p className="mb-6">
+              Take charge of your data like never before! By joining our waitlist, you&apos;ll gain
+              exclusive access to our revolutionary open-source solution designed to empower you
+              with enhanced data quality. Say goodbye to compromises and hello to true data
+              ownership.
+            </p>
+            <p>
+              Be among the first to experience the transformative capabilities of our platform,
+              enabling you to maintain complete control over your valuable data assets.
+            </p>
+          </div>
+          <div className="w-7/12">
+            <FormWaitlist />
+          </div>
+        </div>
+      </Section>
+    </LandingPageLayout>
+  );
 }
