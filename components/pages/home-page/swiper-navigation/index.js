@@ -3,7 +3,7 @@ import clsx from 'clsx';
 const SwiperNavigation = ({ className = '', children = null }) => (
   <div
     className={clsx(
-      'bg-c-red-600 text-white absolute rounded px-3 py-2 z-10 top-1/3 cursor-pointer',
+      'absolute bottom-0 z-10 cursor-pointer rounded bg-c-red-600 px-3 py-2 text-white md:bottom-auto md:top-1/3',
       className
     )}
   >

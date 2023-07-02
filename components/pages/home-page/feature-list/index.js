@@ -40,12 +40,12 @@ const featureItems = [
 ];
 
 const FeatureList = () => (
-  <div className="grid grid-cols-1 lg:grid-cols-3 product-features">
-    {featureItems.map((item) => (
+  <div className="product-features grid grid-cols-1 lg:grid-cols-3">
+    {featureItems.map(item => (
       <div key={item.id} className="py-[20px] md:p-[32px]">
         <div className="flex flex-col gap-y-2 md:gap-y-0">
-          <div className="flex flex-row md:flex-col items-center gap-x-2">
-            <div className="w-full lg:h-[84px] max-w-[84px] relative">
+          <div className="flex flex-row items-center gap-x-2 md:flex-col">
+            <div className="relative h-5 w-5 md:h-[84px] md:w-[84px]">
               <Image
                 alt={`feature-${item.id}`}
                 src={`/images/feature-${item.id}.png`}
@@ -53,13 +53,11 @@ const FeatureList = () => (
                 fill
               />
             </div>
-            <h3 className="text-[16px] font-bold lg:mt-[24px] lg:mb-[8px] font-archivo">
+            <h3 className="font-archivo text-[16px] font-bold lg:mb-[8px] lg:mt-[24px]">
               {item.title}
             </h3>
           </div>
-          <p className="text-left md:text-center md:text-base text-[10px]">
-            {item.content}
-          </p>
+          <p className="text-left text-[10px] md:text-center md:text-base">{item.content}</p>
         </div>
       </div>
     ))}

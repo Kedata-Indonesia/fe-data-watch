@@ -1,38 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { BurgerMenuIcon, CloseIcon } from '@/components/icons';
+import clsx from 'clsx';
 
 const LandingPageLayout = ({ children = '' }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [isOpen, setIsOpen] = useState(false);
+  const onClickHandleMenu = () => setIsOpen(prev => !prev);
 
   return (
     <div className="bg-white">
       {/* Header */}
-      <header className="sticky left-0 top-0 z-30 bg-white">
-        <nav className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 py-6">
-          <Image src="/logo.svg" width={136} height={36} alt="logo kalkula" />
-          <ul className="flex w-full justify-end gap-4">
-            <Link href="#benefits" scroll={false} passHref>
-              <li className="cursor-pointer hover:text-c-red-600">Benefits</li>
-            </Link>
-            <Link href="#features" scroll={false} passHref>
-              <li className="cursor-pointer hover:text-c-red-600">Feature</li>
-            </Link>
+      <header className="sticky left-0 top-0 z-30 bg-white px-5 md:px-0">
+        <nav className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 py-4 lg:py-6">
+          <Image
+            src="/logo.svg"
+            width={160}
+            height={36}
+            alt="logo kalkula"
+            className="hidden lg:block"
+          />
+          <Image src="/logo.svg" width={100} height={26} alt="logo kalkula" className="lg:hidden" />
+          <ul className="hidden w-full justify-end gap-4 md:flex">
+            <li className="cursor-pointer hover:text-c-red-600">
+              <Link href="#benefits" scroll={false}>
+                Benefits
+              </Link>
+            </li>
+            <li className="cursor-pointer hover:text-c-red-600">
+              <Link href="#features" scroll={false}>
+                Feature
+              </Link>
+            </li>
           </ul>
-          <div className="w-[1px] self-stretch bg-c-gray-300" />
-          <Link href="#join" scroll={false} passHref>
+          <div className="hidden w-[1px] self-stretch bg-c-gray-300 md:block" />
+          <Link href="#join" scroll={false} passHref className="hidden md:flex">
             <button
               type="button"
               className="w-40 rounded border border-c-red-600 bg-white py-[10px] text-c-red-600 hover:bg-c-gray-100"
@@ -40,7 +42,51 @@ const LandingPageLayout = ({ children = '' }) => {
               Join Waitlist
             </button>
           </Link>
+
+          {/* Mobile */}
+          {isOpen ? (
+            <CloseIcon
+              className="h-5 w-5 text-c-neutral-900 md:hidden"
+              onClick={onClickHandleMenu}
+            />
+          ) : (
+            <BurgerMenuIcon
+              className="h-5 w-5 text-c-neutral-900 md:hidden"
+              onClick={onClickHandleMenu}
+            />
+          )}
         </nav>
+
+        {/* Mobile */}
+        <div
+          className={clsx(
+            'absolute left-0 h-[90vh] w-full flex-col justify-between bg-white transition-all duration-200 md:hidden',
+            isOpen ? 'flex scale-100 ' : 'scale-0'
+          )}
+        >
+          <ul className="flex w-full flex-col md:hidden [&>li:first-child]:border-t [&>li:first-child]:border-c-neutral-40">
+            <li className="cursor-pointer border-b border-b-c-neutral-40 px-6 py-4 hover:text-c-red-600">
+              <Link href="#benefits" scroll={false}>
+                Benefits
+              </Link>
+            </li>
+            <li className="cursor-pointer border-b border-b-c-neutral-40 px-6 py-4 hover:text-c-red-600">
+              <Link href="#features" scroll={false}>
+                Feature
+              </Link>
+            </li>
+          </ul>
+          <div className="items-center border-t p-[20px] shadow-[0_0_30px_10px_rgba(9,30,66,0.08)]">
+            <Link href="#join" scroll={false} passHref>
+              <button
+                type="button"
+                className="w-full rounded border border-c-red-600 bg-white py-[10px] text-c-red-600 hover:bg-c-gray-100"
+              >
+                Join Our Waitlist
+              </button>
+            </Link>
+          </div>
+        </div>
       </header>
 
       {children}

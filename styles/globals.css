@@ -53,3 +53,7 @@
 .swiper-pagination .swiper-pagination-bullet {
   @apply bg-c-red-600;
 }
+
+.collapse > input[type='radio'] {
+  width: 100%;
+}
