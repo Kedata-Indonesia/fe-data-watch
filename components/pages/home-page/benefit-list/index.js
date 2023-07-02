@@ -38,7 +38,7 @@ const BenefitList = () => {
   const [benefitId, setBenefitId] = useState('1');
   return (
     <div className="flex gap-10">
-      <div className="w-6/12 lg:h-[460px] max-w-[460px] relative">
+      <div className="relative hidden w-6/12 max-w-[460px] md:block lg:h-[460px]">
         <Image
           alt={`benefit-${benefitId}`}
           src={`/images/benefit-${benefitId}.png`}
@@ -46,9 +46,12 @@ const BenefitList = () => {
           fill
         />
       </div>
-      <div className="w-6/12">
-        {benefitItems.map((item) => (
-          <div key={item.id} className="collapse collapse-plus">
+      <div className="w-full md:w-6/12">
+        {benefitItems.map(item => (
+          <div
+            key={item.id}
+            className="collapse-plus collapse rounded-none border-b-2 border-b-[#FFE5EA] last:border-0 md:border-0"
+          >
             <input
               type="radio"
               name="benefits"
@@ -60,9 +63,16 @@ const BenefitList = () => {
               className="collapse-title font-archivo font-bold"
               dangerouslySetInnerHTML={{ __html: item.title }}
             />
-            {/* {item.title}
-                  </div> */}
-            <div className="collapse-content">{item.content}</div>
+            <div className="collapse-content flex flex-col items-center gap-4">
+              <Image
+                alt={`benefit-${benefitId}`}
+                src={`/images/benefit-${benefitId}.png`}
+                height={200}
+                width={200}
+                className="md:hidden"
+              />
+              <p className="text-[10px] md:text-base">{item.content}</p>
+            </div>
           </div>
         ))}
       </div>

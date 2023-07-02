@@ -13,6 +13,7 @@ module.exports = {
         archivo: ['Archivo'],
       },
       colors: {
+        'c-neutral-40': '#DFE2E6',
         'c-neutral-900': '#091E42',
         'c-gray-100': '#F4F4F5',
         'c-gray-300': '#D4D4D8',

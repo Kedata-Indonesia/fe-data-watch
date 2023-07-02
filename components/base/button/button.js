@@ -13,7 +13,7 @@ const Button = ({
       onClick={onClick}
       type="button"
       className={clsx(
-        'm-0 flex cursor-pointer items-center gap-2.5 rounded bg-c-red-600 px-12 py-4 font-bold text-white hover:bg-c-red-400',
+        'm-0 mx-auto flex cursor-pointer items-center gap-2.5 rounded bg-c-red-600 px-12 py-4 text-sm font-bold text-white hover:bg-c-red-400 md:mx-0 md:text-base',
         className
       )}
     >

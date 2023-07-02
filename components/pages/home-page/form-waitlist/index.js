@@ -68,7 +68,9 @@ const FormWaitlist = () => {
         </form>
       </div>
       <Button
-        // onClick={() => thanksModal.showModal()}
+        className="w-full justify-center rounded-lg rounded-t-none font-normal"
+        IconEnd={<RightArrowIcon classname="h-5 w-5" />}
+        isLoading={registerMutation.isLoading}
         onClick={handleSubmit(form => {
           return registerMutation.mutateAsync(
             {
@@ -87,16 +89,14 @@ const FormWaitlist = () => {
             }
           );
         })}
-        className="justify-center rounded-lg rounded-t-none font-normal"
-        IconEnd={<RightArrowIcon classname="h-5 w-5" />}
-        isLoading={registerMutation.isLoading}
+        // onClick={() => thanksModal.showModal()}
       >
         Join Our Waitlist
       </Button>
       <dialog id="thanksModal" className="modal">
         <form
           method="dialog"
-          className="modal-box flex w-[560px] max-w-[560px] flex-col rounded-lg bg-white p-10 text-center text-c-gray-600"
+          className="modal-box flex flex-col rounded-lg bg-white p-10 text-center text-[10px] text-c-gray-600 md:text-base lg:w-[560px] lg:max-w-[560px]"
         >
           <button className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2">✕</button>
           <h3 className="mb-10 text-4xl font-bold text-c-red-600">Thank You</h3>
@@ -107,8 +107,8 @@ const FormWaitlist = () => {
             Once confirmed, you'll be among the first to experience our groundbreaking features and
             innovations, taking control of your data with our open-source Micro SaaS platform.
           </p>
-          <div className="mb-10 rounded-lg border border-c-gray-300 bg-slate-100 p-7">
-            <p className="mb-6">
+          <div className="mb-10 rounded-lg border border-c-gray-300 bg-slate-100 p-4 md:p-7">
+            <p className="mb-2 md:mb-6">
               Refer your friends and colleagues to join our waitlist and be part of the excitement
             </p>
             <div className="flex justify-between rounded border border-c-gray-300 bg-white px-4 py-2">
