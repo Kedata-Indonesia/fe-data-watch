@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import useRegisterWaitlist from '@/services/features/waitlist/hooks/use-register-waitlist';
 import SocmedShare from '../socmed-share';
 import { RightArrowIcon, CopyIcon, CheckCircleIcon } from '@/components/icons';
+import { event } from 'nextjs-google-analytics';
 
 const FormWaitlist = () => {
   const [isCopy, setIsCopy] = useState(false);
@@ -81,15 +82,32 @@ const FormWaitlist = () => {
               reason: form.reason,
             },
             {
-              onSuccess: () => {
+              onSuccess: (data, variables) => {
                 setIsCopy(false);
                 thanksModal.showModal();
+                event('tracking_waitlist', {
+                  category: 'success_join',
+                  label: variables.email,
+                });
                 reset();
+              },
+              onError: (error, variables) => {
+                event('tracking_waitlist', {
+                  category: 'failed_join',
+                  label: variables.email,
+                  value: error.response.data.message,
+                });
               },
             }
           );
         })}
-        // onClick={() => thanksModal.showModal()}
+        // onClick={() => {
+        //   thanksModal.showModal();
+        //   event('frey_event', {
+        //     category: 'Custom Event',
+        //     label: 'Join',
+        //   });
+        // }}
       >
         Join Our Waitlist
       </Button>
