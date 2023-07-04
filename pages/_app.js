@@ -6,13 +6,15 @@ import { GoogleAnalytics } from 'nextjs-google-analytics';
 import Head from 'next/head';
 
 export default function App({ Component, pageProps }) {
+  const getLayout = Component.getLayout || (page => page);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
         <title>Empowering Data Analysis with Free - Data Watch</title>
       </Head>
       <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
-      <Component {...pageProps} />
+      {getLayout(<Component {...pageProps} />)}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
