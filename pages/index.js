@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/base/button';
-import Section from '@/components/pages/home-page/section';
+import { Section } from '@/components/base/section';
 import BenefitList from '@/components/pages/home-page/benefit-list';
 import FeatureList from '@/components/pages/home-page/feature-list';
 import UserWaitlist from '@/components/pages/home-page/user-waitlist';
@@ -17,12 +17,13 @@ export default function Home() {
     <LandingPageLayout>
       <Section>
         <div className="flex flex-col py-5 md:flex-row lg:py-10">
-          <div className="w-full text-center md:w-6/12 md:text-left">
-            <h1 className="mb-4 font-archivo text-2xl font-bold md:mb-10 md:text-[42px] md:leading-[46px] md:tracking-tight lg:mt-16">
+          <div className="relative w-full text-center md:w-6/12 md:text-left">
+            <div className="absolute -left-32 -top-32 h-[491px] w-[475px] bg-[url('/images/red-bubble.png')] bg-cover" />
+            <h1 className="mb-4 font-archivo text-2xl font-bold md:mb-6 md:text-[42px] md:leading-[46px] md:tracking-tight lg:mt-16">
               <span className="text-c-red-600">Empowering Data Analysis with Free: </span>
               <span>Experience Quality Insights with Kalkula - DataWatch!</span>
             </h1>
-            <p className="mb-6 text-[10px] md:mb-12 md:text-base">
+            <p className="mb-6 text-[10px] md:mb-16 md:text-base">
               Unlock the full potential of your data with our cutting-edge solution, empowering you
               to regain control and elevate the quality of your information.
             </p>
