@@ -82,21 +82,11 @@ const FormWaitlist = () => {
               reason: form.reason,
             },
             {
-              onSuccess: (data, variables) => {
+              onSuccess: () => {
                 setIsCopy(false);
                 thanksModal.showModal();
-                event('tracking_waitlist', {
-                  category: 'success_join',
-                  label: variables.email,
-                });
+                event('join_waitlist');
                 reset();
-              },
-              onError: (error, variables) => {
-                event('tracking_waitlist', {
-                  category: 'failed_join',
-                  label: variables.email,
-                  value: error.response.data.message,
-                });
               },
             }
           );
