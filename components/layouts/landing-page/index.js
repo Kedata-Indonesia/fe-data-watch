@@ -4,7 +4,13 @@ import Link from 'next/link';
 import { BurgerMenuIcon, CloseIcon } from '@/components/icons';
 import clsx from 'clsx';
 
-const LandingPageLayout = ({ children = '' }) => {
+const linkItems = [
+  { title: 'Benefits', href: '/#benefits' },
+  { title: 'Feature', href: '/#features' },
+  { title: 'Check Queue', href: '/check-queue' },
+];
+
+const LandingPageLayout = ({ children = '', footerFixed = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const onClickHandleMenu = () => setIsOpen(prev => !prev);
 
@@ -13,28 +19,33 @@ const LandingPageLayout = ({ children = '' }) => {
       {/* Header */}
       <header className="sticky left-0 top-0 z-30 bg-white px-5 md:px-0">
         <nav className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 py-4 lg:py-6">
-          <Image
-            src="/logo.svg"
-            width={160}
-            height={36}
-            alt="logo kalkula"
-            className="hidden lg:block"
-          />
-          <Image src="/logo.svg" width={100} height={26} alt="logo kalkula" className="lg:hidden" />
+          <Link href="/" passHref>
+            <Image
+              src="/logo.svg"
+              width={160}
+              height={36}
+              alt="logo kalkula"
+              className="hidden lg:block"
+            />
+            <Image
+              src="/logo.svg"
+              width={100}
+              height={26}
+              alt="logo kalkula"
+              className="lg:hidden"
+            />
+          </Link>
           <ul className="hidden w-full justify-end gap-4 md:flex">
-            <li className="cursor-pointer hover:text-c-red-600">
-              <Link href="#benefits" scroll={false}>
-                Benefits
-              </Link>
-            </li>
-            <li className="cursor-pointer hover:text-c-red-600">
-              <Link href="#features" scroll={false}>
-                Feature
-              </Link>
-            </li>
+            {linkItems.map(item => (
+              <li key={item.title} className="cursor-pointer hover:text-c-red-600">
+                <Link href={item.href} scroll={false}>
+                  {item.title}
+                </Link>
+              </li>
+            ))}
           </ul>
           <div className="hidden w-[1px] self-stretch bg-c-gray-300 md:block" />
-          <Link href="#join" scroll={false} passHref className="hidden md:flex">
+          <Link href="/#join" scroll={false} passHref className="hidden md:flex">
             <button
               type="button"
               className="w-40 rounded border border-c-red-600 bg-white py-[10px] text-c-red-600 hover:bg-c-gray-100"
@@ -65,16 +76,16 @@ const LandingPageLayout = ({ children = '' }) => {
           )}
         >
           <ul className="flex w-full flex-col md:hidden [&>li:first-child]:border-t [&>li:first-child]:border-c-neutral-40">
-            <li className="cursor-pointer border-b border-b-c-neutral-40 px-6 py-4 hover:text-c-red-600">
-              <Link href="#benefits" scroll={false}>
-                Benefits
-              </Link>
-            </li>
-            <li className="cursor-pointer border-b border-b-c-neutral-40 px-6 py-4 hover:text-c-red-600">
-              <Link href="#features" scroll={false}>
-                Feature
-              </Link>
-            </li>
+            {linkItems.map(item => (
+              <li
+                key={item.title}
+                className="cursor-pointer border-b border-b-c-neutral-40 px-6 py-4 hover:text-c-red-600"
+              >
+                <Link href={item.href} scroll={false}>
+                  {item.title}
+                </Link>
+              </li>
+            ))}
           </ul>
           <div className="items-center border-t p-[20px] shadow-[0_0_30px_10px_rgba(9,30,66,0.08)]">
             <Link href="#join" scroll={false} passHref>
@@ -92,7 +103,7 @@ const LandingPageLayout = ({ children = '' }) => {
       {children}
 
       {/* Footer */}
-      <footer>
+      <footer className={clsx(footerFixed && 'fixed inset-x-0 bottom-0')}>
         <div className="mx-auto p-[40px] text-center text-[10px] text-c-gray-600 md:text-[16px] lg:max-w-[1280px]">
           <div className="flex flex-col justify-between gap-y-[10px] md:flex-row">
             <span>
