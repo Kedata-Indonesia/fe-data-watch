@@ -11,11 +11,11 @@ export default function CheckQueue() {
     <LandingPageLayout footerFixed>
       {!queue && (
         <Section>
-          <div className="flex flex-col items-center gap-16 py-5 lg:flex-row lg:py-10">
+          <div className="flex flex-col items-center py-5 lg:flex-row lg:gap-16 lg:py-10">
             <div className="relative w-full text-center md:w-6/12 md:text-left">
               <div className="absolute -left-32 -top-32 h-[491px] w-[475px] bg-[url('/images/red-bubble.png')] bg-cover" />
               <h1 className="mb-4 font-archivo text-2xl font-bold md:mb-6 md:text-[42px] md:leading-[46px] md:tracking-tight lg:mt-16">
-                <span className="text-c-red-600">Stay Informed and Plan Ahead:</span>
+                <span className="text-c-red-600">Stay Informed and Plan Ahead: </span>
                 <span>Discover Your Place in the Waitlist Queue</span>
               </h1>
               <p className="mb-6 text-[10px] md:mb-6 md:text-base">

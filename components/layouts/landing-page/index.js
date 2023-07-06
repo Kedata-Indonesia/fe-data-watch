@@ -15,7 +15,7 @@ const LandingPageLayout = ({ children = '', footerFixed = false }) => {
   const onClickHandleMenu = () => setIsOpen(prev => !prev);
 
   return (
-    <div className="bg-white">
+    <div className={clsx('bg-white', footerFixed && 'flex h-screen flex-col justify-between')}>
       {/* Header */}
       <header className="sticky left-0 top-0 z-30 bg-white px-5 md:px-0">
         <nav className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 py-4 lg:py-6">
@@ -88,7 +88,7 @@ const LandingPageLayout = ({ children = '', footerFixed = false }) => {
             ))}
           </ul>
           <div className="items-center border-t p-[20px] shadow-[0_0_30px_10px_rgba(9,30,66,0.08)]">
-            <Link href="#join" scroll={false} passHref>
+            <Link href="/#join" scroll={false} passHref>
               <button
                 type="button"
                 className="w-full rounded border border-c-red-600 bg-white py-[10px] text-c-red-600 hover:bg-c-gray-100"
@@ -103,7 +103,7 @@ const LandingPageLayout = ({ children = '', footerFixed = false }) => {
       {children}
 
       {/* Footer */}
-      <footer className={clsx(footerFixed && 'fixed inset-x-0 bottom-0')}>
+      <footer>
         <div className="mx-auto p-[40px] text-center text-[10px] text-c-gray-600 md:text-[16px] lg:max-w-[1280px]">
           <div className="flex flex-col justify-between gap-y-[10px] md:flex-row">
             <span>
