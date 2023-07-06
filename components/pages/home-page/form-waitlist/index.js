@@ -11,7 +11,7 @@ import { event } from 'nextjs-google-analytics';
 
 const FormWaitlist = () => {
   const [isCopy, setIsCopy] = useState(false);
-  const { control, reset, handleSubmit } = useForm({
+  const { control, reset, handleSubmit, setError } = useForm({
     defaultValues: {
       is_entry_public: false,
       email: '',
@@ -87,6 +87,13 @@ const FormWaitlist = () => {
                 thanksModal.showModal();
                 event('join_waitlist');
                 reset();
+              },
+              onError: err => {
+                setError(
+                  'email',
+                  { type: 'custom', message: err.response.data.message },
+                  { shouldFocus: true }
+                );
               },
             }
           );
