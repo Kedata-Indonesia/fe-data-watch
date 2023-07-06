@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 
 const FormCheckQueue = ({ setEmail = () => {}, setQueue = () => {} }) => {
   const [inputEmail, setInputEmail] = useState(null);
-  const { control, reset, handleSubmit } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: { email: '' },
   });
   const checkQuery = useCheckQueue({ email: inputEmail });
@@ -43,7 +43,6 @@ const FormCheckQueue = ({ setEmail = () => {}, setQueue = () => {} }) => {
         onClick={handleSubmit(form => {
           setEmail(form.email);
           setInputEmail(form.email);
-          reset();
         })}
       >
         Check Queue Number
