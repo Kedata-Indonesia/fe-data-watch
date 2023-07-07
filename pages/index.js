@@ -67,7 +67,7 @@ export default function Home() {
           <FeatureList />
         </div>
       </Section>
-      {testimonials && testimonials.payload.length > 0 && (
+      {testimonials && testimonials.payload.length > 4 && (
         <Section className="skew-right-bottom bg-[#FFF5F7]">
           <div className="flex flex-col py-16 md:py-28">
             <div className="mb-10 w-full flex-col text-center md:mb-20">
