@@ -119,11 +119,11 @@ const LandingPageLayout = ({ children = '', footerFixed = false }) => {
               , All right reserved.
             </span>
             <div className="flex justify-center gap-[10px]">
-              <Link href="/policy?tab=term-of-service" passHref>
+              <Link href="/term-of-service" passHref>
                 <span className="hover:cursor-pointer hover:underline">Term of Service</span>
               </Link>
               <div className="w-[1px] self-stretch bg-c-gray-300" />
-              <Link href="/policy?tab=privacy-policy" passHref>
+              <Link href="/privacy-policy" passHref>
                 <span className="hover:cursor-pointer hover:underline">Privacy Policy</span>
               </Link>
             </div>
