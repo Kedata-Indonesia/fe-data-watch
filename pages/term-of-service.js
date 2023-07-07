@@ -8,7 +8,9 @@ export default function TermOfService() {
       <div className="relative flex flex-col items-center px-5 pb-[10px] pt-5 md:flex-row lg:px-0 lg:pt-[60px]">
         <div className="absolute right-0 top-0 hidden h-[100%] w-[27%] bg-c-red-50 md:block"></div>
         <div className="mb-10 lg:ml-[10%] lg:w-5/12">
-          <h1 className="text-2xl font-bold text-c-red-600 lg:text-[54px]">Term of Service</h1>
+          <h1 className="text-2xl font-bold leading-[81px] text-c-red-600 lg:text-[54px]">
+            Term of Service
+          </h1>
           <p className="text-[20px] font-bold">
             Read our terms below to learn more about your rights and responsibilities as an user.
           </p>
