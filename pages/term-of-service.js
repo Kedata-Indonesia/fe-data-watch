@@ -5,15 +5,15 @@ export default function TermOfService() {
   return (
     <LandingPageLayout>
       {/* Hero */}
-      <div className="relative flex items-center pb-[10px] pt-[60px]">
-        <div className="absolute right-0 top-0 h-[100%] w-[27%] bg-c-red-50"></div>
-        <div className="ml-[10%] w-5/12">
-          <h1 className="text-[54px] font-bold text-c-red-600"> Term of Service</h1>
+      <div className="relative flex flex-col items-center px-5 pb-[10px] pt-5 md:flex-row lg:px-0 lg:pt-[60px]">
+        <div className="absolute right-0 top-0 hidden h-[100%] w-[27%] bg-c-red-50 md:block"></div>
+        <div className="mb-10 lg:ml-[10%] lg:w-5/12">
+          <h1 className="text-2xl font-bold text-c-red-600 lg:text-[54px]">Term of Service</h1>
           <p className="text-[20px] font-bold">
             Read our terms below to learn more about your rights and responsibilities as an user.
           </p>
         </div>
-        <div className="relative h-[425px] w-7/12">
+        <div className="relative h-[325px] w-full lg:h-[425px] lg:w-7/12">
           <Image
             alt="privacy policy"
             src="/images/aggrement/terms-of-service.png"
@@ -24,7 +24,7 @@ export default function TermOfService() {
       </div>
 
       {/* Content */}
-      <div className="mx-auto mb-[50px] mt-[70px] flex max-w-[655px] flex-col gap-y-[40px]">
+      <div className="mx-auto mb-[50px] mt-5 flex max-w-[655px] flex-col gap-y-[40px] px-5 lg:mt-[70px] lg:px-0">
         <p>
           Welcome to Kalkula-DataWatch! These Terms of Service outline the terms and conditions for
           your use of our application. By accessing or using Kalkula-DataWatch, you agree to comply
