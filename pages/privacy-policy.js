@@ -5,15 +5,18 @@ export default function PrivacyPolicy() {
   return (
     <LandingPageLayout>
       {/* Hero */}
-      <div className="relative flex items-center pb-[10px] pt-[60px]">
-        <div className="absolute right-0 top-0 h-[100%] w-[27%] bg-c-red-50"></div>
-        <div className="ml-[10%] w-5/12">
-          <h1 className="text-[54px] font-bold text-c-red-600">Privacy Policy</h1>
+      <div className="relative flex flex-col items-center px-5 pb-[10px] pt-5 md:flex-row lg:px-0 lg:pt-[60px]">
+        <div className="absolute right-0 top-0 hidden h-[100%] w-[27%] bg-c-red-50 md:block"></div>
+        <div className="mb-10 lg:ml-[10%] lg:w-5/12">
+          <h1 className="text-2xl font-bold leading-[81px] text-c-red-600 lg:text-[54px]">
+            Privacy Policy
+          </h1>
           <p className="text-[20px] font-bold">
-            Learn more about how Kalkula-DataWatch collects and uses data and your rights as an user.
+            Learn more about how Kalkula-DataWatch collects and uses data and your rights as an
+            user.
           </p>
         </div>
-        <div className="relative h-[425px] w-7/12">
+        <div className="relative h-[325px] w-full lg:h-[425px] lg:w-7/12">
           <Image
             alt="privacy policy"
             src="/images/aggrement/privacy-policy.png"
@@ -24,7 +27,7 @@ export default function PrivacyPolicy() {
       </div>
 
       {/* Content */}
-      <div className="mx-auto mb-[50px] mt-[70px] flex max-w-[655px] flex-col gap-y-[40px]">
+      <div className="mx-auto mb-[50px] mt-5 flex max-w-[655px] flex-col gap-y-[40px] px-5 lg:mt-[70px] lg:px-0">
         <p>
           At Kedata Indonesia Digital, we are committed to protecting your privacy and ensuring the
           security of your personal information. This Privacy Policy outlines how we collect, use,
