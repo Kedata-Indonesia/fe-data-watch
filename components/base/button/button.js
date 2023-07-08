@@ -11,6 +11,9 @@ const typeClassName = {
   outline: 'bg-white text-c-red-600 border border-gray-400 hover:bg-c-gray-200',
 };
 
+/**
+ * @param {ButtonProps} props 
+ */
 const Button = ({
   children,
   className = '',
@@ -65,3 +68,15 @@ Button.share = ({
 };
 
 export default Button;
+
+/**
+ * @typedef {Object} ButtonProps
+ * @property {React.ReactNode} children
+ * @property {string} [className]
+ * @property {React.ReactNode} [IconStart]
+ * @property {React.ReactNode} [IconEnd]
+ * @property {() => void} [onClick]
+ * @property {boolean} [isLoading]
+ * @property {keyof sizeClassName} [size]
+ * @property {keyof typeClassName} [type]
+ */
