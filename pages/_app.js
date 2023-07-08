@@ -8,14 +8,16 @@ import { DefaultSeo } from 'next-seo';
 import SEO_CONFIG from '@/next-seo.config';
 
 export default function App({ Component, pageProps }) {
+  const getLayout = Component.getLayout || (page => page);
+
   return (
     <QueryClientProvider client={queryClient}>
       {/* <Head>
         <title>Empowering Data Analysis with Free - Data Watch</title>
       </Head> */}
       <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
+      {getLayout(<Component {...pageProps} />)}
       <DefaultSeo {...SEO_CONFIG} />
-      <Component {...pageProps} />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

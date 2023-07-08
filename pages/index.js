@@ -28,7 +28,9 @@ export default function Home() {
               to regain control and elevate the quality of your information.
             </p>
             <Link href="#join" scroll={false} passHref>
-              <Button IconEnd={<RightArrowIcon classname="h-5 w-5" />}>Join Our Waitlist</Button>
+              <Button className="font-bold !px-12" IconEnd={<RightArrowIcon classname="h-5 w-5" />}>
+                Join Our Waitlist
+              </Button>
             </Link>
           </div>
           <div className="relative h-[500px] w-full self-start md:w-6/12 lg:h-[578px]">
