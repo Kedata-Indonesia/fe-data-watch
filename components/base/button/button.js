@@ -12,7 +12,7 @@ const typeClassName = {
 };
 
 /**
- * @param {ButtonProps} props 
+ * @param {ButtonProps} props
  */
 const Button = ({
   children,

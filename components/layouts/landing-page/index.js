@@ -7,6 +7,7 @@ import clsx from 'clsx';
 const linkItems = [
   { title: 'Benefits', href: '/#benefits' },
   { title: 'Feature', href: '/#features' },
+  { title: 'Blog', href: '/blog' },
   { title: 'Check Queue', href: '/check-queue' },
 ];
 
