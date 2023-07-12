@@ -7,6 +7,7 @@ import clsx from 'clsx';
 const linkItems = [
   { title: 'Benefits', href: '/#benefits' },
   { title: 'Feature', href: '/#features' },
+  { title: 'Blog', href: '/blog' },
   { title: 'Check Queue', href: '/check-queue' },
 ];
 
@@ -38,7 +39,7 @@ const LandingPageLayout = ({ children = '', footerFixed = false }) => {
           <ul className="hidden w-full justify-end gap-4 md:flex">
             {linkItems.map(item => (
               <li key={item.title} className="cursor-pointer hover:text-c-red-600">
-                <Link href={item.href} scroll={false}>
+                <Link href={item.href} scroll={!item.href.includes('#')}>
                   {item.title}
                 </Link>
               </li>

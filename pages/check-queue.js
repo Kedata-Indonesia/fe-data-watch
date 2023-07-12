@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { LandingPageLayout } from '@/components/layouts';
 import { Section } from '@/components/base/section';
 import FormCheckQueue from '@/components/pages/check-queue/check-form';
+import Head from 'next/head';
 
 export default function CheckQueue() {
   const [email, setEmail] = useState(null);
@@ -9,6 +10,9 @@ export default function CheckQueue() {
 
   return (
     <LandingPageLayout footerFixed>
+      <Head>
+        <title>Check Queue - Data Watch</title>
+      </Head>
       {!queue && (
         <Section>
           <div className="flex flex-col items-center py-5 lg:flex-row lg:gap-16 lg:py-10">

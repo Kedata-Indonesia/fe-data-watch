@@ -6,6 +6,7 @@ import BenefitList from '@/components/pages/home-page/benefit-list';
 import FeatureList from '@/components/pages/home-page/feature-list';
 import UserWaitlist from '@/components/pages/home-page/user-waitlist';
 import FormWaitlist from '@/components/pages/home-page/form-waitlist';
+import BlogSection from '@/components/pages/blog/blog-section';
 import { RightArrowIcon } from '@/components/icons';
 import { LandingPageLayout } from '@/components/layouts';
 import useTestimonialWaitlist from '@/services/features/waitlist/hooks/use-testimonial-waitlist';
@@ -107,6 +108,9 @@ export default function Home() {
             <FormWaitlist />
           </div>
         </div>
+      </Section>
+      <Section className="bg-[#FFF5F7]">
+        <BlogSection />
       </Section>
     </LandingPageLayout>
   );
