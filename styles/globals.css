@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './react-table/index.css';
+@import './vendors/react-table.css';
+@import './vendors/react-select.css';
 
 @layer base {
   html {
