@@ -83,6 +83,7 @@ const SourceTable = () => {
                   <div className="h-full overflow-y-auto py-2.5">
                     {columnSearch.map(column => (
                       <CheckBox
+                        key={column.label}
                         name="selected"
                         className="m-4 mr-3 border-2"
                         label={<span className="!text-base">{column.label}</span>}
