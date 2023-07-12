@@ -2,9 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './vendors/react-table.css';
+@import './vendors/react-select.css';
+
 @layer base {
   html {
     @apply scroll-smooth;
+    --thumb-bg-color: #e2e8f0;
   }
 
   body {

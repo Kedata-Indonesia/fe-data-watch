@@ -25,11 +25,11 @@ const BasicStatistic = () => {
         title="Percentages"
         className="flex flex-col gap-5 bg-[#F5F6FA] p-6"
       >
-        {rowCountsData.map(({ label, value }) => {
+        {rowCountsData.map(({ label, value }, i) => {
           const percentage = ((value / 50000) * 100).toFixed(0);
 
           return (
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-5" key={`${label}-${i}`}>
               <p className="w-[170px] flex-shrink-0 text-right">{label}</p>
               <div className="relative flex h-6 w-full overflow-hidden rounded-full bg-gray-200">
                 <div

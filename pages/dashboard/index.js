@@ -18,15 +18,18 @@ const DataQuality = dynamic(() => import('@/components/pages/dashboard/data-qual
   ssr: false,
 });
 
-const TAB_MENU = {
+const TAB_MENU = /** @type {const} */ ({
   TABLE: 'table',
   EXPLORATION: 'exploration',
   DATA_QUALITY: 'data-quality',
-};
+});
 
 const DashboardPage = () => {
-  const [data, setData] = useState(null);
-  const [activeTab, setActiveTab] = useState(TAB_MENU.EXPLORATION);
+  const [data, setData] = useState('ss');
+  const [activeTab, setActiveTab] = useState(TAB_MENU.DATA_QUALITY);
+  const [dataQuality, setDataQuality] = useState([]);
+
+  console.log(dataQuality);
 
   return (
     <>
@@ -86,7 +89,14 @@ const DashboardPage = () => {
           </div>
           {activeTab === TAB_MENU.TABLE && <SourceTable />}
           {activeTab === TAB_MENU.EXPLORATION && <Exploration />}
-          {activeTab === TAB_MENU.DATA_QUALITY && <DataQuality />}
+          {activeTab === TAB_MENU.DATA_QUALITY && (
+            <DataQuality
+              data={dataQuality}
+              onAddRule={rule => {
+                setDataQuality(prev => [...prev, rule]);
+              }}
+            />
+          )}
         </div>
       )}
     </>

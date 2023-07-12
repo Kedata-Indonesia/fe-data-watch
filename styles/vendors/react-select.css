@@ -1,0 +1,47 @@
+.react-select input:focus {
+  box-shadow: unset;
+}
+
+.react-select__placeholder {
+  @apply !text-c-gray-300;
+}
+
+.react-select__menu {
+  @apply !z-10;
+}
+
+.react-select__group-heading {
+  @apply !bg-c-gray-100;
+  @apply !text-c-gray-600;
+  @apply py-2;
+  @apply !mb-0;
+  @apply !text-base;
+  @apply break-words;
+  @apply !normal-case;
+}
+
+.react-select__control {
+  @apply !rounded-md;
+  @apply !border-c-gray-300;
+  @apply !ring-0;
+}
+
+.react-select__control--menu-is-open {
+  @apply !border-c-red-600;
+  @apply !ring-1;
+  @apply !ring-c-red-600;
+}
+
+.react-select.error .react-select__control {
+  @apply !border-c-red-600;
+  @apply !ring-1;
+  @apply !ring-c-red-600;
+}
+
+.react-select .react-select__option--is-focused {
+  @apply !bg-c-red-50;
+}
+
+.react-select .react-select__option--is-selected {
+  @apply !bg-c-red-50;
+}
