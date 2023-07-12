@@ -1,5 +1,5 @@
 export default {
-  title: 'Empowering Data Analysis with Free - Data Watch',
+  title: 'Elevate Your Data Quality Assessment Experience! - Data Watch',
   description:
     'Empowering Data Analysis with Free: Experience Quality Insights with Kalkula - DataWatch!',
   additionalMetaTags: [

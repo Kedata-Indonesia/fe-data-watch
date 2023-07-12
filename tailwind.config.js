@@ -17,6 +17,7 @@ module.exports = {
         'c-neutral-900': '#091E42',
         'c-gray-100': '#F4F4F5',
         'c-gray-300': '#D4D4D8',
+        'c-gray-400': '#A1A1AA',
         'c-gray-600': '#52525B',
         'c-red-50': '#FFE5EA',
         'c-red-300': '#FF8098',

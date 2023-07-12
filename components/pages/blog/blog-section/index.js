@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Button } from '@/components/base/button';
 import { RightArrowIcon } from '@/components/icons';
 import useGetArticles from '@/services/features/blog/hooks/use-get-articles';
+import Link from 'next/link';
 
 const BlogSection = () => {
   const articleQuery = useGetArticles({ page: 1, limit: 3 });
@@ -17,25 +18,32 @@ const BlogSection = () => {
           Drive Growth and Success
         </p>
       </div>
-      <div className="mb-14 flex gap-5">
+      <div className="mb-14 flex flex-col gap-5 lg:flex-row">
         {articleQuery.data?.payload.data.map(item => (
-          <div key={item.id} className="basis-1/3 bg-white">
-            <div className="relative h-[160px] w-full">
-              <Image
-                alt="kalkula image"
-                src={item.cover_image ? item.cover_image : '/images/dummy-article.png'}
-                style={{ objectFit: 'cover' }}
-                fill
-              />
+          <Link href={`/blog/${item.id}`} passHref>
+            <div
+              key={item.id}
+              className="basis-1/3 bg-white shadow hover:cursor-pointer hover:shadow-lg"
+            >
+              <div className="relative h-[160px] w-full">
+                <Image
+                  alt="kalkula image"
+                  src={item.cover_image ? item.cover_image : '/images/dummy-article.png'}
+                  style={{ objectFit: 'cover' }}
+                  fill
+                />
+              </div>
+              <p className="p-6 font-archivo font-bold">{item.title}</p>
             </div>
-            <p className="p-6 font-archivo font-bold">{item.title}</p>
-          </div>
+          </Link>
         ))}
       </div>
       <div className="relative mx-auto">
-        <Button className="!px-12 font-bold" IconEnd={<RightArrowIcon classname="h-5 w-5" />}>
-          Read More
-        </Button>
+        <Link href="/blog" passHref>
+          <Button className="!px-12 font-bold" IconEnd={<RightArrowIcon classname="h-5 w-5" />}>
+            Read More
+          </Button>
+        </Link>
       </div>
     </div>
   );
