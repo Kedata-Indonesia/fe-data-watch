@@ -28,18 +28,12 @@ function Option({ children, ...props }) {
           )}
         />
       ) : null}
-      <div
-        className={clsx('break-words overflow-auto', !!helper ? 'mr-4' : '')}
-      >
-        {children}
-      </div>
+      <div className={clsx('break-words overflow-auto', !!helper ? 'mr-4' : '')}>{children}</div>
       {!!helper && (
         <i
           className={clsx(
             'ml-auto flex-shrink-0',
-            props.isFocused || props.isSelected
-              ? 'text-c-red-600'
-              : 'text-c-gray-400'
+            props.isFocused || props.isSelected ? 'text-c-red-600' : 'text-c-gray-400'
           )}
         >
           {helper}

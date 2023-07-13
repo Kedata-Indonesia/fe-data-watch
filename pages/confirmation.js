@@ -20,6 +20,7 @@ export default function Confirmation() {
           },
         }
       );
+    // eslint-disable-next-line
   }, [token]);
 
   return (
@@ -58,19 +59,21 @@ export default function Confirmation() {
               {/* <span>Congratulations, Jhonatan Doe!</span> */}
             </h2>
             <p className="mb-6 text-[10px] md:mb-8 md:text-base">
-              Thank you for confirming your email and joining our data quality platform! We're
+              Thank you for confirming your email and joining our data quality platform! We&apos;re
               thrilled to have you on board. Your registration is now complete, and we are excited
               to announce that you have been assigned a queue number.
             </p>
             <div className="mx-auto mb-6 flex w-[324px] flex-col bg-[#FFF5F7] p-9 md:mb-8">
-              <p className="mb-5 text-[10px] md:text-base">Here’s your position in the queue:</p>
+              <p className="mb-5 text-[10px] md:text-base">
+                Here&apos;s your position in the queue:
+              </p>
               <p className="text-8xl font-bold text-c-red-600">{queue}</p>
             </div>
             <p className="mb-6 text-[10px] md:mb-8 md:text-base">
               Get ready to unlock the power of data quality and gain valuable insights with ease.
-              Stay tuned as we prepare to launch and notify you when it's your turn to access our
-              platform. We appreciate your patience and look forward to empowering your data-driven
-              journey!
+              Stay tuned as we prepare to launch and notify you when it&apos;s your turn to access
+              our platform. We appreciate your patience and look forward to empowering your
+              data-driven journey!
             </p>
           </div>
         </Section>

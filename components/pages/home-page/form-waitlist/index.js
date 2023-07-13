@@ -119,8 +119,8 @@ const FormWaitlist = () => {
             Please confirm your email address to activate your membership on our exclusive waitlist.
           </p>
           <p className="mb-5">
-            Once confirmed, you'll be among the first to experience our groundbreaking features and
-            innovations, taking control of your data with our open-source Micro SaaS platform.
+            Once confirmed, you&apos;ll be among the first to experience our groundbreaking features
+            and innovations, taking control of your data with our open-source Micro SaaS platform.
           </p>
           <div className="mb-10 rounded-lg border border-c-gray-300 bg-slate-100 p-4 md:p-7">
             <p className="mb-2 md:mb-6">

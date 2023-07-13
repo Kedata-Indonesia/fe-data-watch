@@ -1,9 +1,4 @@
-import {
-  components,
-  MultiValueProps,
-  SelectOption,
-  GroupBase
-} from 'react-select';
+import { components, MultiValueProps, SelectOption, GroupBase } from 'react-select';
 import { ComponentType } from 'react';
 import clsx from 'clsx';
 
@@ -19,14 +14,10 @@ const MultiValue = ({ children, ...props }) => {
       {...props}
       className={clsx(
         '!rounded flex',
-        disabled
-          ? '!bg-c-gray-200 !text-c-gray-400 '
-          : '!bg-c-red-50 !text-c-red-600 '
+        disabled ? '!bg-c-gray-200 !text-c-gray-400 ' : '!bg-c-red-50 !text-c-red-600 '
       )}
     >
-      {Icon ? (
-        <Icon className="flex-shrink-0 w-4 h-4 my-auto mr-[3px]" />
-      ) : null}
+      {Icon ? <Icon className="flex-shrink-0 w-4 h-4 my-auto mr-[3px]" /> : null}
       {children}
     </components.MultiValue>
   );
