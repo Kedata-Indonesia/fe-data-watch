@@ -42,7 +42,7 @@ export default function PrivacyPolicy() {
             </li>
             <li>
               Usage Data: We may collect anonymous usage data, including log files, device
-              information, and analytics, to improve our app's performance and enhance user
+              information, and analytics, to improve our app&apos;s performance and enhance user
               experience.
             </li>
           </ol>
@@ -111,7 +111,7 @@ export default function PrivacyPolicy() {
           </ol>
         </div>
         <div>
-          <h2 className="mb-4 text-lg font-bold">Children's Privacy:</h2>
+          <h2 className="mb-4 text-lg font-bold">Children&apos;s Privacy:</h2>
           <ol className="ml-4 list-disc">
             <li>
               Our app is not intended for children under the age of 13. We do not knowingly collect

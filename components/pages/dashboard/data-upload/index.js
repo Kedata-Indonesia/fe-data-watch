@@ -46,6 +46,8 @@ const DataUpload = ({ onSuccess = () => {} }) => {
     setPercentage(0);
     setIsUploading(false);
     onSuccess();
+
+    // eslint-disable-next-line
   }, [percentage]);
 
   console.log(percentage);

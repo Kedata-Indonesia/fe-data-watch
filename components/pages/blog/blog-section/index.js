@@ -20,11 +20,8 @@ const BlogSection = () => {
       </div>
       <div className="mb-14 flex flex-col gap-5 lg:flex-row">
         {articleQuery.data?.payload.data.map(item => (
-          <Link href={`/blog/${item.id}`} passHref>
-            <div
-              key={item.id}
-              className="basis-1/3 bg-white shadow hover:cursor-pointer hover:shadow-lg"
-            >
+          <Link key={item.id} href={`/blog/${item.id}`} passHref>
+            <div className="basis-1/3 bg-white shadow hover:cursor-pointer hover:shadow-lg">
               <div className="relative h-[160px] w-full">
                 <Image
                   alt="kalkula image"

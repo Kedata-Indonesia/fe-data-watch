@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import { queryClient } from '@/services/libs/react-query';
 import { QueryClientProvider } from '@tanstack/react-query';

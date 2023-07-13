@@ -14,6 +14,7 @@ const FormCheckQueue = ({ setEmail = () => {}, setQueue = () => {} }) => {
 
   useEffect(() => {
     setQueue(checkQuery.data?.payload);
+    // eslint-disable-next-line
   }, [checkQuery?.data]);
 
   return (

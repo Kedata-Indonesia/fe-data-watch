@@ -1,9 +1,4 @@
-import {
-  components,
-  SelectOption,
-  GroupBase,
-  ValueContainerProps
-} from 'react-select';
+import { components, SelectOption, GroupBase, ValueContainerProps } from 'react-select';
 import { ComponentType, useMemo } from 'react';
 import clsx from 'clsx';
 
@@ -33,10 +28,7 @@ function ValueContainer({ children, ...props }) {
           )}
         />
       ) : null}
-      <components.ValueContainer
-        {...props}
-        className={clsx(Icon ? '!pl-11' : '!pl-[14px]')}
-      >
+      <components.ValueContainer {...props} className={clsx(Icon ? '!pl-11' : '!pl-[14px]')}>
         {children}
       </components.ValueContainer>
     </>
