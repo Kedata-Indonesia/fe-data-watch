@@ -8,6 +8,7 @@ import WhatsappIcon from './WhatsappIcon';
 import LinkedinIcon from './LinkedinIcon';
 import BurgerMenuIcon from './BurgerMenuIcon';
 import CloseIcon from './CloseIcon';
+import UploadIcon from './UploadIcon';
 
 export {
   RightArrowIcon,
@@ -20,4 +21,5 @@ export {
   LinkedinIcon,
   BurgerMenuIcon,
   CloseIcon,
+  UploadIcon,
 };

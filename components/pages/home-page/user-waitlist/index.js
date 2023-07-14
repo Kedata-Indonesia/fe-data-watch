@@ -1,6 +1,6 @@
 import { RightArrowIcon, LeftArrowIcon } from '@/components/icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper';
+import { Pagination, Navigation, Autoplay } from 'swiper';
 import { useWindowWidth } from '@react-hook/window-size';
 import SwiperNavigation from '@/components/pages/home-page/swiper-navigation';
 import 'swiper/css';
@@ -18,13 +18,14 @@ const UserWaitlist = ({ testimonials }) => {
       </SwiperNavigation>
 
       <Swiper
-        modules={[Pagination, Navigation]}
+        modules={[Pagination, Navigation, Autoplay]}
         slidesPerView={windowWidth > 500 ? 2 : 1}
         pagination={{ clickable: true, type: 'bullets' }}
         navigation={{
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         }}
+        autoplay={{ pauseOnMouseEnter: true }}
         className="!pb-12"
       >
         {testimonials &&

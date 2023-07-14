@@ -11,7 +11,7 @@ import { event } from 'nextjs-google-analytics';
 
 const FormWaitlist = () => {
   const [isCopy, setIsCopy] = useState(false);
-  const { control, reset, handleSubmit } = useForm({
+  const { control, reset, handleSubmit, setError } = useForm({
     defaultValues: {
       is_entry_public: false,
       email: '',
@@ -82,21 +82,18 @@ const FormWaitlist = () => {
               reason: form.reason,
             },
             {
-              onSuccess: (data, variables) => {
+              onSuccess: () => {
                 setIsCopy(false);
                 thanksModal.showModal();
-                event('tracking_waitlist', {
-                  category: 'success_join',
-                  label: variables.email,
-                });
+                event('join_waitlist');
                 reset();
               },
-              onError: (error, variables) => {
-                event('tracking_waitlist', {
-                  category: 'failed_join',
-                  label: variables.email,
-                  value: error.response.data.message,
-                });
+              onError: err => {
+                setError(
+                  'email',
+                  { type: 'custom', message: err.response.data.message },
+                  { shouldFocus: true }
+                );
               },
             }
           );
@@ -122,8 +119,8 @@ const FormWaitlist = () => {
             Please confirm your email address to activate your membership on our exclusive waitlist.
           </p>
           <p className="mb-5">
-            Once confirmed, you'll be among the first to experience our groundbreaking features and
-            innovations, taking control of your data with our open-source Micro SaaS platform.
+            Once confirmed, you&apos;ll be among the first to experience our groundbreaking features
+            and innovations, taking control of your data with our open-source Micro SaaS platform.
           </p>
           <div className="mb-10 rounded-lg border border-c-gray-300 bg-slate-100 p-4 md:p-7">
             <p className="mb-2 md:mb-6">

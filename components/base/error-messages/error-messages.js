@@ -9,24 +9,22 @@ const ErrorMessages = ({ errors = {}, name = '' }) => {
     <ErrorMessage
       errors={errors}
       name={name}
-      render={data => {
-        // render={({ messages, message }) => {
-        console.log('data', data);
+      render={({ messages, message }) => {
+        if (!messages) return <ErrorMessages.Label>{message}</ErrorMessages.Label>;
 
-        // if (!messages) return <ErrorMessages.Label>{message}</ErrorMessages.Label>;
-
-        // return (
-        //   <div>
-        //     {Object.values(messages ?? {}).map(message => {
-        //       return <ErrorMessages.Label key={message}>{message}</ErrorMessages.Label>;
-        //     })}
-        //   </div>
-        // );
+        return (
+          <div>
+            {Object.values(messages ?? {}).map(message => {
+              return <ErrorMessages.Label key={message}>{message}</ErrorMessages.Label>;
+            })}
+          </div>
+        );
       }}
-    ></ErrorMessage>
+    />
   );
 };
 
+// eslint-disable-next-line
 ErrorMessages.Label = ({ children = null }) => (
   <p className="mt-1.5 text-sm text-c-red-600">{children}</p>
 );
