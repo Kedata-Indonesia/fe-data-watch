@@ -5,24 +5,35 @@ import { TextField } from '@/components/base/text-field';
 import { Button } from '@/components/base/button';
 import { EyeIcon } from '@/components/icons';
 
-export default function SignIn() {
+const Register = () => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
+      fullname: '',
       email: '',
       password: '',
+      organization: '',
     },
   });
   return (
     <AuthLayout>
       <p className="self-end">
-        Doesn’t have an account ?{' '}
+        Have an account ?{' '}
         <span className="text-c-red-600 italic font-bold hover:text-c-red-300">
-          <Link href="/register">Register now.</Link>
+          <Link href="/sign-in">Sign In.</Link>
         </span>
       </p>
       <div className="flex px-28 flex-col h-[100%] justify-center">
-        <h2 className="font-bold text-c-gray-600 text-3xl">Sign in to Kalkula</h2>
+        <h2 className="font-bold text-c-gray-600 text-3xl">Register to Kalkula</h2>
         <form className="w-full my-7">
+          <TextField
+            control={control}
+            label="Fullname"
+            name="fullname"
+            placeholder="Enter your fullname"
+            rules={{
+              required: true,
+            }}
+          />
           <TextField
             control={control}
             label="Email"
@@ -37,7 +48,6 @@ export default function SignIn() {
             }}
           />
           <TextField
-            isForgetPassword
             control={control}
             type="password"
             label="Passsword"
@@ -48,13 +58,35 @@ export default function SignIn() {
               required: true,
             }}
           />
+          <TextField
+            control={control}
+            type="password"
+            label="Confirm Passsword"
+            name="confirm_password"
+            placeholder="Enter your confirm password"
+            endIcon={EyeIcon}
+            rules={{
+              required: true,
+            }}
+          />
+          <TextField
+            control={control}
+            label="Organization"
+            name="organization"
+            placeholder="Enter your organization"
+            rules={{
+              required: true,
+            }}
+          />
         </form>
         <div className="relative">
           <Button className="!px-10" size="md" onClick={handleSubmit(form => console.log(form))}>
-            Sign In
+            Register
           </Button>
         </div>
       </div>
     </AuthLayout>
   );
-}
+};
+
+export default Register;

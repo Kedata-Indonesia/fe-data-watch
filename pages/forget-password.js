@@ -1,16 +1,12 @@
 import Link from 'next/link';
 import { AuthLayout } from '@/components/layouts';
-import { useForm } from 'react-hook-form';
 import { TextField } from '@/components/base/text-field';
 import { Button } from '@/components/base/button';
-import { EyeIcon } from '@/components/icons';
+import { useForm } from 'react-hook-form';
 
-export default function SignIn() {
+const ForgetPassword = () => {
   const { control, handleSubmit } = useForm({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
+    defaultValues: { email: '' },
   });
   return (
     <AuthLayout>
@@ -20,8 +16,12 @@ export default function SignIn() {
           <Link href="/register">Register now.</Link>
         </span>
       </p>
-      <div className="flex px-28 flex-col h-[100%] justify-center">
-        <h2 className="font-bold text-c-gray-600 text-3xl">Sign in to Kalkula</h2>
+      <div className="flex px-28 flex-col h-[100%] justify-center text-c-gray-600">
+        <h2 className="font-bold  text-3xl">Forget Password</h2>
+        <p className="mt-7">
+          Enter the email address you used when you joined. We&apos;ll reset your password and send
+          it to your email.
+        </p>
         <form className="w-full my-7">
           <TextField
             control={control}
@@ -36,25 +36,15 @@ export default function SignIn() {
               },
             }}
           />
-          <TextField
-            isForgetPassword
-            control={control}
-            type="password"
-            label="Passsword"
-            name="password"
-            placeholder="Enter your password"
-            endIcon={EyeIcon}
-            rules={{
-              required: true,
-            }}
-          />
         </form>
         <div className="relative">
           <Button className="!px-10" size="md" onClick={handleSubmit(form => console.log(form))}>
-            Sign In
+            Reset Password
           </Button>
         </div>
       </div>
     </AuthLayout>
   );
-}
+};
+
+export default ForgetPassword;
