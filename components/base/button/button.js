@@ -60,9 +60,8 @@ Button.share = ({
         className
       )}
     >
-      {IconStart && IconStart}
-      {children}
-      {IconEnd && IconEnd}
+      {' '}
+      {IconStart && IconStart} {children} {IconEnd && IconEnd}{' '}
     </button>
   );
 };
