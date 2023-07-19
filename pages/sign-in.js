@@ -14,13 +14,13 @@ export default function SignIn() {
   });
   return (
     <AuthLayout>
-      <p className="self-end">
+      <p className="lg:self-end order-last lg:order-first text-center">
         Doesn’t have an account ?{' '}
         <span className="text-c-red-600 italic font-bold hover:text-c-red-300">
           <Link href="/register">Register now.</Link>
         </span>
       </p>
-      <div className="flex px-28 flex-col h-[100%] justify-center">
+      <div className="flex lg:px-28 flex-col lg:h-[100%] justify-center">
         <h2 className="font-bold text-c-gray-600 text-3xl">Sign in to Kalkula</h2>
         <form className="w-full my-7">
           <TextField
@@ -50,7 +50,11 @@ export default function SignIn() {
           />
         </form>
         <div className="relative">
-          <Button className="!px-10" size="md" onClick={handleSubmit(form => console.log(form))}>
+          <Button
+            className="!px-10 mx-0"
+            size="md"
+            onClick={handleSubmit(form => console.log(form))}
+          >
             Sign In
           </Button>
         </div>
