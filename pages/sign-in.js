@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { TextField } from '@/components/base/text-field';
 import { Button } from '@/components/base/button';
 import { EyeIcon } from '@/components/icons';
+import { NextSeo } from 'next-seo';
 
 export default function SignIn() {
   const { control, handleSubmit } = useForm({
@@ -14,6 +15,7 @@ export default function SignIn() {
   });
   return (
     <AuthLayout>
+      <NextSeo title="Sign In" />
       <p className="lg:self-end order-last lg:order-first text-center">
         Doesn’t have an account ?{' '}
         <span className="text-c-red-600 italic font-bold hover:text-c-red-300">

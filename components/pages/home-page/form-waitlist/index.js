@@ -98,13 +98,6 @@ const FormWaitlist = () => {
             }
           );
         })}
-        // onClick={() => {
-        //   thanksModal.showModal();
-        //   event('frey_event', {
-        //     category: 'Custom Event',
-        //     label: 'Join',
-        //   });
-        // }}
       >
         Join Our Waitlist
       </Button>

@@ -3,6 +3,7 @@ import { AuthLayout } from '@/components/layouts';
 import { TextField } from '@/components/base/text-field';
 import { Button } from '@/components/base/button';
 import { useForm } from 'react-hook-form';
+import { NextSeo } from 'next-seo';
 
 const ForgetPassword = () => {
   const { control, handleSubmit } = useForm({
@@ -10,6 +11,7 @@ const ForgetPassword = () => {
   });
   return (
     <AuthLayout>
+      <NextSeo title="Forget Password" />
       <p className="lg:self-end order-last lg:order-first text-center">
         Doesn’t have an account ?{' '}
         <span className="text-c-red-600 italic font-bold hover:text-c-red-300">

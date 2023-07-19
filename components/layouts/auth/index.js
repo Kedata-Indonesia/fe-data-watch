@@ -16,7 +16,7 @@ const AuthLayout = ({ children = null }) => {
   const onClickHandleMenu = () => setIsOpen(prev => !prev);
 
   return (
-    <>
+    <div className="bg-white h-screen">
       <header className="sticky left-0 top-0 z-30 bg-white px-5 md:px-0">
         <nav className="mx-auto lg:hidden flex max-w-[1280px] items-center justify-between gap-6 py-4 lg:py-6">
           <Link href="/" passHref>
@@ -75,14 +75,16 @@ const AuthLayout = ({ children = null }) => {
         </div>
       </header>
       <div className="flex">
-        <div className="hidden lg:flex w-6/12 flex-col bg-[#FFF5F7] p-14">
-          <Image
-            src="/logo.svg"
-            width={160}
-            height={36}
-            alt="logo kalkula"
-            className="hidden lg:block"
-          />
+        <div className="hidden lg:flex w-6/12 flex-col bg-[#FFF5F7] p-14 h-screen">
+          <Link href="/" passHref>
+            <Image
+              src="/logo.svg"
+              width={160}
+              height={36}
+              alt="logo kalkula"
+              className="hidden lg:block"
+            />
+          </Link>
           <section>
             <h1 className="mb-4 font-archivo text-2xl font-bold md:mb-6 md:text-[42px] md:leading-[46px] md:tracking-tight lg:mt-10">
               <span className="text-c-red-600">Elevate Your Data Quality </span>
@@ -107,7 +109,7 @@ const AuthLayout = ({ children = null }) => {
           {children}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

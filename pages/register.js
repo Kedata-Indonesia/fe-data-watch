@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { TextField } from '@/components/base/text-field';
 import { Button } from '@/components/base/button';
 import { EyeIcon } from '@/components/icons';
+import { NextSeo } from 'next-seo';
 
 const Register = () => {
   const { control, handleSubmit } = useForm({
@@ -16,6 +17,7 @@ const Register = () => {
   });
   return (
     <AuthLayout>
+      <NextSeo title="Register" />
       <p className="lg:self-end order-last lg:order-first text-center">
         Have an account ?{' '}
         <span className="text-c-red-600 italic font-bold hover:text-c-red-300">
