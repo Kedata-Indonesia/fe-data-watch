@@ -19,7 +19,7 @@ export default function Home() {
       <Section>
         <div className="flex flex-col items-center py-5 md:flex-row lg:py-10">
           <div className="relative w-full text-center md:w-6/12 md:text-left">
-            <div className="absolute -left-32 -top-32 h-[491px] w-[475px] bg-[url('/images/red-bubble.png')] bg-cover" />
+            <div className="hidden absolute lg:block -left-32 -top-32 h-[400px] w-[475px] bg-[url('/images/red-bubble.png')] bg-cover" />
             <h1 className="mb-4 font-archivo text-2xl font-bold md:mb-6 md:text-[42px] md:leading-[46px] md:tracking-tight lg:mt-16">
               <span className="text-c-red-600">Elevate Your Data Quality </span>
               <span>Assessment Experience!</span>
