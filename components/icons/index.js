@@ -11,6 +11,7 @@ import CloseIcon from './CloseIcon';
 import UploadIcon from './UploadIcon';
 import EyeIcon from './EyeIcon';
 import EyeSlashIcon from './EyeSlashIcon';
+import ShareIcon from './ShareIcon';
 
 export {
   RightArrowIcon,
@@ -26,4 +27,5 @@ export {
   UploadIcon,
   EyeIcon,
   EyeSlashIcon,
+  ShareIcon,
 };
