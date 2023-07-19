@@ -10,13 +10,13 @@ const ForgetPassword = () => {
   });
   return (
     <AuthLayout>
-      <p className="self-end">
+      <p className="lg:self-end order-last lg:order-first text-center">
         Doesn’t have an account ?{' '}
         <span className="text-c-red-600 italic font-bold hover:text-c-red-300">
           <Link href="/register">Register now.</Link>
         </span>
       </p>
-      <div className="flex px-28 flex-col h-[100%] justify-center text-c-gray-600">
+      <div className="flex lg:px-28 flex-col lg:h-[100%] justify-center">
         <h2 className="font-bold  text-3xl">Forget Password</h2>
         <p className="mt-7">
           Enter the email address you used when you joined. We&apos;ll reset your password and send
@@ -38,7 +38,11 @@ const ForgetPassword = () => {
           />
         </form>
         <div className="relative">
-          <Button className="!px-10" size="md" onClick={handleSubmit(form => console.log(form))}>
+          <Button
+            className="!px-10 mx-0"
+            size="md"
+            onClick={handleSubmit(form => console.log(form))}
+          >
             Reset Password
           </Button>
         </div>
