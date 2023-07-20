@@ -10,6 +10,7 @@ import Link from 'next/link';
 import Pagination from 'react-paginate';
 import Select from 'react-select';
 import Head from 'next/head';
+import { Skeleton } from '@/components/base/skeleton';
 
 export default function Blog() {
   const [topicId, setTopicId] = useState('');
@@ -85,6 +86,14 @@ export default function Blog() {
           </div>
           <div className="flex w-full flex-col lg:w-9/12">
             <div className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
+              {articleQuery.isLoading && (
+                <>
+                  <Skeleton.Blog />
+                  <Skeleton.Blog />
+                  <Skeleton.Blog />
+                  <Skeleton.Blog />
+                </>
+              )}
               {articleQuery.data?.payload.data.length <= 0 && (
                 <p className="text-c-red-600">
                   Ooppss... Sorry, there are no articles on this topic yet.

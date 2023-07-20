@@ -3,6 +3,7 @@ import { Button } from '@/components/base/button';
 import { RightArrowIcon } from '@/components/icons';
 import useGetArticles from '@/services/features/blog/hooks/use-get-articles';
 import Link from 'next/link';
+import { Skeleton } from '@/components/base/skeleton';
 
 const BlogSection = () => {
   const articleQuery = useGetArticles({ page: 1, limit: 3 });
@@ -18,10 +19,17 @@ const BlogSection = () => {
           Drive Growth and Success
         </p>
       </div>
+      {articleQuery.isLoading && (
+        <div className="flex flex-col lg:flex-row gap-5">
+          <Skeleton.Blog className="basis-1/3" />
+          <Skeleton.Blog className="basis-1/3" />
+          <Skeleton.Blog className="basis-1/3" />
+        </div>
+      )}
       <div className="mb-14 flex flex-col gap-5 lg:flex-row">
         {articleQuery.data?.payload.data.map(item => (
-          <Link key={item.id} href={`/blog/${item.id}`} passHref>
-            <div className="basis-1/3 bg-white shadow hover:cursor-pointer hover:shadow-lg">
+          <Link className="basis-1/3" key={item.id} href={`/blog/${item.id}`} passHref>
+            <div className="min-h-[256px] bg-white shadow hover:cursor-pointer hover:shadow-lg">
               <div className="relative h-[160px] w-full">
                 <Image
                   alt="kalkula image"
