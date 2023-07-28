@@ -4,7 +4,6 @@ import { Dropdown } from '@/components/base/dropdown';
 import { Pagination } from '@/components/base/pagination';
 import { Table } from '@/components/base/table';
 import { TextField } from '@/components/base/text-field';
-``;
 import SearchIcon from '@/components/icons/SearchIcon';
 import SettingIcon from '@/components/icons/SettingIcon';
 import useGetAllTable from '@/services/features/data-watch/hooks/use-get-all-table';
