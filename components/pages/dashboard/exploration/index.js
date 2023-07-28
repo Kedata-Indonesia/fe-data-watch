@@ -1,11 +1,11 @@
 import EXPLORATION_LISTS from '@/constants/exploration-menus';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
-import BasicStatistic from '../exploration-content/basic-statistic';
+import Overview from '../exploration-content/overview';
 
 const Exploration = () => {
-  const [activeParent, setActiveParent] = useState(EXPLORATION_LISTS.BASIC_STATISTIC);
-  const [activeMenu, setActiveMenu] = useState(EXPLORATION_LISTS.BASIC_STATISTIC);
+  const [activeParent, setActiveParent] = useState(EXPLORATION_LISTS.OVERVIEW);
+  const [activeMenu, setActiveMenu] = useState(EXPLORATION_LISTS.OVERVIEW);
 
   const menuClickHandler = (parent, menu) => {
     setActiveParent(parent);
@@ -44,7 +44,7 @@ const Exploration = () => {
         </div>
       </div>
       <div className="absolute bottom-0 right-0 top-0 w-[calc(100%_-_300px)] overflow-y-auto">
-        {activeParent === EXPLORATION_LISTS.BASIC_STATISTIC && <BasicStatistic />}
+        {activeParent === EXPLORATION_LISTS.OVERVIEW && <Overview />}
       </div>
     </div>
   );
@@ -67,48 +67,28 @@ const SidebarButton = ({ active = false, label, onClick, className }) => {
 
 const explorationMenuItems = [
   {
-    key: EXPLORATION_LISTS.BASIC_STATISTIC,
-    label: 'Basic Statistic',
-    items: [
-      {
-        key: EXPLORATION_LISTS.ROW_COUNTS,
-        label: 'Row Counts',
-      },
-      {
-        key: EXPLORATION_LISTS.PERCENTAGES,
-        label: 'Percentages',
-      },
-    ],
+    key: EXPLORATION_LISTS.OVERVIEW,
+    label: 'Overview',
   },
   {
-    key: EXPLORATION_LISTS.MISSING_DATA_PROFILES,
-    label: 'Missing Data Profiles',
+    key: EXPLORATION_LISTS.VARIABLES,
+    label: 'Variables',
   },
   {
-    key: EXPLORATION_LISTS.UNIVARIATE_DISTRIBUTION,
-    label: 'Univariate Distribution',
-    items: [
-      {
-        key: EXPLORATION_LISTS.HISTOGRAM,
-        label: 'Histogram',
-      },
-      {
-        key: EXPLORATION_LISTS.BAR_CHART,
-        label: 'Bar Chart (with frequency)',
-      },
-      {
-        key: EXPLORATION_LISTS.QQ_PLOT,
-        label: 'QQ Plot',
-      },
-    ],
+    key: EXPLORATION_LISTS.INTERACTIONS,
+    label: 'Interactions',
   },
   {
-    key: EXPLORATION_LISTS.CORRELATION_ANALYSIS,
-    label: 'Correlation Analysis',
+    key: EXPLORATION_LISTS.CORRELATION,
+    label: 'Correlation',
   },
   {
-    key: EXPLORATION_LISTS.PRONCIPAL_COMPONENT_ANALYSIS,
-    label: 'Principal Component Analysis',
+    key: EXPLORATION_LISTS.MISSING_VALUES,
+    label: 'Missing Values',
+  },
+  {
+    key: EXPLORATION_LISTS.DUPLICATE_ROWS,
+    label: 'Duplicate Rows',
   },
 ];
 
