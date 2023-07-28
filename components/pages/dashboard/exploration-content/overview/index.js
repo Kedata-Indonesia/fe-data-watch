@@ -2,13 +2,12 @@ import EXPLORATION_LISTS from '@/constants/exploration-menus';
 import SectionBox from '../section-box';
 import clsx from 'clsx';
 
-const BasicStatistic = () => {
+const Overview = () => {
   return (
-    <div id={EXPLORATION_LISTS.BASIC_STATISTIC} className="p-6 text-gray-600">
+    <div id={EXPLORATION_LISTS.OVERVIEW} className="p-6 text-gray-600">
       <h1 className="text-[28px] font-bold">Basic Statistic</h1>
       {/* Row Count */}
       <SectionBox
-        id={EXPLORATION_LISTS.ROW_COUNTS}
         title="Row Counts"
         className="grid grid-cols-4 gap-5"
       >
@@ -21,7 +20,6 @@ const BasicStatistic = () => {
       </SectionBox>
       {/* Percentages */}
       <SectionBox
-        id={EXPLORATION_LISTS.PERCENTAGES}
         title="Percentages"
         className="flex flex-col gap-5 bg-[#F5F6FA] p-6"
       >
@@ -88,4 +86,4 @@ const rowCountsData = [
   },
 ];
 
-export default BasicStatistic;
+export default Overview;
