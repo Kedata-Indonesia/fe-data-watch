@@ -3,13 +3,12 @@ import ProgressBar from '@/components/pages/dashboard/progress-bar';
 import ALLOWED_EXTENTION from '@/constants/allowed-extention';
 import cookieServices from '@/services/browser/cookie';
 import useUploadData from '@/services/features/data-watch/hooks/use-upload-data';
-import { queryClient } from '@/services/libs/react-query';
 import serverProps from '@/services/servers/server-props';
 import withSession from '@/services/servers/with-session';
 import useAbort from '@/utils/hooks/use-abort';
 import mime from 'mime';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 const DashboardContent = dynamic(() => import('@/components/pages/dashboard/dashboard-content'));
