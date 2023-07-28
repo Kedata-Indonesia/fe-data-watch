@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 const DashboardLayout = ({ children }) => {
   return (
@@ -12,9 +12,7 @@ const DashboardLayout = ({ children }) => {
           className="hidden lg:block"
         />
       </div>
-      <div className="relative top-0 h-full w-full flex-1">
-        {children}
-      </div>
+      <div className="relative top-0 h-full w-full flex-1">{children}</div>
     </div>
   );
 };

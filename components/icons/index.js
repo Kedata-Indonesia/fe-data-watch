@@ -9,6 +9,9 @@ import LinkedinIcon from './LinkedinIcon';
 import BurgerMenuIcon from './BurgerMenuIcon';
 import CloseIcon from './CloseIcon';
 import UploadIcon from './UploadIcon';
+import EyeIcon from './EyeIcon';
+import EyeSlashIcon from './EyeSlashIcon';
+import ShareIcon from './ShareIcon';
 
 export {
   RightArrowIcon,
@@ -22,4 +25,7 @@ export {
   BurgerMenuIcon,
   CloseIcon,
   UploadIcon,
+  EyeIcon,
+  EyeSlashIcon,
+  ShareIcon,
 };

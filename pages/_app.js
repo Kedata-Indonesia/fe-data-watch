@@ -1,15 +1,21 @@
 import '@/styles/globals.css';
-import Head from 'next/head';
+import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 import { queryClient } from '@/services/libs/react-query';
 import { Hydrate, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { GoogleAnalytics } from 'nextjs-google-analytics';
 import { DefaultSeo } from 'next-seo';
+import { hotjar } from 'react-hotjar';
 import SEO_CONFIG from '@/next-seo.config';
 import { Toaster } from 'react-hot-toast';
 
 export default function App({ Component, pageProps }) {
   const getLayout = Component.getLayout || (page => page);
+
+  useEffect(() => {
+    hotjar.initialize(process.env.NEXT_PUBLIC_HJID, process.env.NEXT_PUBLIC_HJSV);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

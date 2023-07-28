@@ -12,7 +12,7 @@ const typeClassName = {
 };
 
 /**
- * @param {ButtonProps} props 
+ * @param {ButtonProps} props
  */
 const Button = ({
   children,
@@ -60,9 +60,8 @@ Button.share = ({
         className
       )}
     >
-      {IconStart && IconStart}
-      {children}
-      {IconEnd && IconEnd}
+      {' '}
+      {IconStart && IconStart} {children} {IconEnd && IconEnd}{' '}
     </button>
   );
 };

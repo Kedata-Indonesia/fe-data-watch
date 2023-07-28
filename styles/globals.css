@@ -32,6 +32,16 @@
   .product-features > div:nth-child(5) {
     @apply border-b border-b-[#DFE2E6] md:border-b-transparent;
   }
+  .pagination .disabled {
+    @apply !text-c-gray-300;
+  }
+  .pagination .previous,
+  .pagination .next {
+    @apply text-lg font-bold text-c-gray-600;
+  }
+  .pagination .selected {
+    @apply border-c-red-600 bg-c-red-600 text-white;
+  }
 }
 
 @layer utilities {
@@ -57,7 +67,13 @@
 .swiper-pagination .swiper-pagination-bullet {
   @apply bg-c-red-600;
 }
-
 .collapse > input[type='radio'] {
   width: 100%;
+}
+
+#article h2 {
+  @apply font-archivo text-3xl font-bold;
+}
+#article ul {
+  @apply ml-5 list-disc;
 }

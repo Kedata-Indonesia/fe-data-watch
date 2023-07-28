@@ -24,6 +24,7 @@ const ErrorMessages = ({ errors = {}, name = '' }) => {
   );
 };
 
+// eslint-disable-next-line
 ErrorMessages.Label = ({ children = null }) => (
   <p className="mt-1.5 text-sm text-c-red-600">{children}</p>
 );
