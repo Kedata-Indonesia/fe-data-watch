@@ -8,7 +8,7 @@ const sizeClassName = {
 
 const typeClassName = {
   primary: 'bg-c-red-600 text-white hover:bg-c-red-400',
-  outline: 'bg-white text-c-red-600 border border-gray-400 hover:bg-c-gray-200',
+  outline: 'bg-white text-c-red-600 border border-gray-300 hover:bg-c-gray-200',
 };
 
 /**
