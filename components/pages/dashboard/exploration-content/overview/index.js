@@ -1,53 +1,78 @@
-import EXPLORATION_LISTS from '@/constants/exploration-menus';
-import SectionBox from '../section-box';
-import clsx from 'clsx';
+import { Badge } from '@/components/base/badge';
+import { Label } from '@/components/base/label';
+import DataSummaryTable from '@/components/shared/data-summary-table';
+import ExplorationSection from '@/components/shared/exploration-section';
+import GroupSection from '@/components/shared/group-section';
 
-const Overview = () => {
+const Overview = ({ id, title }) => {
   return (
-    <div id={EXPLORATION_LISTS.OVERVIEW} className="p-6 text-gray-600">
-      <h1 className="text-[28px] font-bold">Basic Statistic</h1>
-      {/* Row Count */}
-      <SectionBox
-        title="Row Counts"
-        className="grid grid-cols-4 gap-5"
-      >
-        {rowCountsData.map(({ label, value }) => (
-          <div key={label} className="rounded-md bg-[#F5F6FA] px-6 py-5">
-            <p className="text-sm font-bold text-gray-400">{label}</p>
-            <h3 className="mt-1 text-[40px] font-bold">{value}</h3>
-          </div>
-        ))}
-      </SectionBox>
-      {/* Percentages */}
-      <SectionBox
-        title="Percentages"
-        className="flex flex-col gap-5 bg-[#F5F6FA] p-6"
-      >
-        {rowCountsData.map(({ label, value }, i) => {
-          const percentage = ((value / 50000) * 100).toFixed(0);
-
-          return (
-            <div className="flex items-center gap-5" key={`${label}-${i}`}>
-              <p className="w-[170px] flex-shrink-0 text-right">{label}</p>
-              <div className="relative flex h-6 w-full overflow-hidden rounded-full bg-gray-200">
-                <div
-                  className="absolute left-0 top-0 flex h-full items-center bg-c-red-600"
-                  style={{ width: `${percentage}%` }}
-                >
-                  <p
-                    className={clsx('w-full px-2 text-right text-[10px] font-bold text-white', [
-                      percentage < 2 && '!text-gray-600',
-                    ])}
-                  >
-                    {percentage}%
-                  </p>
-                </div>
-              </div>
+    <ExplorationSection id={id} title={title}>
+      <div className="flex w-full gap-5">
+        {/* Dataset Statistic Section */}
+        <GroupSection
+          title="Dataset Statistic"
+          rootClassName="w-[65%] flex-shrink-0"
+          className="grid grid-cols-2 gap-5"
+        >
+          {rowCountsData.map(({ label, value }) => (
+            <div key={label} className="rounded-md bg-background px-6 py-5">
+              <p className="text-sm font-bold text-gray-400">{label}</p>
+              <h3 className="mt-1 text-[40px] font-bold">{value}</h3>
             </div>
-          );
-        })}
-      </SectionBox>
-    </div>
+          ))}
+        </GroupSection>
+        {/* Variable Type Section*/}
+        <GroupSection title="Variable Type" rootClassName="flex-grow">
+          <DataSummaryTable
+            data={[
+              { key: 'categorical', label: 'Categorical', value: 31 },
+              { key: 'numeric', label: 'Numeric', value: 31 },
+              { key: 'DateTime', label: 'Numeric', value: 31 },
+              { key: 'Text', label: 'Numeric', value: 31 },
+            ]}
+          />
+        </GroupSection>
+      </div>
+
+      {/** Alert Section */}
+      <GroupSection title="Alert" className="flex flex-col border border-c-gray-300 rounded-md">
+        <div className="p-5 flex justify-between items-center border-b border-b-gray-300">
+          <p>Dataset has 1 (0.7%) duplicate rows</p>
+          <Label variant="gray">Duplicates</Label>
+        </div>
+        <div className="p-5 flex justify-between items-center border-b border-b-gray-300">
+          <div className="flex gap-2 items-center">
+            <Badge variant="danger" text="sepal_length" />
+            is highly overall correlated with
+            <Badge variant="danger" text="petal_width" />
+            and 2 other fields
+          </div>
+          <Label variant="darkGray">high correlation</Label>
+        </div>
+        <div className="p-5 flex justify-between items-center border-b border-b-gray-300">
+          <div className="flex gap-2 items-center">
+            <Badge variant="danger" text="sepal_length" />
+            is highly overall correlated with
+            <Badge variant="danger" text="petal_width" />
+            and 2 other fields
+          </div>
+          <Label variant="darkGray">high correlation</Label>
+        </div>
+        <div className="p-5 flex justify-between items-center border-b border-b-gray-300">
+          <div className="flex gap-2 items-center">
+            <Badge variant="danger" text="sepal_length" />
+            is highly overall correlated with
+            <Badge variant="danger" text="petal_width" />
+            and 2 other fields
+          </div>
+          <Label variant="darkGray">high correlation</Label>
+        </div>
+        <div className="p-5 flex justify-between items-center">
+          <p>species is uniformly distributed</p>
+          <Label variant="blue">Uniform</Label>
+        </div>
+      </GroupSection>
+    </ExplorationSection>
   );
 };
 
@@ -75,14 +100,6 @@ const rowCountsData = [
   {
     label: 'Missing Observations',
     value: 0,
-  },
-  {
-    label: 'Complete Rows',
-    value: 3755,
-  },
-  {
-    label: 'Total Observations',
-    value: 41305,
   },
 ];
 

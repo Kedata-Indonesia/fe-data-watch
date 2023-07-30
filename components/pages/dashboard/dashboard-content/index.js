@@ -1,8 +1,8 @@
 import { Button } from '@/components/base/button';
 import DotSeparator from '@/components/base/dot-separator';
-import Tabs from '@/components/components/tabs';
 import { UploadIcon } from '@/components/icons';
 import TableIcon from '@/components/icons/TableIcon';
+import Tabs from '@/components/shared/tabs';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
@@ -23,7 +23,7 @@ const TAB_MENU = /** @type {const} */ ({
 });
 
 const DashboardContent = ({ onChangeFile }) => {
-  const [activeTab, setActiveTab] = useState(TAB_MENU.TABLE);
+  const [activeTab, setActiveTab] = useState(TAB_MENU.EXPLORATION);
   const [dataQuality, setDataQuality] = useState([]);
 
   return (
@@ -52,7 +52,7 @@ const DashboardContent = ({ onChangeFile }) => {
               { key: TAB_MENU.DATA_QUALITY, label: 'Data Quality' },
             ]}
             activeItem={activeTab}
-            onChange={key => {
+            onChange={({ key }) => {
               setActiveTab(key);
             }}
           />

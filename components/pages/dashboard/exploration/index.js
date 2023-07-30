@@ -1,21 +1,17 @@
 import EXPLORATION_LISTS from '@/constants/exploration-menus';
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
 import Overview from '../exploration-content/overview';
+import Link from 'next/link';
+import useWatchScroll from '@/utils/hooks/use-watch-scroll';
+import Variables from '../exploration-content/variables';
+import Interactions from '../exploration-content/interactions';
+import Correlations from '../exploration-content/correlations';
+import MissingValues from '../exploration-content/missing-values';
 
 const Exploration = () => {
-  const [activeParent, setActiveParent] = useState(EXPLORATION_LISTS.OVERVIEW);
-  const [activeMenu, setActiveMenu] = useState(EXPLORATION_LISTS.OVERVIEW);
-
-  const menuClickHandler = (parent, menu) => {
-    setActiveParent(parent);
-    setActiveMenu(menu);
-  };
-
-  useEffect(() => {
-    if (!window || !activeMenu) return;
-    document.querySelector(`#${activeMenu}`)?.scrollIntoView({ behavior: 'smooth' });
-  }, [activeMenu]);
+  const { active: activeMenu, containerRef } = useWatchScroll({
+    menuElements: '.exploration-sidebar',
+  });
 
   return (
     <div className="relative flex h-full">
@@ -24,44 +20,30 @@ const Exploration = () => {
           {explorationMenuItems.map(item => {
             return (
               <div key={item.key} className="flex w-full flex-col gap-1">
-                <SidebarButton
-                  label={item.label}
-                  active={activeMenu === item.key}
-                  onClick={() => menuClickHandler(item.key, item.key)}
-                />
-                {item?.items?.map(subItem => (
-                  <SidebarButton
-                    key={subItem.key}
-                    label={subItem.label}
-                    active={activeMenu === subItem.key}
-                    onClick={() => menuClickHandler(item.key, subItem.key)}
-                    className="pl-10"
-                  />
-                ))}
+                <Link
+                  href={`#${item.key}`}
+                  className={clsx(
+                    'exploration-sidebar w-full rounded-[4px] px-4 py-2 text-left text-gray-400 transition-all duration-300',
+                    activeMenu === item.key && 'bg-c-red-50 font-semibold !text-c-red-600'
+                  )}
+                >
+                  {item.label}
+                </Link>
               </div>
             );
           })}
         </div>
       </div>
-      <div className="absolute bottom-0 right-0 top-0 w-[calc(100%_-_300px)] overflow-y-auto">
-        {activeParent === EXPLORATION_LISTS.OVERVIEW && <Overview />}
+      <div
+        ref={containerRef}
+        className="absolute bottom-0 right-0 top-0 w-[calc(100%_-_300px)] overflow-y-auto pb-24"
+      >
+        {explorationMenuItems.map(item => {
+          const Component = item.component;
+          return <Component key={item.key} id={item.key} title={item.label} />;
+        })}
       </div>
     </div>
-  );
-};
-
-const SidebarButton = ({ active = false, label, onClick, className }) => {
-  return (
-    <button
-      className={clsx(
-        'w-full rounded-[4px] px-4 py-2 text-left text-gray-400 transition-all duration-150',
-        active && 'bg-c-red-50 font-semibold !text-c-red-600',
-        className
-      )}
-      onClick={onClick}
-    >
-      {label}
-    </button>
   );
 };
 
@@ -69,27 +51,33 @@ const explorationMenuItems = [
   {
     key: EXPLORATION_LISTS.OVERVIEW,
     label: 'Overview',
+    component: Overview,
   },
   {
     key: EXPLORATION_LISTS.VARIABLES,
     label: 'Variables',
+    component: Variables,
   },
   {
     key: EXPLORATION_LISTS.INTERACTIONS,
     label: 'Interactions',
+    component: Interactions,
   },
   {
-    key: EXPLORATION_LISTS.CORRELATION,
-    label: 'Correlation',
+    key: EXPLORATION_LISTS.CORRELATIONS,
+    label: 'Correlations',
+    component: Correlations,
   },
   {
     key: EXPLORATION_LISTS.MISSING_VALUES,
     label: 'Missing Values',
+    component: MissingValues,
   },
-  {
-    key: EXPLORATION_LISTS.DUPLICATE_ROWS,
-    label: 'Duplicate Rows',
-  },
+  // {
+  //   key: EXPLORATION_LISTS.DUPLICATE_ROWS,
+  //   label: 'Duplicate Rows',
+  //   component: () => <div>Duplicate Rows</div>,
+  // },
 ];
 
 export default Exploration;

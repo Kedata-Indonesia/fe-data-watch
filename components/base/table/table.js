@@ -59,4 +59,6 @@ Table.Skeleton = () => {
   );
 };
 
+Table.Skeleton.displayName = 'TableSkeleton';
+
 export default Table;
