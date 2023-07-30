@@ -30,10 +30,8 @@ const dataWatchHttp = (version = 'v1') => {
       return response;
     },
     error => {
-      if (error?.response?.status === 404) {
-        cookieServices.remove('session_id');
-        toast.error(error?.response?.data?.message);
-      }
+      toast.error(error?.response?.data?.message);
+      return Promise.reject(error);
     }
   );
 
