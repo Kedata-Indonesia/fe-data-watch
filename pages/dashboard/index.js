@@ -47,7 +47,6 @@ const DashboardPage = params => {
       },
       {
         onSuccess: data => {
-          if (!data?.payload) return;
           const { session_id } = data?.payload;
 
           cookieServices.set('session_id', session_id);

@@ -1,8 +1,8 @@
-const EXPLORATION_LISTS = {
+const EXPLORATION_LISTS = /** @type {const} */ ({
   OVERVIEW: 'overview',
   VARIABLES: 'variables',
   INTERACTIONS: 'interactions',
-  CORRELATION: 'correlation',
+  CORRELATIONS: 'correlations',
   MISSING_VALUES: 'missing-values',
   DUPLICATE_ROWS: 'duplicate-rows',
   // BASIC_STATISTIC: 'basic-statistic',
@@ -15,6 +15,6 @@ const EXPLORATION_LISTS = {
   // QQ_PLOT: 'qq-plot',
   // CORRELATION_ANALYSIS: 'correlation-analysis',
   // PRONCIPAL_COMPONENT_ANALYSIS: 'principal-component-analysis',
-};
+});
 
 export default EXPLORATION_LISTS;

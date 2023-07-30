@@ -6,7 +6,7 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       staleTime: Infinity,
       cacheTime: Infinity,
-      retry: 2,
+      retry: 3,
       retryDelay: 1000,
       networkMode: 'always',
     },
