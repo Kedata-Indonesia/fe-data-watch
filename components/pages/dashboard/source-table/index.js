@@ -30,7 +30,7 @@ const SourceTable = () => {
   useEffect(() => {
     if (!table) return;
     setTotalPage(table?.pagination?.total_pages);
-  }, [table])
+  }, [table]);
 
   const columns = useMemo(() => {
     return table?.columns?.map(column => ({

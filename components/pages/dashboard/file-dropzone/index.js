@@ -22,6 +22,7 @@ const FileDropzone = ({ onChange, onError, allowExtention = [] }) => {
     if (files.length > 0) {
       onFileChange(files[0]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onFileChange = file => {
