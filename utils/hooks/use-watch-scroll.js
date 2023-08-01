@@ -6,9 +6,9 @@ import { useEffect, useRef, useState } from 'react';
  * @param {string} props.menuElements
  * @returns {{active: string, containerRef: React.MutableRefObject<null>}}
  */
-const useWatchScroll = ({ menuElements = 'body' }) => {
+const useWatchScroll = ({ menuElements = 'body', defaultActive = null }) => {
   const containerRef = useRef(null);
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState(defaultActive);
 
   const scrollHandler = throttle(() => {
     const menuItems = document.querySelectorAll(menuElements);
