@@ -1,5 +1,6 @@
 import { Button } from '@/components/base/button';
 import DotSeparator from '@/components/base/dot-separator';
+import { SpinnerLoading } from '@/components/base/spinner-loading';
 import bytesToSize from '@/utils/byte-convert';
 import timeLeftConvert from '@/utils/time-left-convert';
 
@@ -9,9 +10,7 @@ const ProgressBar = ({ fileName, fileSize, percentage, timeLeft, onCancel = () =
       <div className="h-full border-[3px] border-dashed border-gray-400">
         {percentage == 100 ? (
           <div className="flex h-full flex-col items-center justify-center">
-            <div className="h-[230px] w-[230px]">
-              <img src="/spinner.svg" className="h-full w-full" />
-            </div>
+            <SpinnerLoading />
             <p className="mt-5 text-gray-600">Loading data. Please wait ...</p>
           </div>
         ) : (
