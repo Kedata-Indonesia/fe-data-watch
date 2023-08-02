@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
 import clsx from 'clsx';
 import ReactSkeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
 
 const Skeleton = ({ className = '', count = 1, height = 16, width = '100%' }) => {
   return (

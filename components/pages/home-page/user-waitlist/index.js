@@ -3,8 +3,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Autoplay } from 'swiper';
 import { useWindowWidth } from '@react-hook/window-size';
 import SwiperNavigation from '@/components/pages/home-page/swiper-navigation';
-import 'swiper/css';
-import 'swiper/css/pagination';
 
 const UserWaitlist = ({ testimonials }) => {
   const windowWidth = useWindowWidth();

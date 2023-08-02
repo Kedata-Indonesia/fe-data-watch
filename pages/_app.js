@@ -1,5 +1,4 @@
 import '@/styles/globals.css';
-import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import { queryClient } from '@/services/libs/react-query';
 import { Hydrate, QueryClientProvider } from '@tanstack/react-query';
@@ -9,6 +8,9 @@ import { DefaultSeo } from 'next-seo';
 import { hotjar } from 'react-hotjar';
 import SEO_CONFIG from '@/next-seo.config';
 import { Toaster } from 'react-hot-toast';
+import 'react-loading-skeleton/dist/skeleton.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 export default function App({ Component, pageProps }) {
   const getLayout = Component.getLayout || (page => page);
