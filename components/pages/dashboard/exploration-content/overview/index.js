@@ -1,9 +1,7 @@
 import { Badge } from '@/components/base/badge';
-import { Label } from '@/components/base/label';
 import DataSummaryTable from '@/components/shared/data-summary-table';
 import ExplorationSection from '@/components/shared/exploration-section';
 import GroupSection from '@/components/shared/group-section';
-import StringFormatter from '@/components/shared/string-formatter';
 import numberFormat from '@/utils/number-format';
 import { useMemo } from 'react';
 import reactStringReplace from 'react-string-replace';

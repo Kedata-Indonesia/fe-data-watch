@@ -80,21 +80,21 @@ const explorationMenuItems = [
     label: 'Variables',
     component: Variables,
   },
-  {
-    key: EXPLORATION_LISTS.INTERACTIONS,
-    label: 'Interactions',
-    component: Interactions,
-  },
+  // {
+  //   key: EXPLORATION_LISTS.INTERACTIONS,
+  //   label: 'Interactions',
+  //   component: Interactions,
+  // },
   {
     key: EXPLORATION_LISTS.CORRELATIONS,
     label: 'Correlations',
     component: Correlations,
   },
-  {
-    key: EXPLORATION_LISTS.MISSING_VALUES,
-    label: 'Missing Values',
-    component: MissingValues,
-  },
+  // {
+  //   key: EXPLORATION_LISTS.MISSING_VALUES,
+  //   label: 'Missing Values',
+  //   component: MissingValues,
+  // },
   // {
   //   key: EXPLORATION_LISTS.DUPLICATE_ROWS,
   //   label: 'Duplicate Rows',
