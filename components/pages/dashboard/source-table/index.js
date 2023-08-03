@@ -32,12 +32,19 @@ const SourceTable = () => {
     setTotalPage(table?.pagination?.total_pages);
   }, [table]);
 
-  const columns = useMemo(() => {
+  const columnsTable = useMemo(() => {
     return table?.columns?.map(column => ({
       label: Object.keys(column)[0],
       renderCell: item => item[Object.keys(column)[0]],
     }));
-  }, [table]);
+  }, [table?.columns]);
+
+  const columns = useMemo(() => {
+    return table?.available_columns?.map(column => ({
+      label: column,
+      value: column,
+    }));
+  }, [table?.available_columns]);
 
   const columnSearch = useMemo(() => {
     const keyword = search.toLowerCase();
@@ -50,7 +57,7 @@ const SourceTable = () => {
   return (
     <div className="relative flex h-full flex-col items-start bg-gray-100">
       <div className="absolute inset-0 bottom-14 overflow-hidden">
-        <Table loading={tableQuery.isFetching} columns={columns} data={table?.rows} />
+        <Table loading={tableQuery.isFetching} columns={columnsTable} data={table?.rows} />
       </div>
       <div className="absolute bottom-0 z-50 flex w-full justify-between border-t border-t-gray-300 bg-white">
         <div className="flex items-center gap-4 px-4 py-[18px] text-sm font-bold uppercase text-gray-400">
@@ -73,7 +80,7 @@ const SourceTable = () => {
               <div className="flex h-full flex-shrink-0 flex-col gap-4 p-5">
                 <TextField
                   startIcon={SearchIcon}
-                  className="mb-0"
+                  className="!mb-0"
                   placeholder="Search column"
                   name="search"
                   control={control}
