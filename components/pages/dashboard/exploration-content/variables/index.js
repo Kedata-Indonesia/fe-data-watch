@@ -1,11 +1,14 @@
 import { Select } from '@/components/base/select';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Label } from '@/components/base/label';
 import { Button } from '@/components/base/button';
 import ExplorationSection from '@/components/shared/exploration-section';
 import Tabs from '@/components/shared/tabs';
 import DataSummaryTable from '@/components/shared/data-summary-table';
+import { omit } from 'lodash/fp';
+import numberFormat from '@/utils/number-format';
+import percentage from '@/utils/percentage';
 
 const VARIABLE_ITEMS = /** @type {const} */ ({
   STATISTIC: 'statistic',
@@ -14,15 +17,41 @@ const VARIABLE_ITEMS = /** @type {const} */ ({
   EXTREME_VALUES: 'extreme values',
 });
 
-const Variables = ({ id, title }) => {
-  const { control } = useForm({
+const Variables = ({ id, title, data }) => {
+  const { control, setValue, watch } = useForm({
     defaultValues: {
       variables: 'sepal_length',
     },
   });
 
+  const variablesWatch = watch('variables');
+
   const [showDetails, setShowDetails] = useState(false);
   const [activeTab, setActiveTab] = useState(VARIABLE_ITEMS.STATISTIC);
+  // const [currentData, setCurrentData] = useState(null);
+
+  const variableOptions = useMemo(() => {
+    if (!data) return [];
+    return Object.keys(data).map(key => ({ label: key, value: key }));
+  }, [data]);
+
+  useEffect(() => {
+    if (variableOptions && !variableOptions.length) return;
+    setValue('variables', variableOptions[0].value);
+  }, [setValue, variableOptions]);
+
+  const variable = useMemo(() => {
+    return {
+      label: variablesWatch,
+      ...(data?.[variablesWatch] ?? []),
+    };
+  }, [data, variablesWatch]);
+
+  const variableLabels = useMemo(() => {
+    const labels = omit(['type'], variable?.tags);
+
+    return Object.keys(labels)?.filter(label => labels[label]);
+  }, [variable?.tags]);
 
   return (
     <ExplorationSection
@@ -34,7 +63,7 @@ const Variables = ({ id, title }) => {
             control={control}
             className="w-[300px] !mb-0"
             name="variables"
-            options={[{ label: 'sepal_length', value: 'sepal_length' }]}
+            options={variableOptions}
             clearable={false}
           />
         </div>
@@ -43,39 +72,41 @@ const Variables = ({ id, title }) => {
       <div className="p-5 border rounded-md border-gray-300 flex flex-col mt-5 gap-5">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-heading-3 font-bold mb-2">sepal_length</h3>
-            <p className="text-gray-400">Real Number (R)</p>
+            <h3 className="text-heading-3 font-bold mb-2">{variable?.label}</h3>
+            <p className="text-gray-400">{variable?.tags?.type}</p>
           </div>
-          <Label variant="red" text="high correlation" />
+          {variableLabels?.map(label => (
+            <Label key={label} variant="red" text={label} />
+          ))}
         </div>
         <div className="flex gap-5">
           <div className="flex flex-grow">
             <DataSummaryTable
               rootClassName="rounded-r-none"
               data={[
-                { label: 'Distinct', value: '150' },
-                { label: 'Distinct Percentage', value: '23' },
-                { label: 'Missing', value: '32' },
-                { label: 'Missing Percentage', value: '22' },
-                { label: 'Infinite', value: '5.84' },
-                { label: 'Infinite Percentage', value: '5.84' },
-                { label: 'Mean', value: '5.84' },
+                { label: 'Distinct', value: variable?.n_distinct },
+                { label: 'Distinct Percentage', value: percentage(variable?.p_distinct) },
+                { label: 'Missing', value: variable?.n_missing },
+                { label: 'Missing Percentage', value: percentage(variable?.p_missing) },
+                { label: 'Infinite', value: variable?.n_infinite },
+                { label: 'Infinite Percentage', value: percentage(variable?.p_infinite) },
+                { label: 'Mean', value: variable?.mean },
               ]}
             />
             <DataSummaryTable
               rootClassName="rounded-l-none"
               data={[
-                { label: 'Minimum', value: '150' },
-                { label: 'Maximum', value: '23' },
-                { label: 'Zeros', value: '32' },
-                { label: 'Zeros Percentage', value: '22' },
-                { label: 'Negative', value: '5.84' },
-                { label: 'Negative Percentage', value: '5.84' },
-                { label: 'Memory Size', value: '5.84' },
+                { label: 'Minimum', value: variable?.minimum },
+                { label: 'Maximum', value: variable?.maximum },
+                { label: 'Zeros', value: variable?.n_zeros },
+                { label: 'Zeros Percentage', value: percentage(variable?.p_zeros) },
+                { label: 'Negative', value: variable?.n_negative },
+                { label: 'Negative Percentage', value: percentage(variable?.p_negative) },
+                { label: 'Memory Size', value: variable?.memory_size + ' KiB' },
               ]}
             />
           </div>
-          <div className="w-[45%]">chart</div>
+          <div className="w-[45%] flex justify-center items-center">chart</div>
         </div>
         {!showDetails ? (
           <div className="w-full flex justify-center">

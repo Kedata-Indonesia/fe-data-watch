@@ -16,19 +16,16 @@ const TAB_ITEMS = /** @type {const} */ ({
 const Correlations = ({ id, title, data }) => {
   const [activeTab, setActiveTab] = useState(TAB_ITEMS.HEATMAP);
 
-  const series = useMemo(() => {
-    return data?.data ?? [];
-  }, [data?.data]);
-
-  const axisData = useMemo(() => {
+  const heatmap = useMemo(() => {
     return {
-      xAxis: data?.labels?.x || [],
-      yAxis: [...data?.labels?.y].reverse() || [],
+      xAxis: data.heatmap?.labels?.x || [],
+      yAxis: data.heatmap?.labels?.y || [],
+      series: data.heatmap?.data || [],
     };
-  }, [data?.labels]);
+  }, [data?.heatmap]);
 
   const tableColumns = useMemo(() => {
-    const columns = data?.labels?.x?.map(column => ({
+    const columns = data.table?.labels?.x?.map(column => ({
       label: column,
       renderCell: item => item[column],
     }));
@@ -41,20 +38,20 @@ const Correlations = ({ id, title, data }) => {
       },
       ...(columns ?? []),
     ];
-  }, [data?.labels?.x]);
+  }, [data.table?.labels?.x]);
 
   const tableData = useMemo(() => {
-    const rows = data?.data?.map((rows, id) => {
+    const rows = data.table?.data?.map((rows, id) => {
       return rows?.reduce((acc, row, idx) => {
-        const rowKey = data?.labels?.x?.[idx] ?? '';
-        return { firstRow: data?.labels?.x?.[id], ...acc, [rowKey]: row };
+        const rowKey = data.table?.labels?.x?.[idx] ?? '';
+        return { firstRow: data.table?.labels?.x?.[id], ...acc, [rowKey]: row };
       }, {});
     });
 
     return rows ?? [];
-  }, [data?.data, data?.labels?.x]);
+  }, [data.table]);
 
-  console.log(tableData);
+  console.log(heatmap);
 
   return (
     <ExplorationSection id={id} title={title}>
@@ -82,15 +79,20 @@ const Correlations = ({ id, title, data }) => {
                 },
                 yAxis: {
                   type: 'category',
-                  data: axisData.yAxis,
+                  data: heatmap.yAxis,
                   splitLine: { show: false },
                   axisLine: { show: false },
                   axisTick: { show: false },
-                  axisLabel: { show: true },
+                  axisLabel: {
+                    show: true,
+                    width: 100,
+                    overflow: 'break', // or 'break' to continue in a new line
+                    interval: 'auto',
+                  },
                 },
                 xAxis: {
                   type: 'category',
-                  data: axisData.xAxis,
+                  data: heatmap.xAxis,
                   splitLine: { show: false },
                   axisLine: { show: false },
                   axisTick: { show: false },
@@ -116,7 +118,7 @@ const Correlations = ({ id, title, data }) => {
                   {
                     name: 'Punch Card',
                     type: 'heatmap',
-                    data: series,
+                    data: heatmap.series,
                     label: {
                       show: true,
                     },
