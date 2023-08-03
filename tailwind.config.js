@@ -37,6 +37,16 @@ module.exports = {
         'heading-2': ['2rem', '2.5rem'],
         'heading-1': ['2.5rem', '3rem'],
       },
+      keyframes: {
+        'spin-reverse': {
+          '100%': {
+            transform: 'rotate(-360deg)',
+          },
+        },
+      },
+      animation: {
+        'spin-reverse': 'spin-reverse 1s linear infinite',
+      },
     },
   },
   plugins: [require('daisyui'), require('@tailwindcss/forms')],

@@ -5,6 +5,7 @@ const labelStyle = {
   darkGray: 'bg-gray-600 text-white',
   blue: 'bg-blue-600 text-white',
   red: 'bg-red-50 text-red-600',
+  deepRed: 'bg-red-100 text-red-600',
 };
 
 /**

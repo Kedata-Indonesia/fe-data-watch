@@ -25,16 +25,6 @@ const dataWatchHttp = (version = 'v1') => {
     return config;
   });
 
-  instance.interceptors.response.use(
-    response => {
-      return response;
-    },
-    error => {
-      toast.error(error?.response?.data?.message);
-      return Promise.reject(error);
-    }
-  );
-
   return instance;
 };
 

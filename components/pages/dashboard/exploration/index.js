@@ -7,41 +7,63 @@ import Variables from '../exploration-content/variables';
 import Interactions from '../exploration-content/interactions';
 import Correlations from '../exploration-content/correlations';
 import MissingValues from '../exploration-content/missing-values';
+import { ExplorationSidebarSkeleton, ExplorationSkeleton } from './exploration-skeleton';
+import useGetAllExploration from '@/services/features/data-watch/hooks/use-get-all-exploration';
 
 const Exploration = () => {
   const { active: activeMenu, containerRef } = useWatchScroll({
     menuElements: '.exploration-sidebar',
+    defaultActive: EXPLORATION_LISTS.OVERVIEW,
   });
+
+  const explorationsQuery = useGetAllExploration();
+  const explorations = explorationsQuery.data?.payload;
+  const isLoading = explorationsQuery?.isLoading || !explorationsQuery?.data;
 
   return (
     <div className="relative flex h-full">
       <div className="w-[300px] flex-shrink-0 p-6">
         <div className="flex flex-col items-start gap-1">
-          {explorationMenuItems.map(item => {
-            return (
-              <div key={item.key} className="flex w-full flex-col gap-1">
-                <Link
-                  href={`#${item.key}`}
-                  className={clsx(
-                    'exploration-sidebar w-full rounded-[4px] px-4 py-2 text-left text-gray-400 transition-all duration-300',
-                    activeMenu === item.key && 'bg-c-red-50 font-semibold !text-c-red-600'
-                  )}
-                >
-                  {item.label}
-                </Link>
-              </div>
-            );
-          })}
+          {isLoading ? (
+            <ExplorationSidebarSkeleton />
+          ) : (
+            explorationMenuItems.map(item => {
+              return (
+                <div key={item.key} className="flex w-full flex-col gap-1">
+                  <Link
+                    href={`#${item.key}`}
+                    className={clsx(
+                      'exploration-sidebar w-full rounded-[4px] px-4 py-2 text-left text-gray-400 transition-all duration-300',
+                      activeMenu === item.key && 'bg-c-red-50 font-semibold !text-c-red-600'
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
       <div
         ref={containerRef}
         className="absolute bottom-0 right-0 top-0 w-[calc(100%_-_300px)] overflow-y-auto pb-24"
       >
-        {explorationMenuItems.map(item => {
-          const Component = item.component;
-          return <Component key={item.key} id={item.key} title={item.label} />;
-        })}
+        {isLoading ? (
+          <ExplorationSkeleton />
+        ) : (
+          explorationMenuItems.map(item => {
+            const Component = item.component;
+            return (
+              <Component
+                key={item.key}
+                id={item.key}
+                title={item.label}
+                data={explorations[item.key]}
+              />
+            );
+          })
+        )}
       </div>
     </div>
   );
@@ -58,21 +80,21 @@ const explorationMenuItems = [
     label: 'Variables',
     component: Variables,
   },
-  {
-    key: EXPLORATION_LISTS.INTERACTIONS,
-    label: 'Interactions',
-    component: Interactions,
-  },
+  // {
+  //   key: EXPLORATION_LISTS.INTERACTIONS,
+  //   label: 'Interactions',
+  //   component: Interactions,
+  // },
   {
     key: EXPLORATION_LISTS.CORRELATIONS,
     label: 'Correlations',
     component: Correlations,
   },
-  {
-    key: EXPLORATION_LISTS.MISSING_VALUES,
-    label: 'Missing Values',
-    component: MissingValues,
-  },
+  // {
+  //   key: EXPLORATION_LISTS.MISSING_VALUES,
+  //   label: 'Missing Values',
+  //   component: MissingValues,
+  // },
   // {
   //   key: EXPLORATION_LISTS.DUPLICATE_ROWS,
   //   label: 'Duplicate Rows',

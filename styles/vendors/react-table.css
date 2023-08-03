@@ -9,4 +9,8 @@
   & [data-table-library_td] {
     @apply border-b border-r border-gray-300 px-[15px] py-[11px] text-base font-normal text-gray-600;
   }
+
+  & .pin-left {
+    @apply !left-0;
+  }
 }

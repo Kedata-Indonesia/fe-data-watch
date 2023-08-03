@@ -52,7 +52,7 @@ const Pagination = ({ current = 1, maxPage, minPage = 1, onChange = current => {
               {page}
             </Button>
           ) : (
-            <div>...</div>
+            <div key={`pagination${page}${idx}`}>...</div>
           )}
         </>
       ))}

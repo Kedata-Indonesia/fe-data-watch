@@ -2,7 +2,7 @@ import { CompactTable } from '@table-library/react-table-library/compact';
 import { useTheme } from '@table-library/react-table-library/theme';
 import { getTheme } from '@table-library/react-table-library/baseline';
 
-const Table = ({ columns = [], data = [], loading }) => {
+const Table = ({ columns = [], data = [], loading = false }) => {
   const tableData = { nodes: data };
 
   const theme = useTheme([
@@ -12,6 +12,9 @@ const Table = ({ columns = [], data = [], loading }) => {
       Row: `
         & [data-table-library_td] {
           min-width: 150px;
+        }
+        &:nth-child(odd) {
+          background-color: #F5F6FA;
         }
       `,
     },
