@@ -1,7 +1,7 @@
 import ReactECharts from 'echarts-for-react/lib/core';
 import * as echarts from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
-import { LineChart, HeatmapChart } from 'echarts/charts';
+import { LineChart, HeatmapChart, BarChart } from 'echarts/charts';
 import {
   GridSimpleComponent,
   GridComponent,
@@ -14,6 +14,7 @@ import {
 } from 'echarts/components';
 
 echarts.use([
+  BarChart,
   LineChart,
   HeatmapChart,
   GridSimpleComponent,
@@ -28,6 +29,13 @@ echarts.use([
 ]);
 
 const Chart = ({ options, height = '500px' }) => {
+  if (!options) {
+    return (
+      <div className="w-full h-[500px] flex items-center justify-center">
+        <h1 className="text-gray-400 italic">No Chart</h1>
+      </div>
+    );
+  }
   return (
     <ReactECharts
       echarts={echarts}
