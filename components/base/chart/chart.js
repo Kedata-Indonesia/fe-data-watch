@@ -12,6 +12,8 @@ import {
   LegendPlainComponent,
   VisualMapComponent,
 } from 'echarts/components';
+import 'echarts-wordcloud';
+import React from 'react';
 
 echarts.use([
   BarChart,
@@ -48,4 +50,4 @@ const Chart = ({ options, height = '500px' }) => {
   );
 };
 
-export default Chart;
+export default React.memo(Chart);
