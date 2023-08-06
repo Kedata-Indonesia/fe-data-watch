@@ -4,9 +4,15 @@ import { useEffect, useRef, useState } from 'react';
 /**
  * @param {object} props
  * @param {string} props.menuElements
+ * @param {string} props.defaultActive
+ * @param {React.MutableRefObject<null>} props.customContainerRef
  * @returns {{active: string, containerRef: React.MutableRefObject<null>}}
  */
-const useWatchScroll = ({ menuElements = 'body', defaultActive = null }) => {
+const useWatchScroll = ({
+  menuElements = 'body',
+  defaultActive = null,
+  customContainerRef = null,
+}) => {
   const containerRef = useRef(null);
   const [active, setActive] = useState(defaultActive);
 
@@ -42,7 +48,7 @@ const useWatchScroll = ({ menuElements = 'body', defaultActive = null }) => {
   }, 200);
 
   useEffect(() => {
-    const container = containerRef.current;
+    const container = customContainerRef ? customContainerRef.current : containerRef.current;
     container.addEventListener('scroll', scrollHandler);
 
     scrollHandler();

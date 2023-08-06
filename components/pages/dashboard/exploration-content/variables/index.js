@@ -28,7 +28,7 @@ const Chart = dynamic(() => import('@/components/base/chart').then(val => val.Ch
 const Variables = ({ id, title, data }) => {
   const { control, setValue, watch } = useForm({
     defaultValues: {
-      variables: 'sepal_length',
+      variables: '',
     },
   });
 
@@ -84,6 +84,10 @@ const Variables = ({ id, title, data }) => {
     return DETAILS_COMPONENTS[activeTab];
   }, [activeTab]);
 
+  const detailComponentData = useMemo(() => {
+    return variable?.details?.[activeTab] ?? null;
+  }, [variable, activeTab]);
+
   const chartOptions = useMemo(() => {
     const variableType = variable?.tags?.type;
     const dataKey = variableChartKeys[variableType];
@@ -137,7 +141,7 @@ const Variables = ({ id, title, data }) => {
             </Button>
           </div>
         ) : (
-          <div>
+          <div className="w-full">
             <div className="flex items-center justify-between mb-6">
               <Tabs
                 items={availableVariable?.map(({ key, label }) => ({ key, label }))}
@@ -154,7 +158,7 @@ const Variables = ({ id, title, data }) => {
                 Close
               </Button>
             </div>
-            <DetailsComponent data={variable?.details[activeTab]} />
+            <DetailsComponent data={detailComponentData} />
           </div>
         )}
       </div>

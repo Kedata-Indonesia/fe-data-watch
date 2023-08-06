@@ -99,8 +99,12 @@ const variableChartOptions = {
       };
       draft.series = [
         {
+          keepAspect: true,
           top: null,
           bottom: null,
+          width: '100%',
+          height: '100%',
+          left: null,
           type: 'wordCloud',
           shape: 'square',
           sizeRange: [12, 80],
