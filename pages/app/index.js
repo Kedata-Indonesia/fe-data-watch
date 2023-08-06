@@ -61,8 +61,6 @@ const DashboardPage = params => {
     );
   };
 
-  console.log('rendered');
-
   if (!sessionId && !isUploadMode) {
     return (
       <FileDropzone

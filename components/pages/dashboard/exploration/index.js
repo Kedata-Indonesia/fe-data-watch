@@ -1,12 +1,10 @@
-import EXPLORATION_LISTS from '@/constants/exploration-menus';
+import EXPLORATION_LISTS from '@/constants/exploration-lists';
 import clsx from 'clsx';
 import Overview from '../exploration-content/overview';
 import Link from 'next/link';
 import useWatchScroll from '@/utils/hooks/use-watch-scroll';
 import Variables from '../exploration-content/variables';
-import Interactions from '../exploration-content/interactions';
 import Correlations from '../exploration-content/correlations';
-import MissingValues from '../exploration-content/missing-values';
 import { ExplorationSidebarSkeleton, ExplorationSkeleton } from './exploration-skeleton';
 import useGetAllExploration from '@/services/features/data-watch/hooks/use-get-all-exploration';
 
