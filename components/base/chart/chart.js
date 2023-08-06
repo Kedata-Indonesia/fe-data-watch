@@ -30,6 +30,11 @@ echarts.use([
   CanvasRenderer,
 ]);
 
+/**
+ * @param {object} props
+ * @param {object} props.options
+ * @param {string} props.height
+ */
 const Chart = ({ options, height = '500px' }) => {
   if (!options) {
     return (
