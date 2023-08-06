@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import getAllExploration from '../repositories/get-all-exploration';
+import dataWatchKeys from '../keys';
 
 const useGetAllExploration = () => {
-  const query = useQuery(useGetAllExploration.keys(), () => getAllExploration());
+  const query = useQuery(dataWatchKeys.explorations(), () => getAllExploration());
 
   return query;
 };
-
-useGetAllExploration.keys = () => ['eda', 'explorations'];
 
 export default useGetAllExploration;
