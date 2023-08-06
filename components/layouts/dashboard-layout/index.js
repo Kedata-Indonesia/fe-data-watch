@@ -11,6 +11,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const TAB_MENU = /** @type {const} */ ({
   TABLE: '/app/table',
@@ -84,7 +85,23 @@ const DashboardLayout = ({ children }) => {
                       {},
                       {
                         onSuccess: data => {
-                          console.log(data);
+                          // download file from data
+                          const href = URL.createObjectURL(data);
+
+                          const fileName = fileInfo?.name?.slice(
+                            0,
+                            fileInfo?.name?.lastIndexOf('.')
+                          );
+
+                          const link = document.createElement('a');
+                          link.href = href;
+                          link.download = `${fileName}.dat`;
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                          URL.revokeObjectURL(href);
+
+                          toast.success('File exported successfully');
                         },
                         onError: err => {
                           console.log(err);
