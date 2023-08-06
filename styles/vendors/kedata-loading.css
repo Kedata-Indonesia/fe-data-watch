@@ -1,0 +1,91 @@
+svg.kedata-loading {
+  & .opacity {
+    opacity: 0.1;
+  }
+  & .stepOne,
+  & .stepTwo,
+  & .stepThree,
+  & .stepFour,
+  & .stepFive,
+  & .loading--stepOne,
+  .loading--stepTwo,
+  .loading--stepThree,
+  .loading--stepFour,
+  .loading--stepFive {
+    @apply fill-c-red-600;
+  }
+  & .loading--stepOne {
+    clip-path: inset(100% 0 0 0);
+    animation: loading-up 2s infinite;
+    animation-timing-function: ease-out;
+    position: absolute;
+    z-index: 2;
+  }
+  & .loading--stepTwo {
+    clip-path: inset(100% 0 0 0);
+    animation: loading-down 2s infinite;
+    animation-delay: 0.25s;
+    animation-timing-function: ease-out;
+    position: absolute;
+    z-index: 2;
+  }
+  & .loading--stepThree {
+    clip-path: inset(100% 0 0 0);
+    animation: loading-up 2s infinite;
+    animation-delay: 0.5s;
+    animation-timing-function: ease-out;
+    position: absolute;
+    z-index: 2;
+  }
+  & .loading--stepFour {
+    clip-path: inset(100% 0 0 0);
+    animation: loading-down 2s infinite;
+    animation-delay: 0.75s;
+    animation-timing-function: ease-out;
+    position: absolute;
+    z-index: 2;
+  }
+  & .loading--stepFive {
+    clip-path: inset(100% 0 0 0);
+    animation: loading-down 2s infinite;
+    animation-delay: 0.75s;
+    animation-timing-function: ease-out;
+    position: absolute;
+    z-index: 2;
+  }
+
+  @keyframes loading-up {
+    0% {
+      clip-path: inset(100% 0 0 0);
+    }
+    25% {
+      clip-path: inset(0 0 0 0);
+    }
+    50% {
+      clip-path: inset(0 0 0 0);
+    }
+    75% {
+      clip-path: inset(0 0 0 0);
+    }
+    100% {
+      clip-path: inset(0 0 100% 0);
+    }
+  }
+  @keyframes loading-down {
+    0% {
+      clip-path: inset(0 0 100% 0);
+    }
+    25% {
+      clip-path: inset(0 0 0 0);
+    }
+    50% {
+      clip-path: inset(0 0 0 0);
+    }
+    75% {
+      clip-path: inset(0 0 0 0);
+    }
+    100% {
+      clip-path: inset(100% 0 0 0);
+    }
+  }
+}

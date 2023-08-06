@@ -1,6 +1,6 @@
 import makeArray from '@/utils/make-array';
 import clsx from 'clsx';
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { Button } from '../button';
 import ChevronRightIcon from '@/components/icons/ChevronRightIcon';
 import ChevronLeftIcon from '@/components/icons/ChevronLeftIcon';
@@ -41,20 +41,19 @@ const Pagination = ({ current = 1, maxPage, minPage = 1, onChange = current => {
         <ChevronLeftIcon className={clsx(activePage === minPage && 'text-gray-300')} />
       </button>
       {pages.map((page, idx) => (
-        <>
+        <Fragment key={`pagination-${page}${idx}`}>
           {page > 0 ? (
             <Button
-              key={`pagination${page}${idx}`}
-              className="rounded-md px-3.5 py-2 !text-sm"
+              className="rounded-md px-3.5 py-2 !text-sm transition-colors duration-300"
               type={page === activePage ? 'primary' : 'outline'}
               onClick={() => onChange(page)}
             >
               {page}
             </Button>
           ) : (
-            <div key={`pagination${page}${idx}`}>...</div>
+            <div>...</div>
           )}
-        </>
+        </Fragment>
       ))}
       <button
         onClick={() => {

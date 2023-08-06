@@ -95,8 +95,8 @@ const Overview = ({ id, title, data }) => {
                 className="p-5 flex justify-between items-center border-b border-b-gray-300"
               >
                 <div className="flex gap-2 items-center">
-                  {reactStringReplace(alert, /\[(.*?)\]/g, match => (
-                    <Badge variant="danger" text={match} />
+                  {reactStringReplace(alert, /\[(.*?)\]/g, (match, idx) => (
+                    <Badge variant="danger" key={`${match}${idx}`} text={match} />
                   ))}
                 </div>
               </div>
