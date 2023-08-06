@@ -1,5 +1,6 @@
 import { Button } from '@/components/base/button';
 import DotSeparator from '@/components/base/dot-separator';
+import { KedataLoading } from '@/components/base/kedata-loading';
 import { SpinnerLoading } from '@/components/base/spinner-loading';
 import bytesToSize from '@/utils/byte-convert';
 import timeLeftConvert from '@/utils/time-left-convert';
@@ -10,8 +11,10 @@ const ProgressBar = ({ fileName, fileSize, percentage, timeLeft, onCancel = () =
       <div className="h-full border-[3px] border-dashed border-gray-400">
         {percentage == 100 ? (
           <div className="flex h-full flex-col items-center justify-center">
-            <SpinnerLoading />
-            <p className="mt-5 text-gray-600">Loading data. Please wait ...</p>
+            <div className="w-[200px]">
+              <KedataLoading className="flex justify-center !w-full !h-full text-center mx-auto" />
+            </div>
+            <p className="mt-6 text-gray-600">Loading data. Please wait ...</p>
           </div>
         ) : (
           <div className="flex h-full w-full items-center justify-center">
