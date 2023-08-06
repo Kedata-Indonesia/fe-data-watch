@@ -1,7 +1,6 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import cookieServices from '@/services/browser/cookie';
-import { toast } from 'react-hot-toast';
 
 const dataWatchHttp = (version = 'v1') => {
   const instance = axios.create({
