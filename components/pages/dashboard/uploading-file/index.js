@@ -3,6 +3,8 @@ import DotSeparator from '@/components/base/dot-separator';
 import { KedataLoading } from '@/components/base/kedata-loading';
 import cookieServices from '@/services/browser/cookie';
 import useUploadData from '@/services/features/data-watch/hooks/use-upload-data';
+import dataWatchKeys from '@/services/features/data-watch/keys';
+import { queryClient } from '@/services/libs/react-query';
 import bytesToSize from '@/utils/byte-convert';
 import useAbort from '@/utils/hooks/use-abort';
 import timeLeftConvert from '@/utils/time-left-convert';
@@ -11,10 +13,12 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 /**
- * @param {File} file
- * @param {(message) => {}} onError
+ * @param {object} props
+ * @param {File} props.file
+ * @param {(message) => {}} props.onError
+ * @param {() => {} | null} props.onSuccess
  */
-const UploadingFile = ({ file, onError = () => {} }) => {
+const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
   /**
    * @type {[File, (file: File) => {}]}
    */
@@ -79,8 +83,15 @@ const UploadingFile = ({ file, onError = () => {} }) => {
 
           cookieServices.set('session_id', session_id);
           cookieServices.set('file_info', JSON.stringify(fileInfo));
+
+          queryClient.removeQueries(dataWatchKeys.all);
+
           setTimeout(() => {
-            router.push('/app/exploration');
+            if (onSuccess) {
+              onSuccess({ info: fileInfo, session: session_id });
+            } else {
+              router.push('/app/exploration');
+            }
           }, 500);
         },
         onError: err => errorHandler(err?.message ?? 'Failed to upload file'),

@@ -2,9 +2,13 @@ import { Button } from '@/components/base/button';
 import DotSeparator from '@/components/base/dot-separator';
 import { UploadIcon } from '@/components/icons';
 import TableIcon from '@/components/icons/TableIcon';
+import FileUploadModal from '@/components/pages/dashboard/file-upload-modal';
 import Tabs from '@/components/shared/tabs';
+import cookieServices from '@/services/browser/cookie';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const TAB_MENU = /** @type {const} */ ({
   TABLE: '/app/table',
@@ -14,6 +18,14 @@ const TAB_MENU = /** @type {const} */ ({
 
 const DashboardLayout = ({ children }) => {
   const router = useRouter();
+  const [fileInfo, setFileInfo] = useState(null);
+
+  useEffect(() => {
+    const fileInfoCookies = cookieServices.get('file_info');
+    if (fileInfoCookies) {
+      setFileInfo(JSON.parse(fileInfoCookies));
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-white flex flex-col overflow-hidden">
@@ -32,14 +44,14 @@ const DashboardLayout = ({ children }) => {
             <div className="flex items-center gap-2.5 text-gray-600">
               <TableIcon />
               <div className="flex flex-col">
-                <h3 className="text-xl font-bold">data_tabel</h3>
+                <h3 className="text-xl font-bold">{fileInfo?.name}</h3>
                 <div className="flex items-center gap-1 text-sm text-gray-400">
                   <div>
-                    Type: <span className="font-bold">CSV</span>
+                    Type: <span className="font-bold">{fileInfo?.extention}</span>
                   </div>
                   <DotSeparator />
                   <div>
-                    Size: <span className="font-bold">456KB</span>
+                    Size: <span className="font-bold">{fileInfo?.size}</span>
                   </div>
                 </div>
               </div>
@@ -58,9 +70,14 @@ const DashboardLayout = ({ children }) => {
               />
               <div className="mx-4 h-[42px] w-[1px] bg-gray-300" />
               <div className="relative border-l-gray-300">
-                <Button IconStart={<UploadIcon className="h-5 w-5" />} size="md" className="!px-4">
-                  New File
-                  <input
+                <Link href="?upload_mode=true" as="/app/upload">
+                  <Button
+                    IconStart={<UploadIcon className="h-5 w-5" />}
+                    size="md"
+                    className="!px-4"
+                  >
+                    New File
+                    {/* <input
                     type="file"
                     className="absolute left-0 top-0 h-full w-full opacity-0 "
                     onChange={e => {
@@ -68,14 +85,25 @@ const DashboardLayout = ({ children }) => {
                         onChangeFile(e.target.files[0]);
                       }
                     }}
-                  />
-                </Button>
+                  /> */}
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
           {children}
         </div>
       </div>
+      <FileUploadModal
+        isOpen={router.query.upload_mode === 'true'}
+        onClose={() => {
+          router.push(router.pathname);
+        }}
+        onSuccess={({ info }) => {
+          setFileInfo(info);
+          router.push(router.pathname);
+        }}
+      />
     </div>
   );
 };
