@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import uploadData from '../repositories/upload-data';
+import uploadService from '../repositories/upload-service';
 
 const useUploadData = () => {
-  const mutation = useMutation(uploadData, { retry: false });
+  const mutation = useMutation(uploadService, { retry: false });
 
   return mutation;
 };

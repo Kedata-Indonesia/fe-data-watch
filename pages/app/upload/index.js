@@ -13,7 +13,7 @@ const UploadPage = () => {
         file={file}
         onError={msg => {
           setFile(null);
-          console.log('message', msg);
+          toast.error(msg);
         }}
       />
     );
