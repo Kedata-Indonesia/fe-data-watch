@@ -1,8 +1,8 @@
 import { Button } from '@/components/base/button';
 import { UploadIcon } from '@/components/icons';
+import allowedExtention from '@/utils/allowed-extention';
 import clsx from 'clsx';
-import mime from 'mime';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const FileDropzone = ({ onChange, onError, allowExtention = [] }) => {
   const [isDragActive, setIsDragActive] = useState(false);
@@ -30,8 +30,8 @@ const FileDropzone = ({ onChange, onError, allowExtention = [] }) => {
       onError('File not found');
       return;
     }
-    const ext = mime.getExtension(file.type);
-    if (!allowExtention.length || allowExtention.includes(ext)) {
+    const isAllowed = allowedExtention(file, allowExtention);
+    if (!allowExtention.length || isAllowed) {
       onChange(file);
     } else {
       onError('File extention is not valid');
