@@ -104,7 +104,7 @@ const DashboardLayout = ({ children }) => {
                           toast.success('File exported successfully');
                         },
                         onError: err => {
-                          console.log(err);
+                          toast.error('Failed to export file');
                         },
                       }
                     );
