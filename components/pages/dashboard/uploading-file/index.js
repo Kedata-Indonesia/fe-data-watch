@@ -4,9 +4,12 @@ import { KedataLoading } from '@/components/base/kedata-loading';
 import cookieServices from '@/services/browser/cookie';
 import useUploadData from '@/services/features/data-watch/hooks/use-upload-data';
 import dataWatchKeys from '@/services/features/data-watch/keys';
+import getAllExploration from '@/services/features/data-watch/repositories/get-all-exploration';
+import getAllTable from '@/services/features/data-watch/repositories/get-all-table';
 import { queryClient } from '@/services/libs/react-query';
 import bytesToSize from '@/utils/byte-convert';
 import useAbort from '@/utils/hooks/use-abort';
+import mockRequest from '@/utils/mock-request';
 import timeLeftConvert from '@/utils/time-left-convert';
 import mime from 'mime';
 import { useRouter } from 'next/router';
@@ -19,10 +22,10 @@ import { useEffect, useState } from 'react';
  * @param {() => {} | null} props.onSuccess
  */
 const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
+  const router = useRouter();
   /**
    * @type {[File, (file: File) => {}]}
    */
-  const router = useRouter();
   const [currentFile, setCurrentFile] = useState(null);
   const [signal, signalController] = useAbort();
   const [loadingInfo, setLoadingInfo] = useState({
@@ -30,7 +33,12 @@ const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
     timeLeft: 0,
   });
 
-  const uploadMutation = useUploadData();
+  const uploadMutation = useUploadData(percent => {
+    setLoadingInfo({
+      percentage: percent,
+      timeLeft: 4,
+    });
+  });
 
   useEffect(() => {
     if (file) {
@@ -50,6 +58,9 @@ const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
     setCurrentFile(null);
   };
 
+  /**
+   * @param {File} file
+   */
   const uploadFile = file => {
     signalController.invoke();
 
@@ -58,16 +69,10 @@ const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
         file,
         config: {
           signal: signal(),
-          onUploadProgress: e => {
-            setLoadingInfo({
-              percentage: Math.round((100 * e.loaded) / e.total),
-              timeLeft: e.estimated,
-            });
-          },
         },
       },
       {
-        onSuccess: data => {
+        onSuccess: async data => {
           const { session_id } = data?.payload;
 
           if (!session_id) {
@@ -85,6 +90,17 @@ const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
           cookieServices.set('file_info', JSON.stringify(fileInfo));
 
           queryClient.removeQueries(dataWatchKeys.all);
+
+          try {
+            await Promise.all([
+              queryClient.fetchQuery(dataWatchKeys.explorations(), () => getAllExploration()),
+              queryClient.fetchQuery(dataWatchKeys.tables({ page: 1, columns: [] }), () =>
+                getAllTable({ page: 1, columns: [] })
+              ),
+            ]);
+
+            await mockRequest(1000);
+          } catch (error) {}
 
           setTimeout(() => {
             if (onSuccess) {
