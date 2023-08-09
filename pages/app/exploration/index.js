@@ -8,20 +8,13 @@ import EXPLORATION_LISTS from '@/constants/exploration-lists';
 import useGetAllExploration from '@/services/features/data-watch/hooks/use-get-all-exploration';
 import serverProps from '@/services/servers/server-props';
 import withSession from '@/services/servers/with-session';
-import { useEffect, useRef } from 'react';
-import { toast } from 'react-hot-toast';
+import { useRef } from 'react';
 
 const ExplorationPage = () => {
   const containerRef = useRef(null);
   const explorationsQuery = useGetAllExploration();
   const explorations = explorationsQuery.data?.payload;
   const isLoading = explorationsQuery?.isFetching || !explorationsQuery?.data;
-
-  useEffect(() => {
-    if (explorationsQuery.isError) {
-      toast.error('Failed to fetch explorations');
-    }
-  }, [explorationsQuery]);
 
   return (
     <div className="relative flex h-full">
