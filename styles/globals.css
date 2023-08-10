@@ -5,6 +5,7 @@
 @import './vendors/react-table.css';
 @import './vendors/react-select.css';
 @import './vendors/react-datepicker.css';
+@import './vendors/kedata-loading.css';
 
 @layer base {
   html {

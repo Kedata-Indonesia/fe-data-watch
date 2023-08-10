@@ -26,7 +26,7 @@ const Button = ({
 }) => {
   return (
     <button
-      onClick={onClick}
+      onClick={!isLoading ? onClick : null}
       type="button"
       className={clsx(
         'm-0 mx-auto flex cursor-pointer items-center gap-2.5 rounded md:mx-0 md:text-base',

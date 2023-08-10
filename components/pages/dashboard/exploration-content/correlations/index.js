@@ -51,8 +51,6 @@ const Correlations = ({ id, title, data }) => {
     return rows ?? [];
   }, [data.table]);
 
-  console.log(heatmap);
-
   return (
     <ExplorationSection id={id} title={title}>
       <div className="mt-5 p-5 border border-gray-300 rounded-md overflow-hidden">

@@ -22,7 +22,9 @@ const DataSummaryTable = ({
           className="flex justify-between p-4 border-b border-b-gray-300"
         >
           <p className={clsx('font-bold', labelClassName)}>{item?.label}</p>
-          <span className={valueClassName}>{item.value}</span>
+          <span className={valueClassName}>
+            {item?.render ? item?.render(item?.value) : item?.value}
+          </span>
         </div>
       ))}
     </div>

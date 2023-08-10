@@ -7,28 +7,35 @@ import ExplorationSection from '@/components/shared/exploration-section';
 import Tabs from '@/components/shared/tabs';
 import DataSummaryTable from '@/components/shared/data-summary-table';
 import { omit } from 'lodash/fp';
-import numberFormat from '@/utils/number-format';
-import percentage from '@/utils/percentage';
+import VARIABLE_ITEMS from '@/constants/variables/variable-items';
+import VARIABLE_DETAILS from '@/constants/variables/variable-details';
+import VariableStatistic from './statistic';
+import VariableHistogram from './histogram';
+import VariableCategories from './categories';
+import VariableOverview from './overview';
+import VariableWords from './words';
+import existDetailsVariable from '@/services/features/data-watch/helpers/exist-details-variable';
+import {
+  variableChartKeys,
+  variableChartOptions,
+} from '@/services/features/data-watch/helpers/variable-chart-options';
+import dynamic from 'next/dynamic';
 
-const VARIABLE_ITEMS = /** @type {const} */ ({
-  STATISTIC: 'statistic',
-  HISTOGRAM: 'histogram',
-  COMMON_VALUES: 'common values',
-  EXTREME_VALUES: 'extreme values',
+const Chart = dynamic(() => import('@/components/base/chart').then(val => val.Chart), {
+  ssr: false,
 });
 
 const Variables = ({ id, title, data }) => {
   const { control, setValue, watch } = useForm({
     defaultValues: {
-      variables: 'sepal_length',
+      variables: '',
     },
   });
 
   const variablesWatch = watch('variables');
 
   const [showDetails, setShowDetails] = useState(false);
-  const [activeTab, setActiveTab] = useState(VARIABLE_ITEMS.STATISTIC);
-  // const [currentData, setCurrentData] = useState(null);
+  const [activeTab, setActiveTab] = useState(null);
 
   const variableOptions = useMemo(() => {
     if (!data) return [];
@@ -36,7 +43,6 @@ const Variables = ({ id, title, data }) => {
   }, [data]);
 
   useEffect(() => {
-    if (variableOptions && !variableOptions.length) return;
     setValue('variables', variableOptions[0].value);
   }, [setValue, variableOptions]);
 
@@ -52,6 +58,45 @@ const Variables = ({ id, title, data }) => {
 
     return Object.keys(labels)?.filter(label => labels[label]);
   }, [variable?.tags]);
+
+  const availableVariable = useMemo(() => {
+    const exist = existDetailsVariable[data[variablesWatch]?.tags?.type] ?? {};
+
+    return Object.keys(exist)?.map(key => ({ label: exist[key], key }));
+  }, [data, variablesWatch]);
+
+  const variableStat = useMemo(() => {
+    const items = VARIABLE_ITEMS.filter(item => Object.keys(variable).includes(item.key)).map(
+      item => ({
+        ...item,
+        value: variable[item.key],
+      })
+    );
+
+    if (items?.length >= 7) {
+      const split = Math.round(items.length / 2);
+      return [items.slice(0, split), items.slice(split)];
+    }
+    return [items];
+  }, [variable]);
+
+  const DetailsComponent = useMemo(() => {
+    return DETAILS_COMPONENTS[activeTab];
+  }, [activeTab]);
+
+  const detailComponentData = useMemo(() => {
+    return variable?.details?.[activeTab] ?? null;
+  }, [variable, activeTab]);
+
+  const chartOptions = useMemo(() => {
+    const variableType = variable?.tags?.type;
+    const dataKey = variableChartKeys[variableType];
+    return variableChartOptions[variableType]?.(variable.details[dataKey]);
+  }, [variable]);
+
+  useEffect(() => {
+    setActiveTab(availableVariable[0]?.key);
+  }, [availableVariable]);
 
   return (
     <ExplorationSection
@@ -80,33 +125,14 @@ const Variables = ({ id, title, data }) => {
           ))}
         </div>
         <div className="flex gap-5">
-          <div className="flex flex-grow">
-            <DataSummaryTable
-              rootClassName="rounded-r-none"
-              data={[
-                { label: 'Distinct', value: variable?.n_distinct },
-                { label: 'Distinct Percentage', value: percentage(variable?.p_distinct) },
-                { label: 'Missing', value: variable?.n_missing },
-                { label: 'Missing Percentage', value: percentage(variable?.p_missing) },
-                { label: 'Infinite', value: variable?.n_infinite },
-                { label: 'Infinite Percentage', value: percentage(variable?.p_infinite) },
-                { label: 'Mean', value: variable?.mean },
-              ]}
-            />
-            <DataSummaryTable
-              rootClassName="rounded-l-none"
-              data={[
-                { label: 'Minimum', value: variable?.minimum },
-                { label: 'Maximum', value: variable?.maximum },
-                { label: 'Zeros', value: variable?.n_zeros },
-                { label: 'Zeros Percentage', value: percentage(variable?.p_zeros) },
-                { label: 'Negative', value: variable?.n_negative },
-                { label: 'Negative Percentage', value: percentage(variable?.p_negative) },
-                { label: 'Memory Size', value: variable?.memory_size + ' KiB' },
-              ]}
-            />
+          <div className="flex flex-grow rounded-md overflow-hidden">
+            {variableStat.map((stat, idx) => (
+              <DataSummaryTable key={`stat${idx}`} rootClassName="rounded-none" data={stat} />
+            ))}
           </div>
-          <div className="w-[45%] flex justify-center items-center">chart</div>
+          <div className="w-[45%] flex justify-center items-center">
+            <Chart options={chartOptions} />
+          </div>
         </div>
         {!showDetails ? (
           <div className="w-full flex justify-center">
@@ -115,15 +141,10 @@ const Variables = ({ id, title, data }) => {
             </Button>
           </div>
         ) : (
-          <div>
+          <div className="w-full">
             <div className="flex items-center justify-between mb-6">
               <Tabs
-                items={[
-                  { key: VARIABLE_ITEMS.STATISTIC, label: 'Statistic' },
-                  { key: VARIABLE_ITEMS.HISTOGRAM, label: 'Histogram' },
-                  { key: VARIABLE_ITEMS.COMMON_VALUES, label: 'Common Values' },
-                  { key: VARIABLE_ITEMS.EXTREME_VALUES, label: 'Extreme Values' },
-                ]}
+                items={availableVariable?.map(({ key, label }) => ({ key, label }))}
                 itemClassName="capitalize w-auto p-[10px_32px]"
                 activeItem={activeTab}
                 onChange={item => setActiveTab(item.key)}
@@ -137,49 +158,20 @@ const Variables = ({ id, title, data }) => {
                 Close
               </Button>
             </div>
-            <div className="flex gap-6">
-              <div className="flex-1">
-                <h3 className="uppercase text-gray-400 font-bold py-3 px-4">quantile statistic</h3>
-                <DataSummaryTable
-                  rootClassName="rounded-none"
-                  data={[
-                    { label: 'Minimum', value: '150' },
-                    { label: '5-th Percentile', value: '23' },
-                    { label: 'Q1', value: '3.4' },
-                    { label: 'Median', value: '22' },
-                    { label: 'Q3', value: '5.84' },
-                    { label: '95-th Percentile', value: '5.84' },
-                    { label: 'Maximum', value: '5.84' },
-                    { label: 'Range', value: '5.84' },
-                    { label: 'Interquartile Range', value: '5.84' },
-                  ]}
-                />
-              </div>
-              <div className="flex-1">
-                <h3 className="uppercase text-gray-400 font-bold py-3 px-4">
-                  descriptiove statistic
-                </h3>
-                <DataSummaryTable
-                  rootClassName="rounded-none"
-                  data={[
-                    { label: 'Standard Deviation', value: '150' },
-                    { label: 'Coefficient of Variation (CV)', value: '23' },
-                    { label: 'Kurtosis ', value: '3.4' },
-                    { label: 'Mean', value: '22' },
-                    { label: 'Median Absolute Deviation (MAD)', value: '5.84' },
-                    { label: 'Skewness', value: '5.84' },
-                    { label: 'Sum', value: '5.84' },
-                    { label: 'Variance', value: '5.84' },
-                    { label: 'Monotonicity', value: '333.3' },
-                  ]}
-                />
-              </div>
-            </div>
+            <DetailsComponent data={detailComponentData} />
           </div>
         )}
       </div>
     </ExplorationSection>
   );
+};
+
+const DETAILS_COMPONENTS = {
+  [VARIABLE_DETAILS.STATISTIC]: VariableStatistic,
+  [VARIABLE_DETAILS.HISTOGRAM]: VariableHistogram,
+  [VARIABLE_DETAILS.CATEGORIES]: VariableCategories,
+  [VARIABLE_DETAILS.OVERVIEW]: VariableOverview,
+  [VARIABLE_DETAILS.WORDS]: VariableWords,
 };
 
 export default Variables;

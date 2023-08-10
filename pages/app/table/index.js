@@ -6,14 +6,17 @@ import { Table } from '@/components/base/table';
 import { TextField } from '@/components/base/text-field';
 import SearchIcon from '@/components/icons/SearchIcon';
 import SettingIcon from '@/components/icons/SettingIcon';
+import { DashboardLayout } from '@/components/layouts';
 import useGetAllTable from '@/services/features/data-watch/hooks/use-get-all-table';
+import serverProps from '@/services/servers/server-props';
+import withSession from '@/services/servers/with-session';
+import usePagination from '@/utils/hooks/use-pagination';
 import clsx from 'clsx';
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-const SourceTable = () => {
-  const [totalPage, setTotalPage] = useState(1);
-  const [page, setPage] = useState(1);
+const TablePage = () => {
+  const pagination = usePagination();
   const [selectedColumns, setSelectedColumns] = useState([]);
   const { control, watch, handleSubmit } = useForm({
     defaultValues: {
@@ -24,13 +27,13 @@ const SourceTable = () => {
 
   const search = watch('search');
 
-  const tableQuery = useGetAllTable({ params: { page, columns: selectedColumns } });
+  const tableQuery = useGetAllTable({ page: pagination.page, columns: selectedColumns });
   const table = tableQuery?.data?.payload;
 
   useEffect(() => {
     if (!table) return;
-    setTotalPage(table?.pagination?.total_pages);
-  }, [table]);
+    pagination.setTotalPage(table?.pagination?.total_pages);
+  }, [pagination, table]);
 
   const columnsTable = useMemo(() => {
     return table?.columns?.map(column => ({
@@ -57,7 +60,7 @@ const SourceTable = () => {
   return (
     <div className="relative flex h-full flex-col items-start bg-gray-100">
       <div className="absolute inset-0 bottom-14 overflow-hidden">
-        <Table loading={tableQuery.isFetching} columns={columnsTable} data={table?.rows} />
+        <Table columns={columnsTable} data={table?.rows} />
       </div>
       <div className="absolute bottom-0 z-50 flex w-full justify-between border-t border-t-gray-300 bg-white">
         <div className="flex items-center gap-4 px-4 py-[18px] text-sm font-bold uppercase text-gray-400">
@@ -115,6 +118,9 @@ const SourceTable = () => {
                     className="px-3"
                     onClick={handleSubmit(data => {
                       const columnsFilter = Object.values(data.columns)?.filter(column => !!column);
+                      pagination.toPage(1);
+                      console.log(columnsFilter);
+                      // return;
                       setSelectedColumns(columnsFilter);
                       setOpen(false);
                     })}
@@ -130,10 +136,10 @@ const SourceTable = () => {
           <p>{table?.total_data_types} Data Types</p>
         </div>
         <Pagination
-          current={page}
-          maxPage={totalPage}
+          current={pagination.page}
+          maxPage={pagination.totalPage}
           onChange={curr => {
-            setPage(curr);
+            pagination.toPage(curr);
           }}
         />
       </div>
@@ -141,4 +147,8 @@ const SourceTable = () => {
   );
 };
 
-export default SourceTable;
+TablePage.getLayout = page => <DashboardLayout>{page}</DashboardLayout>;
+
+export const getServerSideProps = serverProps(withSession());
+
+export default TablePage;
