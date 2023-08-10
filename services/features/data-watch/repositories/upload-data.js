@@ -13,6 +13,7 @@ const uploadData = async dto => {
   data.append('end_chunk', dto.end);
   data.append('size', dto.originFile.size);
   data.append('total_completed', dto.completed);
+  data.append('original_filename', dto.originFile.name);
 
   console.log({
     file: dto.file,
