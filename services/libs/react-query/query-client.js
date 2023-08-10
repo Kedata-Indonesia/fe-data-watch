@@ -17,12 +17,14 @@ const queryClient = new QueryClient({
       retry: 3,
       retryDelay: 1000,
       networkMode: 'always',
+      useErrorBoundary: false,
     },
     mutations: {
       cacheTime: Infinity,
       networkMode: 'always',
       retry: 2,
       retryDelay: 1000,
+      useErrorBoundary: false,
     },
   },
 });
