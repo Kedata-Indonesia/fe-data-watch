@@ -12,12 +12,14 @@ const uploadData = async dto => {
   data.append('start_chunk', dto.start);
   data.append('end_chunk', dto.end);
   data.append('size', dto.originFile.size);
+  data.append('total_completed', dto.completed);
 
   console.log({
     file: dto.file,
     start_chunk: dto.start,
     end_chunk: dto.end,
     size: dto.originFile.size,
+    total_completed: dto.completed,
   });
 
   try {

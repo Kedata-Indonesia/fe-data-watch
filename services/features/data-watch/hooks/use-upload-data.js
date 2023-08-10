@@ -19,6 +19,7 @@ const useUploadData = (cb = percent => {}) => {
         const res = await uploadService({
           originFile: file,
           file: chunkFile,
+          completed: totalCompleted,
           start,
           end,
           config: {
