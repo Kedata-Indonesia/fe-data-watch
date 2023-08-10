@@ -8,7 +8,7 @@ import FileUploadModal from '@/components/pages/dashboard/file-upload-modal';
 import Tabs from '@/components/shared/tabs';
 import cookieServices from '@/services/browser/cookie';
 import useExportData from '@/services/features/data-watch/hooks/use-export-data';
-import useProfile from '@/services/features/sso/hooks/use-profile';
+import useProfile from '@/services/features/auth/hooks/use-profile';
 import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';

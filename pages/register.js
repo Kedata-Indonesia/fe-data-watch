@@ -5,7 +5,7 @@ import { TextField } from '@/components/base/text-field';
 import { Button } from '@/components/base/button';
 import { EyeIcon } from '@/components/icons';
 import { NextSeo } from 'next-seo';
-import useRegisterUser from '@/services/features/sso/hooks/use-register-user';
+import useRegisterUser from '@/services/features/auth/hooks/use-register-user';
 import { useMemo } from 'react';
 import { Select } from '@/components/base/select';
 import DatePicker from '@/components/base/date-picker';
