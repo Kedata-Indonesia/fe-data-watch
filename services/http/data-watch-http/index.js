@@ -1,6 +1,7 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import cookieServices from '@/services/browser/cookie';
+import { ACCESS_TOKEN_KEY } from '@/constants/cookie-keys';
 
 const dataWatchHttp = (version = 'v1') => {
   const instance = axios.create({
@@ -16,9 +17,14 @@ const dataWatchHttp = (version = 'v1') => {
 
   instance.interceptors.request.use(config => {
     const sessionId = cookieServices.get('session_id');
+    const accessToken = cookieServices.get(ACCESS_TOKEN_KEY);
 
     if (!!sessionId) {
       config.headers['session-id'] = sessionId;
+    }
+
+    if (!!accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
     return config;

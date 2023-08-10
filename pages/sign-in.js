@@ -5,6 +5,8 @@ import { TextField } from '@/components/base/text-field';
 import { Button } from '@/components/base/button';
 import { EyeIcon } from '@/components/icons';
 import { NextSeo } from 'next-seo';
+import { useEffect } from 'react';
+import useRequestLogin from '@/services/features/sso/hooks/use-request-login';
 
 export default function SignIn() {
   const { control, handleSubmit } = useForm({
@@ -13,6 +15,16 @@ export default function SignIn() {
       password: '',
     },
   });
+
+  const requestLoginQuery = useRequestLogin();
+  const loginUrl = requestLoginQuery.data?.payload?.login_url;
+
+  useEffect(() => {
+    if (loginUrl) {
+      window.location.href = loginUrl;
+    }
+  }, [loginUrl]);
+
   return (
     <AuthLayout>
       <NextSeo title="Sign In" />
