@@ -1,0 +1,5 @@
+.swal2-container {
+  & .swal2-icon {
+    @apply !border-0 !border-none;
+  }
+}
