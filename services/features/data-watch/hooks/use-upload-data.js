@@ -14,13 +14,13 @@ const useUploadData = (cb = percent => {}) => {
 
         const chunkFile = new Blob([currentChunk], { type: file.type });
 
-        console.log(chunkFile);
-
         totalCompleted += chunkFile.size;
 
         const res = await uploadService({
           originFile: file,
           file: chunkFile,
+          start,
+          end,
           config: {
             signal: config.signal,
             onUploadProgress: event => {
