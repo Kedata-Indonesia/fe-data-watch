@@ -16,6 +16,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useModal from '@/utils/hooks/use-modal';
+import SubmitFeedbackModal from '@/components/shared/submit-feedback-modal';
 import ChangePasswordModal from '@/components/shared/change-password-modal';
 
 const TAB_MENU = /** @type {const} */ ({
@@ -41,6 +42,7 @@ const DashboardLayout = ({ children }) => {
   const exportMutation = useExportData();
 
   const changePasswordModal = useModal();
+  const submitFeedbackModal = useModal();
 
   return (
     <div className="min-h-screen bg-white flex flex-col overflow-hidden">
@@ -48,6 +50,10 @@ const DashboardLayout = ({ children }) => {
         <ChangePasswordModal
           isOpen={changePasswordModal.isOpen}
           onClose={changePasswordModal.close}
+        />
+        <SubmitFeedbackModal
+          isOpen={submitFeedbackModal.isOpen}
+          onClose={submitFeedbackModal.close}
         />
         <Image
           src="/logo-bw.svg"
@@ -85,6 +91,9 @@ const DashboardLayout = ({ children }) => {
                     break;
                   case 'change-password':
                     changePasswordModal.open();
+                    break;
+                  case 'feedback':
+                    submitFeedbackModal.open();
                     break;
                 }
               }}
