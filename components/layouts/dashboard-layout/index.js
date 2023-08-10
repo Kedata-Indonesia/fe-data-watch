@@ -15,6 +15,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import useModal from '@/utils/hooks/use-modal';
+import ChangePasswordModal from '@/components/shared/change-password-modal';
 
 const TAB_MENU = /** @type {const} */ ({
   TABLE: '/app/table',
@@ -38,9 +40,15 @@ const DashboardLayout = ({ children }) => {
 
   const exportMutation = useExportData();
 
+  const changePasswordModal = useModal();
+
   return (
     <div className="min-h-screen bg-white flex flex-col overflow-hidden">
       <div className="px-5 py-4 bg-[#27272A] flex justify-between items-center">
+        <ChangePasswordModal
+          isOpen={changePasswordModal.isOpen}
+          onClose={changePasswordModal.close}
+        />
         <Image
           src="/logo-bw.svg"
           width={110}
@@ -74,6 +82,9 @@ const DashboardLayout = ({ children }) => {
                     router.push('/');
                     cookieServices.remove('session_id');
                     cookieServices.remove(ACCESS_TOKEN_KEY);
+                    break;
+                  case 'change-password':
+                    changePasswordModal.open();
                     break;
                 }
               }}
