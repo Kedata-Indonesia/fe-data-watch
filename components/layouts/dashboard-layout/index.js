@@ -1,5 +1,6 @@
 import { Button } from '@/components/base/button';
 import DotSeparator from '@/components/base/dot-separator';
+import { DropdownMenu } from '@/components/base/dropdown-menu';
 import { UploadIcon } from '@/components/icons';
 import ExportIcon from '@/components/icons/ExportIcon';
 import TableIcon from '@/components/icons/TableIcon';
@@ -7,6 +8,8 @@ import FileUploadModal from '@/components/pages/dashboard/file-upload-modal';
 import Tabs from '@/components/shared/tabs';
 import cookieServices from '@/services/browser/cookie';
 import useExportData from '@/services/features/data-watch/hooks/use-export-data';
+import useProfile from '@/services/features/sso/hooks/use-profile';
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -22,6 +25,9 @@ const TAB_MENU = /** @type {const} */ ({
 const DashboardLayout = ({ children }) => {
   const router = useRouter();
   const [fileInfo, setFileInfo] = useState(null);
+  const profileQuery = useProfile();
+  const profile = profileQuery?.data?.payload;
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const fileInfoCookies = cookieServices.get('file_info');
@@ -34,7 +40,7 @@ const DashboardLayout = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-white flex flex-col overflow-hidden">
-      <div className="px-5 py-4 bg-[#27272A]">
+      <div className="px-5 py-4 bg-[#27272A] flex justify-between items-center">
         <Image
           src="/logo-bw.svg"
           width={110}
@@ -42,6 +48,40 @@ const DashboardLayout = ({ children }) => {
           alt="logo kalkula"
           className="hidden lg:block"
         />
+        {profile && (
+          <div>
+            <DropdownMenu
+              options={[
+                {
+                  label: 'Change Password',
+                  value: 'change-password',
+                },
+                {
+                  label: 'Feedback',
+                  value: 'feedback',
+                },
+                {
+                  label: 'Logout',
+                  value: 'logout',
+                  className: 'text-red-500',
+                },
+              ]}
+              onChange={data => {
+                const { value } = data;
+                switch (value) {
+                  case 'logout':
+                    queryClient.clear();
+                    router.push('/');
+                    cookieServices.remove('session_id');
+                    cookieServices.remove(ACCESS_TOKEN_KEY);
+                    break;
+                }
+              }}
+            >
+              <span className="text-white">Hello, {profile.full_name}</span>
+            </DropdownMenu>
+          </div>
+        )}
       </div>
       <div className="relative top-0 h-full w-full flex-1">
         <div className="absolute inset-0 mb-auto flex w-full flex-col">
