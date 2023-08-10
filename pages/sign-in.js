@@ -1,10 +1,3 @@
-import Link from 'next/link';
-import { AuthLayout } from '@/components/layouts';
-import { useForm } from 'react-hook-form';
-import { TextField } from '@/components/base/text-field';
-import { Button } from '@/components/base/button';
-import { EyeIcon } from '@/components/icons';
-import { NextSeo } from 'next-seo';
 import { useEffect } from 'react';
 import useRequestLogin from '@/services/features/auth/hooks/use-request-login';
 import Loading from '@/components/base/loading/loading';
