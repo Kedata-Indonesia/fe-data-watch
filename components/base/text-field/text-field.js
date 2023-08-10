@@ -67,7 +67,7 @@ const TextField = ({
         <EndIcon error={error} />
         {label && (
           <div className="flex justify-between mb-2">
-            <div className="font-bold uppercase">{label}</div>
+            <div className="font-bold capitalize">{label}</div>
             {type === 'password' && isForgetPassword && (
               <div className="text-sm text-c-red-200 hover:text-c-red-600">
                 <Link href="/forget-password">Forget Password?</Link>
