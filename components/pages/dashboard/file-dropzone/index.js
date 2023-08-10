@@ -1,3 +1,4 @@
+import { Alert } from '@/components/base/alert';
 import { Button } from '@/components/base/button';
 import { UploadIcon } from '@/components/icons';
 import allowedExtention from '@/utils/allowed-extention';
@@ -60,6 +61,20 @@ const FileDropzone = ({ onChange, onError, allowExtention = [] }) => {
             <h6 className="mb-2.5 text-2xl font-bold text-gray-600">
               Start your journey on data quality by uploading your file
             </h6>
+            <Button
+              size="md"
+              className="mb-2.5 px-12"
+              onClick={() => {
+                Alert.error({
+                  title: 'Error',
+                  text: 'Error',
+                }).then(res => {
+                  console.log(res);
+                });
+              }}
+            >
+              tes swal
+            </Button>
             <p className="mb-11 text-gray-600">
               Drag and Drop or choose your file with format csv, txt or excel. Your uploaded files
               will not be saved on our platform, ensuring the confidentiality of your data
