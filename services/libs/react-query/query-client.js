@@ -1,11 +1,14 @@
+import { Alert } from '@/components/base/alert';
 import { QueryCache, QueryClient } from '@tanstack/react-query';
-import { toast } from 'react-hot-toast';
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
     onError: (error, query) => {
       if (query) {
-        toast.error(error?.response?.data?.message ?? 'Something went wrong');
+        Alert.error({
+          title: 'Error',
+          text: 'Your session may expired' ?? 'Something went wrong',
+        });
       }
     },
   }),
@@ -14,7 +17,7 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       staleTime: Infinity,
       cacheTime: Infinity,
-      retry: 3,
+      retry: 2,
       retryDelay: 1000,
       networkMode: 'always',
       useErrorBoundary: false,

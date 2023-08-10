@@ -9,6 +9,7 @@ import SettingIcon from '@/components/icons/SettingIcon';
 import { DashboardLayout } from '@/components/layouts';
 import useGetAllTable from '@/services/features/data-watch/hooks/use-get-all-table';
 import serverProps from '@/services/servers/server-props';
+import withAuth from '@/services/servers/with-auth';
 import withSession from '@/services/servers/with-session';
 import usePagination from '@/utils/hooks/use-pagination';
 import clsx from 'clsx';
@@ -149,6 +150,6 @@ const TablePage = () => {
 
 TablePage.getLayout = page => <DashboardLayout>{page}</DashboardLayout>;
 
-export const getServerSideProps = serverProps(withSession());
+export const getServerSideProps = serverProps(withAuth(), withSession());
 
 export default TablePage;

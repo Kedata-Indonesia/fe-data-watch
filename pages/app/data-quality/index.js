@@ -1,4 +1,7 @@
 import { DashboardLayout } from '@/components/layouts';
+import serverProps from '@/services/servers/server-props';
+import withAuth from '@/services/servers/with-auth';
+import withSession from '@/services/servers/with-session';
 
 const DataQualityPage = () => {
   return (
@@ -11,5 +14,7 @@ const DataQualityPage = () => {
 };
 
 DataQualityPage.getLayout = page => <DashboardLayout>{page}</DashboardLayout>;
+
+export const getServerSideProps = serverProps(withAuth(), withSession());
 
 export default DataQualityPage;
