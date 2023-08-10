@@ -68,6 +68,8 @@ const FileDropzone = ({ onChange, onError, allowExtention = [] }) => {
                 Alert.error({
                   title: 'Error',
                   text: 'Error',
+                }).then(res => {
+                  console.log(res);
                 });
               }}
             >

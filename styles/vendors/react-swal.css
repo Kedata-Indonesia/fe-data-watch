@@ -1,5 +1,28 @@
 .swal2-container {
-  & .swal2-icon {
-    @apply !border-0 !border-none;
+  & .swal2-popup.swal2-modal {
+    @apply p-10;
+
+    & .swal2-title,
+    .swal2-html-container {
+      @apply !p-0 !m-0;
+    }
+
+    & .swal2-title {
+      @apply !mb-2;
+    }
+
+    & .swal2-icon {
+      @apply !border-0 !border-none mb-8;
+    }
+  }
+  & .swal2-icon-error {
+    & .swal2-title {
+      @apply !text-c-red-600;
+    }
+  }
+  & .swal2-icon-success {
+    & .swal2-title {
+      @apply !text-green-500;
+    }
   }
 }
