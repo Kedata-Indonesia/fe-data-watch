@@ -1,6 +1,7 @@
 import { Button } from '@/components/base/button';
 import DotSeparator from '@/components/base/dot-separator';
 import { KedataLoading } from '@/components/base/kedata-loading';
+import { CURRENT_FILE_KEY, SESSION_ID_KEY } from '@/constants/cookie-keys';
 import cookieServices from '@/services/browser/cookie';
 import useUploadData from '@/services/features/data-watch/hooks/use-upload-data';
 import dataWatchKeys from '@/services/features/data-watch/keys';
@@ -86,8 +87,8 @@ const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
             extention: mime.getExtension(file.type),
           };
 
-          cookieServices.set('session_id', session_id);
-          cookieServices.set('file_info', JSON.stringify(fileInfo));
+          cookieServices.set(SESSION_ID_KEY, session_id);
+          cookieServices.set(CURRENT_FILE_KEY, JSON.stringify(fileInfo));
 
           queryClient.removeQueries(dataWatchKeys.all);
 

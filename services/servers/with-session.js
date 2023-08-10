@@ -1,9 +1,13 @@
+import { SESSION_ID_KEY } from '@/constants/cookie-keys';
+
 /**
  * @returns {import('next').GetServerSideProps}
  */
 const withSession = () => {
   return ctx => {
-    const { session_id } = ctx.req.cookies;
+    const cookies = ctx.req.cookies;
+
+    const session_id = cookies?.[SESSION_ID_KEY] ?? null;
 
     if (!session_id) {
       ctx.res.redirect = {
@@ -12,7 +16,7 @@ const withSession = () => {
       return;
     }
     ctx.res.props = {
-      sessionId: session_id ?? null,
+      sessionId: session_id,
     };
   };
 };

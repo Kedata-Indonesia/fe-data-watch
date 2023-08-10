@@ -18,6 +18,7 @@ import { toast } from 'react-hot-toast';
 import useModal from '@/utils/hooks/use-modal';
 import SubmitFeedbackModal from '@/components/shared/submit-feedback-modal';
 import ChangePasswordModal from '@/components/shared/change-password-modal';
+import { CURRENT_FILE_KEY, SESSION_ID_KEY } from '@/constants/cookie-keys';
 
 const TAB_MENU = /** @type {const} */ ({
   TABLE: '/app/table',
@@ -33,7 +34,7 @@ const DashboardLayout = ({ children }) => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    const fileInfoCookies = cookieServices.get('file_info');
+    const fileInfoCookies = cookieServices.get(CURRENT_FILE_KEY);
     if (fileInfoCookies) {
       setFileInfo(JSON.parse(fileInfoCookies));
     }
@@ -86,7 +87,7 @@ const DashboardLayout = ({ children }) => {
                   case 'logout':
                     queryClient.clear();
                     router.push('/');
-                    cookieServices.remove('session_id');
+                    cookieServices.remove(SESSION_ID_KEY);
                     cookieServices.remove(ACCESS_TOKEN_KEY);
                     break;
                   case 'change-password':
