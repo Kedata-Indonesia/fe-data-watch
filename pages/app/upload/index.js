@@ -1,6 +1,8 @@
 import FileDropzone from '@/components/pages/dashboard/file-dropzone';
 import UploadingFile from '@/components/pages/dashboard/uploading-file';
 import ALLOWED_EXTENTION from '@/constants/allowed-extention';
+import serverProps from '@/services/servers/server-props';
+import withAuth from '@/services/servers/with-auth';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -31,5 +33,7 @@ const UploadPage = () => {
     />
   );
 };
+
+export const getServerSideProps = serverProps(withAuth());
 
 export default UploadPage;

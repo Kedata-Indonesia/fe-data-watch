@@ -7,6 +7,7 @@ import ExplorationSidebar from '@/components/pages/dashboard/exploration-sidebar
 import EXPLORATION_LISTS from '@/constants/exploration-lists';
 import useGetAllExploration from '@/services/features/data-watch/hooks/use-get-all-exploration';
 import serverProps from '@/services/servers/server-props';
+import withAuth from '@/services/servers/with-auth';
 import withSession from '@/services/servers/with-session';
 import { useRef } from 'react';
 
@@ -65,7 +66,7 @@ const explorationMenuItems = [
   },
 ];
 
-export const getServerSideProps = serverProps(withSession());
+export const getServerSideProps = serverProps(withAuth(), withSession());
 
 ExplorationPage.getLayout = page => <DashboardLayout>{page}</DashboardLayout>;
 

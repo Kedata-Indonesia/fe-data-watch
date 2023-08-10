@@ -24,18 +24,20 @@ const useUploadData = (cb = percent => {}) => {
           end,
           config: {
             signal: config.signal,
-            onUploadProgress: event => {
-              let percent = 0;
+            // onUploadProgress: event => {
+            //   let percent = 0;
 
-              if (fileSize < CHUNK_SIZE) {
-                percent = Math.round((event.loaded / event.total) * 100);
-              } else {
-                percent = Math.round((totalCompleted / fileSize) * 100);
-              }
-              cb(percent);
-            },
+            //   if (fileSize < CHUNK_SIZE) {
+            //     percent = Math.round((event.loaded / event.total) * 100);
+            //   } else {
+            //     percent = Math.round((totalCompleted / fileSize) * 100);
+            //   }
+            //   cb(percent);
+            // },
           },
         });
+
+        cb(res?.payload?.upload_progress);
 
         if (end < file.size) {
           return uploadFile(end, end + CHUNK_SIZE);
