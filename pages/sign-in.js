@@ -6,7 +6,7 @@ import { Button } from '@/components/base/button';
 import { EyeIcon } from '@/components/icons';
 import { NextSeo } from 'next-seo';
 import { useEffect } from 'react';
-import useRequestLogin from '@/services/features/sso/hooks/use-request-login';
+import useRequestLogin from '@/services/features/auth/hooks/use-request-login';
 
 export default function SignIn() {
   const { control, handleSubmit } = useForm({
