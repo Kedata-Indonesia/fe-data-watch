@@ -149,6 +149,13 @@ const Register = props => {
                       text: 'Please check your email to verify your account',
                     });
                   },
+                  onError: error => {
+                    console.error(error);
+                    Alert.error({
+                      title: 'Registration failed',
+                      text: 'Please try again later',
+                    });
+                  },
                 }
               );
             })}

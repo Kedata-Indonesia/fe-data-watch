@@ -47,6 +47,13 @@ const SubmitFeedbackModal = props => {
                     });
                     onClose();
                   },
+                  onError: error => {
+                    console.error(error);
+                    Alert.error({
+                      title: 'Failed to submit feedback',
+                      text: 'Please try again later.',
+                    });
+                  },
                 }
               );
             })}
