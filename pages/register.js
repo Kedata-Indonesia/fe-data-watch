@@ -11,6 +11,7 @@ import { Select } from '@/components/base/select';
 import DatePicker from '@/components/base/date-picker';
 import axios from 'axios';
 import dayjs from 'dayjs';
+import { Alert } from '@/components/base/alert';
 
 const Register = props => {
   const { control, handleSubmit, watch } = useForm({
@@ -131,16 +132,25 @@ const Register = props => {
             size="md"
             isLoading={registerMutation.isLoading}
             onClick={handleSubmit(form => {
-              // TODO: Add alert success
-              registerMutation.mutateAsync({
-                email: form.email,
-                password: form.password,
-                fullName: form.fullName,
-                organization: form.organization,
-                dateOfBirth: dayjs(form.dateOfBirth).format('YYYYMMDD'),
-                country: form.country,
-                confirmationPassword: form.confirmPassword,
-              });
+              registerMutation.mutateAsync(
+                {
+                  email: form.email,
+                  password: form.password,
+                  fullName: form.fullName,
+                  organization: form.organization,
+                  dateOfBirth: dayjs(form.dateOfBirth).format('YYYYMMDD'),
+                  country: form.country,
+                  confirmationPassword: form.confirmPassword,
+                },
+                {
+                  onSuccess: () => {
+                    Alert.success({
+                      title: 'Thank you for registering',
+                      text: 'Please check your email to verify your account',
+                    });
+                  },
+                }
+              );
             })}
           >
             Register
