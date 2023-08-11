@@ -1,3 +1,4 @@
+import { Alert } from '@/components/base/alert';
 import { Button } from '@/components/base/button';
 import { Modal } from '@/components/base/modal';
 import { TextField } from '@/components/base/text-field';
@@ -43,6 +44,10 @@ const ChangePasswordModal = props => {
                 {
                   onSuccess: () => {
                     onClose();
+                    Alert.success({
+                      title: 'Well Done!',
+                      text: 'Password has been succesfully changed.',
+                    });
                   },
                   onError: () => {
                     setError('currentPassword', {
