@@ -1,3 +1,4 @@
+import { Alert } from '@/components/base/alert';
 import { Button } from '@/components/base/button';
 import { Modal } from '@/components/base/modal';
 import { TextArea } from '@/components/base/text-area';
@@ -40,7 +41,18 @@ const SubmitFeedbackModal = props => {
                 },
                 {
                   onSuccess: () => {
+                    Alert.success({
+                      title: 'Thank you for your feedback!',
+                      text: 'Thank you for taking the time to share your feedback with us. We truly appreciate your valuable input and look forward to implementing your suggestions to further enhance our data quality platform.',
+                    });
                     onClose();
+                  },
+                  onError: error => {
+                    console.error(error);
+                    Alert.error({
+                      title: 'Failed to submit feedback',
+                      text: 'Please try again later.',
+                    });
                   },
                 }
               );
