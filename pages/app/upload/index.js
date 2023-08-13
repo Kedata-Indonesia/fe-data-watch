@@ -4,7 +4,7 @@ import ALLOWED_EXTENTION from '@/constants/allowed-extention';
 import serverProps from '@/services/servers/server-props';
 import withAuth from '@/services/servers/with-auth';
 import { useState } from 'react';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 
 const UploadPage = () => {
   const [file, setFile] = useState(null);

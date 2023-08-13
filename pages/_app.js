@@ -7,7 +7,8 @@ import { GoogleAnalytics } from 'nextjs-google-analytics';
 import { DefaultSeo } from 'next-seo';
 import { hotjar } from 'react-hotjar';
 import SEO_CONFIG from '@/next-seo.config';
-import { Toaster } from 'react-hot-toast';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import 'swiper/css';
@@ -28,7 +29,15 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
       </Head> */}
         <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
         {getLayout(<Component {...pageProps} />)}
-        <Toaster containerClassName="react-toast" toastOptions={{ className: 'react-toast-el' }} />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          theme="light"
+          pauseOnHover
+          pauseOnFocusLoss
+          draggable
+          closeOnClick={false}
+        />
         <DefaultSeo {...SEO_CONFIG} />
         <ReactQueryDevtools initialIsOpen={false} />
       </Hydrate>

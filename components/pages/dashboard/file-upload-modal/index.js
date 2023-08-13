@@ -3,7 +3,7 @@ import FileDropzone from '../file-dropzone';
 import ALLOWED_EXTENTION from '@/constants/allowed-extention';
 import { useEffect, useState } from 'react';
 import UploadingFile from '../uploading-file';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import { CloseIcon } from '@/components/icons';
 
 const FileUploadModal = ({ isOpen, onClose, onSuccess }) => {
