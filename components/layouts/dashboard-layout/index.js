@@ -14,11 +14,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import useModal from '@/utils/hooks/use-modal';
 import SubmitFeedbackModal from '@/components/shared/submit-feedback-modal';
 import ChangePasswordModal from '@/components/shared/change-password-modal';
 import { CURRENT_FILE_KEY, SESSION_ID_KEY } from '@/constants/cookie-keys';
+import ExpandLessIcon from '@/components/icons/ExpandLessIcon';
+import clsx from 'clsx';
 
 const TAB_MENU = /** @type {const} */ ({
   TABLE: '/app/table',
@@ -98,9 +100,17 @@ const DashboardLayout = ({ children }) => {
                     break;
                 }
               }}
-            >
-              <span className="text-white">Hello, {profile.full_name}</span>
-            </DropdownMenu>
+              renderChild={({ isOpen, open }) => {
+                return (
+                  <button className="text-white cursor-pointer flex items-center" onClick={open}>
+                    Hello, {profile.full_name}
+                    <ExpandLessIcon
+                      className={clsx('transition-transform ml-1', !isOpen && 'rotate-180')}
+                    />
+                  </button>
+                );
+              }}
+            />
           </div>
         )}
       </div>
@@ -165,7 +175,7 @@ const DashboardLayout = ({ children }) => {
                           toast.success('File exported successfully');
                         },
                         onError: err => {
-                          toast.error('Failed to export file');
+                          toast.error(err?.response?.data?.message ?? 'Failed to export file');
                         },
                       }
                     );

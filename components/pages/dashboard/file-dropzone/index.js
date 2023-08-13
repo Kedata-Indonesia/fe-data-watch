@@ -3,9 +3,10 @@ import { Button } from '@/components/base/button';
 import { UploadIcon } from '@/components/icons';
 import allowedExtention from '@/utils/allowed-extention';
 import clsx from 'clsx';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 const FileDropzone = ({ onChange, onError, allowExtention = [] }) => {
+  const formFileRef = useRef(null);
   const [isDragActive, setIsDragActive] = useState(false);
 
   const handleDrag = useCallback(e => {
@@ -35,6 +36,7 @@ const FileDropzone = ({ onChange, onError, allowExtention = [] }) => {
     if (!allowExtention.length || isAllowed) {
       onChange(file);
     } else {
+      formFileRef.current.value = '';
       onError('File extention is not valid');
     }
   };
@@ -69,6 +71,7 @@ const FileDropzone = ({ onChange, onError, allowExtention = [] }) => {
             <label className="relative">
               <Button size="md" className="px-12">
                 <input
+                  ref={formFileRef}
                   type="file"
                   className="absolute left-0 top-0 h-[56px] w-[192px] opacity-0"
                   onChange={e => {
