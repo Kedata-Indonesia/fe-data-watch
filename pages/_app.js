@@ -8,6 +8,8 @@ import { DefaultSeo } from 'next-seo';
 import { hotjar } from 'react-hotjar';
 import SEO_CONFIG from '@/next-seo.config';
 import { ToastContainer } from 'react-toastify';
+import { Router } from 'next/router';
+import nProgress from 'nprogress';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -19,6 +21,18 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     hotjar.initialize(process.env.NEXT_PUBLIC_HJID, process.env.NEXT_PUBLIC_HJSV);
+  }, []);
+
+  useEffect(() => {
+    Router.events.on('routeChangeStart', nProgress.start);
+    Router.events.on('routeChangeComplete', nProgress.done);
+    Router.events.on('routeChangeError', nProgress.done);
+
+    return () => {
+      Router.events.off('routeChangeStart', nProgress.start);
+      Router.events.off('routeChangeComplete', nProgress.done);
+      Router.events.off('routeChangeError', nProgress.done);
+    };
   }, []);
 
   return (
