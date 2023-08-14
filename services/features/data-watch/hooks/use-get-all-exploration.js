@@ -3,7 +3,9 @@ import getAllExploration from '../repositories/get-all-exploration';
 import dataWatchKeys from '../keys';
 
 const useGetAllExploration = () => {
-  const query = useQuery(dataWatchKeys.explorations(), () => getAllExploration());
+  const query = useQuery(dataWatchKeys.explorations(), ({ signal }) =>
+    getAllExploration({ signal })
+  );
 
   return query;
 };

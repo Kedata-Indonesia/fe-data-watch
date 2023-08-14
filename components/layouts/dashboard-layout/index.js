@@ -18,7 +18,7 @@ import { toast } from 'react-toastify';
 import useModal from '@/utils/hooks/use-modal';
 import SubmitFeedbackModal from '@/components/shared/submit-feedback-modal';
 import ChangePasswordModal from '@/components/shared/change-password-modal';
-import { CURRENT_FILE_KEY, SESSION_ID_KEY } from '@/constants/cookie-keys';
+import { ACCESS_TOKEN_KEY, CURRENT_FILE_KEY } from '@/constants/cookie-keys';
 import ExpandLessIcon from '@/components/icons/ExpandLessIcon';
 import clsx from 'clsx';
 
@@ -89,8 +89,8 @@ const DashboardLayout = ({ children }) => {
                   case 'logout':
                     queryClient.clear();
                     router.push('/');
-                    cookieServices.remove(SESSION_ID_KEY);
                     cookieServices.remove(ACCESS_TOKEN_KEY);
+                    cookieServices.remove(CURRENT_FILE_KEY);
                     break;
                   case 'change-password':
                     changePasswordModal.open();
