@@ -85,7 +85,9 @@ const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
 
           try {
             await Promise.all([
-              queryClient.fetchQuery(dataWatchKeys.explorations(), () => getAllExploration()),
+              queryClient.fetchQuery(dataWatchKeys.explorations(), ({ signal }) =>
+                getAllExploration({ signal })
+              ),
               queryClient.fetchQuery(dataWatchKeys.tables({ page: 1, columns: [] }), () =>
                 getAllTable({ page: 1, columns: [] })
               ),
@@ -93,7 +95,7 @@ const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
           } catch (error) {}
 
           if (onSuccess) {
-            onSuccess({ info: fileInfo, session: session_id });
+            onSuccess({ info: fileInfo, session: '' });
           } else {
             router.push('/app/exploration');
           }
