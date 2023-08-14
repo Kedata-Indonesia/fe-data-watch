@@ -1,9 +1,33 @@
+import { Alert } from '@/components/base/alert';
 import { DashboardLayout } from '@/components/layouts';
 import serverProps from '@/services/servers/server-props';
 import withAuth from '@/services/servers/with-auth';
 import withSession from '@/services/servers/with-session';
+import useInterval from '@/utils/hooks/use-interval';
 
-const DataQualityPage = () => {
+const DataQualityPage = props => {
+  useInterval(
+    (state, ref) => {
+      console.log('state', state);
+      console.log('session_remaining', props?.session_remaining);
+
+      if (state === 300) {
+        Alert.error({
+          title: 'Session expired in 5 minutes',
+          text: 'Please upload your data again, later',
+        });
+      }
+
+      if (state === 0) {
+        clearInterval(ref);
+      }
+    },
+    {
+      startAt: props?.session_remaining,
+      stateType: 'decrement',
+    }
+  );
+
   return (
     <div className="relative h-full">
       <div className="absolute inset-0 flex justify-center items-center">
@@ -15,6 +39,15 @@ const DataQualityPage = () => {
 
 DataQualityPage.getLayout = page => <DashboardLayout>{page}</DashboardLayout>;
 
-export const getServerSideProps = serverProps(withAuth(), withSession());
+export const getServerSideProps = serverProps(
+  withAuth(),
+  withSession({
+    onError: ctx => {
+      ctx.res.redirect = {
+        destination: '/app/upload',
+      };
+    },
+  })
+);
 
 export default DataQualityPage;

@@ -1,3 +1,4 @@
+import { Alert } from '@/components/base/alert';
 import { Skeleton } from '@/components/base/skeleton';
 import { DashboardLayout } from '@/components/layouts';
 import Correlations from '@/components/pages/dashboard/exploration-content/correlations';
@@ -9,13 +10,36 @@ import useGetAllExploration from '@/services/features/data-watch/hooks/use-get-a
 import serverProps from '@/services/servers/server-props';
 import withAuth from '@/services/servers/with-auth';
 import withSession from '@/services/servers/with-session';
+import useInterval from '@/utils/hooks/use-interval';
 import { useRef } from 'react';
 
-const ExplorationPage = () => {
+const ExplorationPage = props => {
   const containerRef = useRef(null);
   const explorationsQuery = useGetAllExploration();
   const explorations = explorationsQuery.data?.payload;
   const isLoading = explorationsQuery?.isFetching || !explorationsQuery?.data;
+
+  useInterval(
+    (state, ref) => {
+      console.log('state', state);
+      console.log('session_remaining', props?.session_remaining);
+
+      if (state === 300) {
+        Alert.error({
+          title: 'Session expired in 5 minutes',
+          text: 'Please upload your data again, later',
+        });
+      }
+
+      if (state === 0) {
+        clearInterval(ref);
+      }
+    },
+    {
+      startAt: props?.session_remaining,
+      stateType: 'decrement',
+    }
+  );
 
   return (
     <div className="relative flex h-full">
@@ -66,7 +90,16 @@ const explorationMenuItems = [
   },
 ];
 
-export const getServerSideProps = serverProps(withAuth(), withSession());
+export const getServerSideProps = serverProps(
+  withAuth(),
+  withSession({
+    onError: ctx => {
+      ctx.res.redirect = {
+        destination: '/app/upload',
+      };
+    },
+  })
+);
 
 ExplorationPage.getLayout = page => <DashboardLayout>{page}</DashboardLayout>;
 
