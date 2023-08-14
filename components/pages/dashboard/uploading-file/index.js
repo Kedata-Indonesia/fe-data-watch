@@ -1,7 +1,7 @@
 import { Button } from '@/components/base/button';
 import DotSeparator from '@/components/base/dot-separator';
 import { KedataLoading } from '@/components/base/kedata-loading';
-import { CURRENT_FILE_KEY, SESSION_ID_KEY } from '@/constants/cookie-keys';
+import { CURRENT_FILE_KEY } from '@/constants/cookie-keys';
 import cookieServices from '@/services/browser/cookie';
 import useUploadData from '@/services/features/data-watch/hooks/use-upload-data';
 import dataWatchKeys from '@/services/features/data-watch/keys';
@@ -10,7 +10,6 @@ import getAllTable from '@/services/features/data-watch/repositories/get-all-tab
 import { queryClient } from '@/services/libs/react-query';
 import bytesToSize from '@/utils/byte-convert';
 import useAbort from '@/utils/hooks/use-abort';
-import mockRequest from '@/utils/mock-request';
 import timeLeftConvert from '@/utils/time-left-convert';
 import mime from 'mime';
 import { useRouter } from 'next/router';
@@ -73,21 +72,13 @@ const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
         },
       },
       {
-        onSuccess: async data => {
-          const { session_id } = data?.payload;
-
-          if (!session_id) {
-            errorHandler('Failed to upload file');
-            return;
-          }
-
+        onSuccess: async () => {
           const fileInfo = {
             name: file.name,
             size: bytesToSize(file.size),
             extention: mime.getExtension(file.type),
           };
 
-          cookieServices.set(SESSION_ID_KEY, session_id);
           cookieServices.set(CURRENT_FILE_KEY, JSON.stringify(fileInfo));
 
           queryClient.removeQueries(dataWatchKeys.all);
@@ -99,17 +90,13 @@ const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
                 getAllTable({ page: 1, columns: [] })
               ),
             ]);
-
-            await mockRequest(1000);
           } catch (error) {}
 
-          setTimeout(() => {
-            if (onSuccess) {
-              onSuccess({ info: fileInfo, session: session_id });
-            } else {
-              router.push('/app/exploration');
-            }
-          }, 500);
+          if (onSuccess) {
+            onSuccess({ info: fileInfo, session: session_id });
+          } else {
+            router.push('/app/exploration');
+          }
         },
         onError: err => errorHandler(err?.message ?? 'Failed to upload file'),
       }

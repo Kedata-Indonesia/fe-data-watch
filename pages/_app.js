@@ -14,7 +14,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-export default function App({ Component, pageProps: { session, ...pageProps } }) {
+export default function App({ Component, pageProps }) {
   const getLayout = Component.getLayout || (page => page);
 
   useEffect(() => {
