@@ -12,6 +12,7 @@ import DatePicker from '@/components/base/date-picker';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { Alert } from '@/components/base/alert';
+import AuthPublic from '@/components/layouts/auth-public';
 
 const Register = props => {
   const { control, handleSubmit, watch } = useForm({
@@ -83,7 +84,7 @@ const Register = props => {
           <TextField
             control={control}
             type="password"
-            label="Passsword"
+            label="Password"
             name="password"
             placeholder="Enter your password"
             endIcon={EyeIcon}
@@ -94,7 +95,7 @@ const Register = props => {
           <TextField
             control={control}
             type="password"
-            label="Confirm Passsword"
+            label="Confirm Password"
             name="confirmPassword"
             placeholder="Enter your confirm password"
             endIcon={EyeIcon}
@@ -190,5 +191,7 @@ export const getStaticProps = async () => {
     },
   };
 };
+
+Register.getLayout = page => <AuthPublic>{page}</AuthPublic>;
 
 export default Register;
