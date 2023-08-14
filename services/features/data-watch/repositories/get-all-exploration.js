@@ -1,7 +1,9 @@
 import dataWatchHttp from '@/services/http/data-watch-http';
 
-const getAllExploration = async dto => {
-  const res = await dataWatchHttp().get('/eda/details');
+const getAllExploration = async ({ signal }) => {
+  const res = await dataWatchHttp().get('/eda/details', {
+    signal,
+  });
 
   return res.data;
 };

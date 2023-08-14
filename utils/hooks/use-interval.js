@@ -24,6 +24,8 @@ const useInterval = (callback, { delay = 1000, startAt = null, stateType = 'incr
 
     if (delay === null || typeof delay !== 'number') return;
 
+    console.log('>>> START INTERVAL <<<');
+
     intervalRef.current = setInterval(() => {
       callbackRef.current(intervalState.current, intervalRef.current);
 
