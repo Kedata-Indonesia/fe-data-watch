@@ -3,14 +3,7 @@ import { QueryCache, QueryClient } from '@tanstack/react-query';
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
-    onError: (error, query) => {
-      if (query) {
-        Alert.error({
-          title: 'Error',
-          text: 'Your session may expired' ?? 'Something went wrong',
-        });
-      }
-    },
+    onError: (error, query) => {},
   }),
   defaultOptions: {
     queries: {
