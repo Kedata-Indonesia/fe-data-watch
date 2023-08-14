@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import useRequestLogin from '@/services/features/auth/hooks/use-request-login';
 import Loading from '@/components/base/loading/loading';
+import AuthPublic from '@/components/layouts/auth-public';
 
 export default function SignIn() {
   const requestLoginQuery = useRequestLogin();
@@ -21,3 +22,5 @@ export default function SignIn() {
     </div>
   );
 }
+
+SignIn.getLayout = page => <AuthPublic>{page}</AuthPublic>;
