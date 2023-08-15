@@ -1,9 +1,10 @@
 import { Alert } from '@/components/base/alert';
 import { Button } from '@/components/base/button';
 import { UploadIcon } from '@/components/icons';
+import ALLOWED_EXTENTION from '@/constants/allowed-extention';
 import allowedExtention from '@/utils/allowed-extention';
 import clsx from 'clsx';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 const FileDropzone = ({ onChange, onError, allowExtention = [] }) => {
   const formFileRef = useRef(null);
@@ -41,6 +42,12 @@ const FileDropzone = ({ onChange, onError, allowExtention = [] }) => {
     }
   };
 
+  const allowedText = useMemo(() => {
+    return `${ALLOWED_EXTENTION.slice(0, -1)
+      .map(ext => ext)
+      .join(', ')} and ${ALLOWED_EXTENTION.slice(-1)}`;
+  }, []);
+
   return (
     <div className="absolute left-0 top-0 h-full w-full p-5">
       <div
@@ -64,9 +71,9 @@ const FileDropzone = ({ onChange, onError, allowExtention = [] }) => {
               Start your journey on data quality by uploading your file
             </h6>
             <p className="mb-11 text-gray-600">
-              Drag and Drop or choose your file with format csv, txt or excel. Your uploaded files
-              will not be saved on our platform, ensuring the confidentiality of your data
-              throughout the upload process.
+              Drag and Drop or choose your file with format {allowedText}. Your uploaded files will
+              not be saved on our platform, ensuring the confidentiality of your data throughout the
+              upload process.
             </p>
             <label className="relative">
               <Button size="md" className="px-12">
