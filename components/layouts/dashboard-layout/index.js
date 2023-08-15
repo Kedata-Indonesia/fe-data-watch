@@ -90,7 +90,7 @@ const DashboardLayout = ({ children }) => {
                     queryClient.clear();
                     router.push('/');
                     cookieServices.remove(ACCESS_TOKEN_KEY);
-                    cookieServices.remove(CURRENT_FILE_KEY);
+                    // cookieServices.remove(CURRENT_FILE_KEY);
                     break;
                   case 'change-password':
                     changePasswordModal.open();
