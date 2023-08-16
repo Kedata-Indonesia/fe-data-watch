@@ -26,8 +26,8 @@ const ExplorationPage = props => {
 
       if (state === 300) {
         Alert.error({
-          title: 'Session expired in 5 minutes',
-          text: 'Please upload your data again, later',
+          title: 'Session will expire in 5 minutes.',
+          text: 'Your session is valid for 15 minutes. Please remember to re-upload your file to continue using DataWatch without interruption. Thank you!',
         });
       }
 
