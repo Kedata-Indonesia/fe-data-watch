@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { memo } from 'react';
 
 /**
  * @param {DataSummaryTableProps} props
@@ -31,7 +32,7 @@ const DataSummaryTable = ({
   );
 };
 
-export default DataSummaryTable;
+export default memo(DataSummaryTable);
 
 /**
  * @typedef DataSummaryTableProps

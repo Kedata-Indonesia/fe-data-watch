@@ -18,6 +18,12 @@ const useInterval = (callback, { delay = 1000, startAt = null, stateType = 'incr
   }, [callback]);
 
   useEffect(() => {
+    if (startAt !== null) {
+      intervalState.current = startAt;
+    }
+  }, [startAt]);
+
+  useEffect(() => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }

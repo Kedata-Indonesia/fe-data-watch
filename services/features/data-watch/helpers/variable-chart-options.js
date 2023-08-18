@@ -43,6 +43,7 @@ const variableChartOptions = {
         },
       };
       draft.series[0].name = 'Word Counts';
+      draft.series[0].barCategoryGap = '10';
       draft.series[0].type = 'bar';
       draft.series[0].data = xAxisData;
     });
@@ -68,6 +69,7 @@ const variableChartOptions = {
       };
       draft.series[0].name = 'Histogram';
       draft.series[0].type = 'bar';
+      draft.series[0].barCategoryGap = '0';
       draft.series[0].data = yAxisData;
       draft.series[0].label.show = false;
     });

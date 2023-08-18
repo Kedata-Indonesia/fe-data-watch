@@ -11,7 +11,7 @@ import serverProps from '@/services/servers/server-props';
 import withAuth from '@/services/servers/with-auth';
 import withSession from '@/services/servers/with-session';
 import useInterval from '@/utils/hooks/use-interval';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 
 const ExplorationPage = props => {
   const containerRef = useRef(null);
@@ -19,10 +19,17 @@ const ExplorationPage = props => {
   const explorations = explorationsQuery.data?.payload;
   const isLoading = explorationsQuery?.isFetching || !explorationsQuery?.data;
 
+  const existsMenuItems = useMemo(() => {
+    if (!explorations) return [];
+    return explorationMenuItems.filter(item => {
+      return explorations[item.key];
+    });
+  }, [explorations]);
+
   useInterval(
     (state, ref) => {
       console.log('state', state);
-      console.log('session_remaining', props?.session_remaining);
+      console.log('init remaining', props?.session_remaining);
 
       if (state === 300) {
         Alert.error({
@@ -43,11 +50,7 @@ const ExplorationPage = props => {
 
   return (
     <div className="relative flex h-full">
-      <ExplorationSidebar
-        items={explorationMenuItems}
-        isLoading={isLoading}
-        container={containerRef}
-      />
+      <ExplorationSidebar items={existsMenuItems} isLoading={isLoading} container={containerRef} />
       <div
         ref={containerRef}
         className="absolute bottom-0 right-0 top-0 w-[calc(100%_-_300px)] overflow-y-auto pb-24"
@@ -55,8 +58,9 @@ const ExplorationPage = props => {
         {isLoading ? (
           <Skeleton.ExplorationContent />
         ) : (
-          explorationMenuItems.map(item => {
+          existsMenuItems.map(item => {
             const Component = item.component;
+
             return (
               <Component
                 key={item.key}
