@@ -21,7 +21,7 @@ import { useForm } from 'react-hook-form';
 const TablePage = props => {
   const pagination = usePagination();
   const [selectedColumns, setSelectedColumns] = useState([]);
-  const { control, watch, handleSubmit } = useForm({
+  const { control, watch, setValue, handleSubmit } = useForm({
     defaultValues: {
       search: '',
       columns: undefined,
@@ -135,13 +135,31 @@ const TablePage = props => {
                   </div>
                 </div>
                 <div className="flex w-full flex-shrink-0 justify-end gap-2.5">
-                  <Button size="sm" className="px-3" type="outline" onClick={() => setOpen(false)}>
+                  <Button
+                    size="sm"
+                    className="px-3"
+                    type="outline"
+                    onClick={() => {
+                      let getSelectedColumns = undefined;
+                      if (selectedColumns.length > 0) {
+                        getSelectedColumns = selectedColumns.reduce((acc, curr) => {
+                          acc[curr] = curr;
+                          return acc;
+                        }, {});
+                      }
+
+                      setValue('columns', getSelectedColumns);
+                      setOpen(false);
+                    }}
+                  >
                     Cancel
                   </Button>
                   <Button
                     size="sm"
                     className="px-3"
                     onClick={handleSubmit(data => {
+                      // console.log(data);
+                      // return;
                       const columnsFilter = Object.values(data.columns)?.filter(column => !!column);
                       pagination.toPage(1);
                       console.log(columnsFilter);
