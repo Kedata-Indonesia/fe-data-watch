@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 
-const usePagination = () => {
-  const [page, setPage] = useState(1);
+const usePagination = (initialPage = 1) => {
+  const [page, setPage] = useState(initialPage);
   const [totalPage, setTotalPage] = useState(1);
   const [limit, setLimit] = useState(10);
 
