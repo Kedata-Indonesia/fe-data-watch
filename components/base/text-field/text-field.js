@@ -40,7 +40,7 @@ const TextField = ({
       return (
         <Icon
           className={clsx(
-            'absolute bottom-0 left-4 top-[17px] w-6',
+            'absolute bottom-0 left-3 top-[11px] w-6',
             disabled ? '!text-c-gray-400' : '!text-c-gray-600',
             error ? 'text-c-red-600' : ''
           )}
