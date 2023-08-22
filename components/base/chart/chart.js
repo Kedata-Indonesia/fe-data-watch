@@ -43,6 +43,7 @@ const Chart = ({ options, height = '500px' }) => {
       </div>
     );
   }
+
   return (
     <ReactECharts
       echarts={echarts}

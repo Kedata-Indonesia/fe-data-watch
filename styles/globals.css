@@ -82,3 +82,16 @@
 #article ul {
   @apply ml-5 list-disc;
 }
+
+.table-lite thead th {
+  @apply bg-gray-100 border-b border-gray-300 !text-base text-gray-600 font-semibold;
+}
+.table-lite tbody {
+  @apply !text-base text-gray-600;
+}
+.table-lite tbody tr:nth-child(odd) {
+  @apply bg-[#F5F6FA];
+}
+.table-lite tbody tr:nth-child(even) {
+  @apply bg-white;
+}
