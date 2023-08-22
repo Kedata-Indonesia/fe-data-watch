@@ -4,6 +4,7 @@ const VARIABLE_TYPES = /** @type {const} */ ({
   DATE: 'Date',
   TEXT: 'Text',
   BOOLEAN: 'Boolean',
+  UNSUPPORTED: 'Unsupported',
 });
 
 export default VARIABLE_TYPES;
