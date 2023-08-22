@@ -25,9 +25,9 @@ const chartDefaultOptions = options => {
 
 const variableChartOptions = {
   [VARIABLE_TYPES.CATEGORICAL]: payload => {
-    return produce(chartDefaultOptions(payload), draft => {
-      const yAxisData = Object.keys(draft.word_counts);
-      const xAxisData = Object.values(draft.word_counts);
+    return produce({ ...chartDefaultOptions({ categorical: payload }) }, draft => {
+      const yAxisData = Object.keys(draft?.categorical).reverse();
+      const xAxisData = Object.values(draft?.categorical).reverse();
 
       draft.xAxis = {
         type: 'value',
@@ -40,12 +40,16 @@ const variableChartOptions = {
         data: yAxisData,
         axisLabel: {
           show: true,
+          width: 50,
+          overflow: 'break', // or 'break' to continue in a new line
+          interval: 'auto',
         },
       };
       draft.series[0].name = 'Word Counts';
       draft.series[0].barCategoryGap = '10';
       draft.series[0].type = 'bar';
       draft.series[0].data = xAxisData;
+      delete draft.categorical;
     });
   },
   [VARIABLE_TYPES.NUMERIC]: payload => {
@@ -72,10 +76,12 @@ const variableChartOptions = {
       draft.series[0].barCategoryGap = '0';
       draft.series[0].data = yAxisData;
       draft.series[0].label.show = false;
+      delete draft.bins;
+      delete draft.n_bins;
     });
   },
   [VARIABLE_TYPES.TEXT]: payload => {
-    return produce(payload, draft => {
+    return produce({ ...chartDefaultOptions({ word_counts: payload }) }, draft => {
       const dataWords = Object.keys(draft.word_counts)
         .slice(0, 200)
         .map(key => {
@@ -113,15 +119,15 @@ const variableChartOptions = {
           data: dataWords,
         },
       ];
+      delete draft.word_counts;
     });
   },
-  [VARIABLE_TYPES.DATE]: payload => {},
 };
 
 const variableChartKeys = {
-  [VARIABLE_TYPES.NUMERIC]: 'histogram',
-  [VARIABLE_TYPES.TEXT]: 'words',
-  [VARIABLE_TYPES.CATEGORICAL]: 'categories',
+  [VARIABLE_TYPES.NUMERIC]: ['details', 'histogram'],
+  [VARIABLE_TYPES.TEXT]: ['word_counts'],
+  [VARIABLE_TYPES.CATEGORICAL]: ['value_counts'],
 };
 
 export { variableChartOptions, variableChartKeys };

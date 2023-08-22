@@ -2,8 +2,8 @@ import DataSummaryTable from '@/components/shared/data-summary-table';
 import { useMemo } from 'react';
 
 const VariableStatistic = ({ data }) => {
-  const descriptiveStat = useMemo(() => data?.descriptive_statistic, [data]);
-  const quantileStat = useMemo(() => data?.quantile_statistic, [data]);
+  const descriptiveStat = useMemo(() => data?.descriptive_statistics, [data]);
+  const quantileStat = useMemo(() => data?.quantile_statistics, [data]);
 
   return (
     <div className="flex gap-6">
