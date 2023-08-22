@@ -30,12 +30,12 @@ const Overview = ({ id, title, data }) => {
       {
         key: 'memory_size',
         label: 'Total size in memory',
-        render: value => `${(value / 1024).toFixed(1)} KiB`,
+        render: value => value,
       },
       {
         key: 'avg_memory_size',
         label: 'avg record size in memory',
-        render: value => `${(+value).toFixed(1)} B`,
+        render: value => value,
       },
     ];
   }, []);
