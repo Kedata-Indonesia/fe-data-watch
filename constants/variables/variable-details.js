@@ -1,7 +1,7 @@
 const VARIABLE_DETAILS = /** @type {const} */ ({
-  STATISTIC: 'statistic',
+  STATISTIC: 'statistics',
   HISTOGRAM: 'histogram',
-  COMMON_VALUES: 'common-values',
+  COMMON_VALUES: 'common_values',
   EXTREME_VALUES: 'extreme-values',
   OVERVIEW: 'overview',
   WORDS: 'words',

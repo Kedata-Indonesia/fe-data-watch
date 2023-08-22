@@ -28,8 +28,8 @@ const ExplorationPage = props => {
 
   useInterval(
     (state, ref) => {
-      console.log('state', state);
-      console.log('init remaining', props?.session_remaining);
+      // console.log('state', state);
+      // console.log('init remaining', props?.session_remaining);
 
       if (state === 300) {
         Alert.error({

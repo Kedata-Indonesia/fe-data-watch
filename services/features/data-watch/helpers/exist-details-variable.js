@@ -6,10 +6,15 @@ const existDetailsVariable = /** @type {const} */ ({
     [VARIABLE_DETAILS.OVERVIEW]: 'Overview',
     [VARIABLE_DETAILS.WORDS]: 'Words',
   },
-  [VARIABLE_TYPES.CATEGORICAL]: { [VARIABLE_DETAILS.CATEGORIES]: 'Categories' },
+  [VARIABLE_TYPES.CATEGORICAL]: {
+    [VARIABLE_DETAILS.OVERVIEW]: 'Overview',
+    [VARIABLE_DETAILS.CATEGORIES]: 'Categories',
+    [VARIABLE_DETAILS.WORDS]: 'Words',
+  },
   [VARIABLE_TYPES.NUMERIC]: {
     [VARIABLE_DETAILS.STATISTIC]: 'Statistic',
     [VARIABLE_DETAILS.HISTOGRAM]: 'Histogram',
+    [VARIABLE_DETAILS.COMMON_VALUES]: 'Common Values',
   },
 });
 
