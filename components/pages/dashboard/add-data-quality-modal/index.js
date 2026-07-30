@@ -1,14 +1,11 @@
 import { Button } from '@/components/base/button';
 import { Modal } from '@/components/base/modal';
 import { Select } from '@/components/base/select';
-import { TextField } from '@/components/base/text-field';
-import CalendarIcon from '@/components/icons/CalendarIcon';
-import StringIntegerIcon from '@/components/icons/StringIntegerIcon';
 import StringTextIcon from '@/components/icons/StringTextIcon';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
-const AddDataQualityModal = ({ isOpen, onClose, data: originData, onClick }) => {
+const AddDataQualityModal = ({ isOpen, onClose, data: originData, columns = [], onClick }) => {
   const { control, resetField, handleSubmit } = useForm({
     defaultValues: {
       columns: undefined,
@@ -16,29 +13,12 @@ const AddDataQualityModal = ({ isOpen, onClose, data: originData, onClick }) => 
   });
 
   const columnsData = useMemo(() => {
-    return [
-      {
-        label: 'id',
-        value: 'id',
-        icon: StringIntegerIcon,
-      },
-      {
-        label: 'Category',
-        value: 'category',
-        icon: StringTextIcon,
-      },
-      {
-        label: 'Material',
-        value: 'material',
-        icon: StringTextIcon,
-      },
-      {
-        label: 'Date',
-        value: 'date',
-        icon: CalendarIcon,
-      },
-    ];
-  }, []);
+    return (columns || []).map(column => ({
+      label: column.label || column.value || column,
+      value: column.value || column.label || column,
+      icon: StringTextIcon,
+    }));
+  }, [columns]);
 
   const close = () => {
     resetField('columns');

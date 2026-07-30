@@ -63,12 +63,12 @@ const AuthLayout = ({ children = null }) => {
             ))}
           </ul>
           <div className="items-center border-t p-[20px] shadow-[0_0_30px_10px_rgba(9,30,66,0.08)]">
-            <Link href="/#join" scroll={false} passHref>
+            <Link href="/sign-in" passHref>
               <button
                 type="button"
                 className="w-full rounded border border-c-red-600 bg-white py-[10px] text-c-red-600 hover:bg-c-gray-100"
               >
-                Join Our Waitlist
+                Login
               </button>
             </Link>
           </div>

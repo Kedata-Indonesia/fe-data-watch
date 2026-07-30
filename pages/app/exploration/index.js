@@ -1,4 +1,5 @@
 import { Alert } from '@/components/base/alert';
+import { Button } from '@/components/base/button';
 import { Skeleton } from '@/components/base/skeleton';
 import { DashboardLayout } from '@/components/layouts';
 import Correlations from '@/components/pages/dashboard/exploration-content/correlations';
@@ -11,13 +12,19 @@ import serverProps from '@/services/servers/server-props';
 import withAuth from '@/services/servers/with-auth';
 import withSession from '@/services/servers/with-session';
 import useInterval from '@/utils/hooks/use-interval';
+import Link from 'next/link';
 import { useMemo, useRef } from 'react';
 
 const ExplorationPage = props => {
   const containerRef = useRef(null);
   const explorationsQuery = useGetAllExploration();
   const explorations = explorationsQuery.data?.payload;
-  const isLoading = explorationsQuery?.isFetching || !explorationsQuery?.data;
+  const isLoading = explorationsQuery.isLoading || explorationsQuery.isFetching;
+  const isError = explorationsQuery.isError && !explorations;
+  const errorMessage =
+    explorationsQuery.error?.response?.data?.message ||
+    explorationsQuery.error?.message ||
+    'Failed to load exploration.';
 
   const existsMenuItems = useMemo(() => {
     if (!explorations) return [];
@@ -28,9 +35,6 @@ const ExplorationPage = props => {
 
   useInterval(
     (state, ref) => {
-      // console.log('state', state);
-      // console.log('init remaining', props?.session_remaining);
-
       if (state === 300) {
         Alert.error({
           title: 'Session will expire in 5 minutes.',
@@ -57,6 +61,19 @@ const ExplorationPage = props => {
       >
         {isLoading ? (
           <Skeleton.ExplorationContent />
+        ) : isError ? (
+          <div className="flex h-full flex-col items-center justify-center gap-3 px-6 text-center">
+            <p className="text-base font-semibold text-c-red-600">Exploration failed</p>
+            <p className="max-w-md text-sm text-gray-500">{errorMessage}</p>
+            <div className="flex gap-2">
+              <Button size="md" type="outline" onClick={() => explorationsQuery.refetch()}>
+                Retry
+              </Button>
+              <Link href="/app/upload">
+                <Button size="md">Upload file</Button>
+              </Link>
+            </div>
+          </div>
         ) : (
           existsMenuItems.map(item => {
             const Component = item.component;
