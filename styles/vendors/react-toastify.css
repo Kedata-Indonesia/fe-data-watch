@@ -1,0 +1,21 @@
+.Toastify {
+  --toastify-icon-color-success: #fff;
+  --toastify-icon-color-error: #fff;
+  --toastify-color-progress-success: #4ade80;
+  --toastify-color-progress-error: #ff8098;
+  & .Toastify__progress-bar {
+    @apply !h-[6px];
+  }
+  & .Toastify__close-button {
+    @apply opacity-100;
+    & svg {
+      @apply text-white  fill-white;
+    }
+  }
+  & .Toastify__toast--success {
+    @apply !bg-green-500 text-white text-base;
+  }
+  & .Toastify__toast--error {
+    @apply !bg-red-600 text-white text-base;
+  }
+}

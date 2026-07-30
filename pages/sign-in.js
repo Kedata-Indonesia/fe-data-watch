@@ -1,66 +1,46 @@
+import { useEffect } from 'react';
 import Link from 'next/link';
-import { AuthLayout } from '@/components/layouts';
-import { useForm } from 'react-hook-form';
-import { TextField } from '@/components/base/text-field';
-import { Button } from '@/components/base/button';
-import { EyeIcon } from '@/components/icons';
-import { NextSeo } from 'next-seo';
+import useRequestLogin from '@/services/features/auth/hooks/use-request-login';
+import Loading from '@/components/base/loading/loading';
+import AuthPublic from '@/components/layouts/auth-public';
 
 export default function SignIn() {
-  const { control, handleSubmit } = useForm({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  });
+  const requestLoginQuery = useRequestLogin();
+  const loginUrl = requestLoginQuery.data?.payload?.login_url;
+  const errorMessage =
+    requestLoginQuery.error?.response?.data?.message ||
+    requestLoginQuery.error?.message ||
+    (requestLoginQuery.isError ? 'Failed to start login.' : null);
+
+  useEffect(() => {
+    if (loginUrl) {
+      window.location.href = loginUrl;
+    }
+  }, [loginUrl]);
+
   return (
-    <AuthLayout>
-      <NextSeo title="Sign In" />
-      <p className="lg:self-end order-last lg:order-first text-center">
-        Doesn’t have an account ?{' '}
-        <span className="text-c-red-600 italic font-bold hover:text-c-red-300">
-          <Link href="/register">Register now.</Link>
-        </span>
-      </p>
-      <div className="flex lg:px-28 flex-col lg:h-[100%] justify-center">
-        <h2 className="font-bold text-c-gray-600 text-3xl">Sign in to Kalkula</h2>
-        <form className="w-full my-7">
-          <TextField
-            control={control}
-            label="Email"
-            name="email"
-            placeholder="Enter your email"
-            rules={{
-              required: true,
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'Please enter your valid email',
-              },
-            }}
-          />
-          <TextField
-            isForgetPassword
-            control={control}
-            type="password"
-            label="Passsword"
-            name="password"
-            placeholder="Enter your password"
-            endIcon={EyeIcon}
-            rules={{
-              required: true,
-            }}
-          />
-        </form>
-        <div className="relative">
-          <Button
-            className="!px-10 mx-0"
-            size="md"
-            onClick={handleSubmit(form => console.log(form))}
-          >
-            Sign In
-          </Button>
-        </div>
+    <div className="h-screen w-screen flex items-center justify-center">
+      <div className="flex flex-col items-center max-w-md px-6 text-center">
+        {errorMessage ? (
+          <>
+            <div className="text-base text-c-red-600 font-semibold">Login failed</div>
+            <div className="mt-2 text-sm text-c-gray-600">{errorMessage}</div>
+            <div className="mt-1 text-xs text-c-gray-400">
+              Check BE is running and SSO_URL/APP_ID (or leave SSO_URL empty for local auth).
+            </div>
+            <Link href="/" className="mt-4 text-c-red-600 underline">
+              Back to home
+            </Link>
+          </>
+        ) : (
+          <>
+            <Loading className="h-8 w-8 stroke-red-500" />
+            <div className="mt-2 text-base">Redirecting...</div>
+          </>
+        )}
       </div>
-    </AuthLayout>
+    </div>
   );
 }
+
+SignIn.getLayout = page => <AuthPublic>{page}</AuthPublic>;

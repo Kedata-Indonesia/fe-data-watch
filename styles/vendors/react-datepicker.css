@@ -1,0 +1,23 @@
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range {
+  @apply !bg-c-red-600;
+  @apply !text-white;
+}
+
+.react-datepicker__day--in-range {
+  @apply text-white;
+  @apply bg-c-red-600;
+}
+.react-datepicker__input-time-container {
+  @apply flex items-center justify-center my-2.5 mx-0;
+}
+
+.react-datepicker-time__caption {
+  @apply text-base;
+}
+.react-datepicker-time__input {
+  @apply border-c-gray-300 rounded-md;
+}
+.react-datepicker-time__input:focus {
+  @apply border-c-red-600 ring-1 ring-c-red-600;
+}

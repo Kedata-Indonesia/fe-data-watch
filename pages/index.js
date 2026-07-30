@@ -4,16 +4,11 @@ import { Button } from '@/components/base/button';
 import { Section } from '@/components/base/section';
 import BenefitList from '@/components/pages/home-page/benefit-list';
 import FeatureList from '@/components/pages/home-page/feature-list';
-import UserWaitlist from '@/components/pages/home-page/user-waitlist';
-import FormWaitlist from '@/components/pages/home-page/form-waitlist';
 import BlogSection from '@/components/pages/blog/blog-section';
 import { RightArrowIcon } from '@/components/icons';
 import { LandingPageLayout } from '@/components/layouts';
-import useTestimonialWaitlist from '@/services/features/waitlist/hooks/use-testimonial-waitlist';
 
 export default function Home() {
-  const { data: testimonials } = useTestimonialWaitlist();
-
   return (
     <LandingPageLayout>
       <Section>
@@ -29,9 +24,9 @@ export default function Home() {
               <br />
               Upload | Explore | Set Rules | Enhance
             </p>
-            <Link href="#join" scroll={false} passHref>
+            <Link href="/sign-in" passHref>
               <Button className="!px-12 font-bold" IconEnd={<RightArrowIcon classname="h-5 w-5" />}>
-                Join Our Waitlist
+                Login
               </Button>
             </Link>
           </div>
@@ -71,42 +66,20 @@ export default function Home() {
           <FeatureList />
         </div>
       </Section>
-      {testimonials && testimonials.payload.length > 4 && (
-        <Section className="skew-right-bottom bg-[#FFF5F7]">
-          <div className="flex flex-col py-16 md:py-28">
-            <div className="mb-10 w-full flex-col text-center md:mb-20">
-              <h2 className="mb-4 font-archivo text-2xl font-bold md:mb-5 md:text-[28px]">
-                Here&apos;s Why They Join Our Waitlist
-              </h2>
-              <p className="text-[10px] md:text-base">
-                Unlock Enhanced Data Control and Quality with Our Open-Source Micro SaaS Solution
-              </p>
-            </div>
-            <UserWaitlist testimonials={testimonials} />
-          </div>
-        </Section>
-      )}
       <Section>
-        <div id="join" className="flex flex-col gap-10 py-16 lg:flex-row lg:py-28">
-          <div className="w-full lg:w-5/12">
-            <h1 className="mb-6 font-archivo text-2xl font-bold md:text-[42px] lg:mt-16 lg:leading-[46px] lg:tracking-tight">
-              <span className="text-c-red-600"> Join the Waitlist</span> and Harness the Power of
-              Data Ownership
-            </h1>
-            <p className="mb-6 text-center text-[10px] md:text-base lg:text-left">
-              Take charge of your data like never before! By joining our waitlist, you&apos;ll gain
-              exclusive access to our revolutionary open-source solution designed to empower you
-              with enhanced data quality. Say goodbye to compromises and hello to true data
-              ownership.
-            </p>
-            <p className="text-center text-[10px] md:text-base lg:text-left">
-              Be among the first to experience the transformative capabilities of our platform,
-              enabling you to maintain complete control over your valuable data assets.
-            </p>
-          </div>
-          <div className="w-full lg:w-7/12">
-            <FormWaitlist />
-          </div>
+        <div id="login" className="flex flex-col items-center gap-6 py-16 text-center lg:py-28">
+          <h1 className="font-archivo text-2xl font-bold md:text-[42px] md:leading-[46px] md:tracking-tight">
+            <span className="text-c-red-600">Login</span> and Harness the Power of Data Ownership
+          </h1>
+          <p className="max-w-2xl text-[10px] md:text-base">
+            Access Data Watch to upload your data, explore insights, set quality rules, and take
+            control of your data assets.
+          </p>
+          <Link href="/sign-in" passHref>
+            <Button className="!px-12 font-bold" IconEnd={<RightArrowIcon classname="h-5 w-5" />}>
+              Login
+            </Button>
+          </Link>
         </div>
       </Section>
       <Section className="bg-[#FFF5F7]">

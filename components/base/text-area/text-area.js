@@ -25,7 +25,7 @@ const TextArea = ({
   return (
     <section className={clsx('mb-4', className)}>
       <label htmlFor={name}>
-        <div className="mb-2 font-bold uppercase">{label}</div>
+        <div className="mb-2 font-bold capitalize">{label}</div>
         <textarea
           {...field}
           // name={name}

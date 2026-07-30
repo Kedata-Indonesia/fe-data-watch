@@ -4,6 +4,11 @@
 
 @import './vendors/react-table.css';
 @import './vendors/react-select.css';
+@import './vendors/react-datepicker.css';
+@import './vendors/kedata-loading.css';
+@import './vendors/react-swal.css';
+@import './vendors/react-toastify.css';
+@import './vendors/nprogress.css';
 
 @layer base {
   html {
@@ -76,4 +81,17 @@
 }
 #article ul {
   @apply ml-5 list-disc;
+}
+
+.table-lite thead th {
+  @apply bg-gray-100 border-b border-gray-300 !text-base text-gray-600 font-semibold;
+}
+.table-lite tbody {
+  @apply !text-base text-gray-600;
+}
+.table-lite tbody tr:nth-child(odd) {
+  @apply bg-[#F5F6FA];
+}
+.table-lite tbody tr:nth-child(even) {
+  @apply bg-white;
 }

@@ -381,7 +381,6 @@ const DropdownMenu = ({
               className={firstMenuClassName}
               options={options}
               onItemClick={data => {
-                toggle();
                 onChange({
                   ...data,
                   data: rowData,

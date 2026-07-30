@@ -8,7 +8,7 @@ const sizeClassName = {
 
 const typeClassName = {
   primary: 'bg-c-red-600 text-white hover:bg-c-red-400',
-  outline: 'bg-white text-c-red-600 border border-gray-400 hover:bg-c-gray-200',
+  outline: 'bg-white text-c-red-600 border border-gray-300 hover:bg-c-gray-100',
 };
 
 /**
@@ -26,7 +26,7 @@ const Button = ({
 }) => {
   return (
     <button
-      onClick={onClick}
+      onClick={!isLoading ? onClick : null}
       type="button"
       className={clsx(
         'm-0 mx-auto flex cursor-pointer items-center gap-2.5 rounded md:mx-0 md:text-base',

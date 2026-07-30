@@ -1,0 +1,3 @@
+const ALLOWED_EXTENTION = process.env.NEXT_PUBLIC_ALLOWED_EXTENTION.split(',');
+
+export default ALLOWED_EXTENTION;

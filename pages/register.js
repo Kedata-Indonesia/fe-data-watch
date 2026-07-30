@@ -5,16 +5,42 @@ import { TextField } from '@/components/base/text-field';
 import { Button } from '@/components/base/button';
 import { EyeIcon } from '@/components/icons';
 import { NextSeo } from 'next-seo';
+import useRegisterUser from '@/services/features/auth/hooks/use-register-user';
+import { useMemo } from 'react';
+import { Select } from '@/components/base/select';
+import DatePicker from '@/components/base/date-picker';
+import axios from 'axios';
+import dayjs from 'dayjs';
+import { Alert } from '@/components/base/alert';
+import AuthPublic from '@/components/layouts/auth-public';
 
-const Register = () => {
-  const { control, handleSubmit } = useForm({
+const Register = props => {
+  const { control, handleSubmit, watch } = useForm({
     defaultValues: {
-      fullname: '',
+      fullName: '',
       email: '',
       password: '',
+      confirmPassword: '',
       organization: '',
+      country: '',
+      dateOfBirth: '',
     },
   });
+  const password = watch('password');
+  const registerMutation = useRegisterUser();
+
+  const countryOptions = useMemo(() => {
+    return Object.keys(props.countries).map(key => {
+      const country = props.countries[key];
+      const emoji = String.fromCodePoint(...country.emojiU);
+
+      return {
+        label: `${emoji} ${country.name}`,
+        value: key,
+      };
+    });
+  }, [props.countries]);
+
   return (
     <AuthLayout>
       <NextSeo title="Register" />
@@ -30,11 +56,17 @@ const Register = () => {
           <TextField
             control={control}
             label="Fullname"
-            name="fullname"
+            name="fullName"
             placeholder="Enter your fullname"
             rules={{
               required: true,
             }}
+          />
+          <DatePicker
+            control={control}
+            name="dateOfBirth"
+            label="Date of Birth"
+            placeholder="Enter your date of birth"
           />
           <TextField
             control={control}
@@ -52,7 +84,7 @@ const Register = () => {
           <TextField
             control={control}
             type="password"
-            label="Passsword"
+            label="Password"
             name="password"
             placeholder="Enter your password"
             endIcon={EyeIcon}
@@ -63,12 +95,13 @@ const Register = () => {
           <TextField
             control={control}
             type="password"
-            label="Confirm Passsword"
-            name="confirm_password"
+            label="Confirm Password"
+            name="confirmPassword"
             placeholder="Enter your confirm password"
             endIcon={EyeIcon}
             rules={{
               required: true,
+              validate: value => value === password || 'The passwords do not match',
             }}
           />
           <TextField
@@ -80,12 +113,53 @@ const Register = () => {
               required: true,
             }}
           />
+          <Select
+            control={control}
+            label="Country"
+            name="country"
+            placeholder="Select your country"
+            className="w-full"
+            options={countryOptions}
+            clearable={false}
+            searchable
+            rules={{
+              required: true,
+            }}
+          />
         </form>
         <div className="relative">
           <Button
             className="!px-10 mx-0"
             size="md"
-            onClick={handleSubmit(form => console.log(form))}
+            isLoading={registerMutation.isLoading}
+            onClick={handleSubmit(form => {
+              registerMutation.mutateAsync(
+                {
+                  email: form.email,
+                  password: form.password,
+                  fullName: form.fullName,
+                  organization: form.organization,
+                  dateOfBirth: dayjs(form.dateOfBirth).format('YYYYMMDD'),
+                  country: form.country,
+                  confirmationPassword: form.confirmPassword,
+                },
+                {
+                  onSuccess: () => {
+                    Alert.success({
+                      title: 'Thank you for registering',
+                      text: 'Please check your email to verify your account',
+                    });
+                  },
+                  onError: error => {
+                    console.error(error);
+                    Alert.error({
+                      title: 'Registration failed',
+                      text: 'Please try again later',
+                    });
+                  },
+                }
+              );
+            })}
           >
             Register
           </Button>
@@ -94,5 +168,30 @@ const Register = () => {
     </AuthLayout>
   );
 };
+
+export const getStaticProps = async () => {
+  const countryRes = await axios.get(
+    'https://raw.githubusercontent.com/annexare/Countries/main/dist/countries.min.json'
+  );
+  const countries = countryRes.data;
+
+  Object.keys(countryRes.data).map(key => {
+    countries[key] = {
+      ...countryRes.data[key],
+      emojiU: key
+        .toUpperCase()
+        .split('')
+        .map(char => 127397 + char.charCodeAt(0)),
+    };
+  });
+
+  return {
+    props: {
+      countries: countries,
+    },
+  };
+};
+
+Register.getLayout = page => <AuthPublic>{page}</AuthPublic>;
 
 export default Register;
