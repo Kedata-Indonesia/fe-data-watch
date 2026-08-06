@@ -11,6 +11,7 @@ const SsoCallback = () => {
   const router = useRouter();
 
   const accessToken = router.query.accessToken;
+  const oauthError = router.query.error;
   const hasToken = !!accessToken && typeof accessToken === 'string';
 
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +19,12 @@ const SsoCallback = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
+    if (oauthError) {
+      setError(oauthError);
+      setIsLoading(false);
+      return;
+    }
+
     if (accessToken) {
       cookieServices.set(ACCESS_TOKEN_KEY, accessToken);
       getProfile()
@@ -50,7 +57,9 @@ const SsoCallback = () => {
                 {error ? (
                   <>
                     <CloseIcon className="text-white w-10 h-10" />
-                    <div className="text-white mt-2 text-base">Verification failed</div>
+                    <div className="text-white mt-2 text-base">
+                      {typeof error === 'string' ? error : 'Verification failed'}
+                    </div>
                   </>
                 ) : (
                   <>

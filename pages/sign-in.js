@@ -1,46 +1,115 @@
-import { useEffect } from 'react';
-import Link from 'next/link';
-import useRequestLogin from '@/services/features/auth/hooks/use-request-login';
-import Loading from '@/components/base/loading/loading';
+import { Button } from '@/components/base/button';
+import { GitHubIcon, GitLabIcon, GoogleIcon } from '@/components/icons';
+import { AuthLayout } from '@/components/layouts';
 import AuthPublic from '@/components/layouts/auth-public';
+import getOauthLoginUrl from '@/services/features/auth/repositories/get-oauth-login-url';
+import requestLogin from '@/services/features/auth/repositories/request-login';
+import Link from 'next/link';
+import { NextSeo } from 'next-seo';
+import { useState } from 'react';
 
-export default function SignIn() {
-  const requestLoginQuery = useRequestLogin();
-  const loginUrl = requestLoginQuery.data?.payload?.login_url;
-  const errorMessage =
-    requestLoginQuery.error?.response?.data?.message ||
-    requestLoginQuery.error?.message ||
-    (requestLoginQuery.isError ? 'Failed to start login.' : null);
+const PROVIDERS = [
+  { key: 'github', label: 'GitHub', icon: GitHubIcon, brandClass: 'text-c-neutral-900' },
+  { key: 'gitlab', label: 'GitLab', icon: GitLabIcon, brandClass: 'text-[#FC6D26]' },
+  { key: 'google', label: 'Google', icon: GoogleIcon, brandClass: '' },
+];
 
-  useEffect(() => {
-    if (loginUrl) {
-      window.location.href = loginUrl;
+const SignIn = () => {
+  const [loadingKey, setLoadingKey] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleOauth = async provider => {
+    setErrorMessage('');
+    setLoadingKey(provider);
+    try {
+      const res = await getOauthLoginUrl(provider);
+      window.location.href = res.payload.login_url;
+    } catch (err) {
+      setErrorMessage(
+        err?.response?.data?.message ||
+          `Failed to start ${provider} login. Check the backend configuration.`
+      );
+      setLoadingKey(null);
     }
-  }, [loginUrl]);
+  };
+
+  const handleEmail = async () => {
+    setErrorMessage('');
+    setLoadingKey('email');
+    try {
+      const res = await requestLogin();
+      window.location.href = res.payload.login_url;
+    } catch (err) {
+      setErrorMessage(err?.response?.data?.message || 'Failed to start email login.');
+      setLoadingKey(null);
+    }
+  };
+
+  const busy = loadingKey !== null;
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
-      <div className="flex flex-col items-center max-w-md px-6 text-center">
-        {errorMessage ? (
-          <>
-            <div className="text-base text-c-red-600 font-semibold">Login failed</div>
-            <div className="mt-2 text-sm text-c-gray-600">{errorMessage}</div>
-            <div className="mt-1 text-xs text-c-gray-400">
-              Check BE is running and SSO_URL/APP_ID (or leave SSO_URL empty for local auth).
-            </div>
-            <Link href="/" className="mt-4 text-c-red-600 underline">
-              Back to home
-            </Link>
-          </>
-        ) : (
-          <>
-            <Loading className="h-8 w-8 stroke-red-500" />
-            <div className="mt-2 text-base">Redirecting...</div>
-          </>
-        )}
+    <AuthLayout>
+      <NextSeo title="Sign In" />
+      <div className="flex min-h-[calc(100vh-120px)] items-center justify-center px-6">
+        <div className="w-full max-w-md">
+          <h1 className="mb-1 text-center text-2xl font-bold text-gray-800">Welcome back</h1>
+          <p className="mb-8 text-center text-sm text-gray-500">
+            Sign in to continue to Data Watch.
+          </p>
+
+          <div className="flex flex-col gap-3">
+            {PROVIDERS.map(({ key, label, icon: Icon, brandClass }) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => handleOauth(key)}
+                disabled={busy}
+                className="flex w-full items-center justify-center gap-3 rounded border border-gray-300 bg-white px-4 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {loadingKey === key ? (
+                  <span className="loading loading-spinner loading-sm text-c-red-600" />
+                ) : (
+                  <Icon className={`h-5 w-5 ${brandClass}`} />
+                )}
+                Continue with {label}
+              </button>
+            ))}
+          </div>
+
+          <div className="my-6 flex items-center gap-4">
+            <span className="h-px flex-1 bg-gray-200" />
+            <span className="text-xs uppercase text-gray-400">or</span>
+            <span className="h-px flex-1 bg-gray-200" />
+          </div>
+
+          <Button
+            size="lg"
+            type="outline"
+            className="w-full"
+            onClick={busy ? undefined : handleEmail}
+            isLoading={loadingKey === 'email'}
+          >
+            Continue with email
+          </Button>
+
+          {errorMessage ? (
+            <p className="mt-4 rounded bg-c-red-50 p-3 text-center text-sm text-c-red-600">
+              {errorMessage}
+            </p>
+          ) : null}
+
+          <p className="mt-8 text-center text-sm text-gray-500">
+            Don&apos;t have an account?{' '}
+            <span className="font-bold italic text-c-red-600 hover:text-c-red-300">
+              <Link href="/register">Register.</Link>
+            </span>
+          </p>
+        </div>
       </div>
-    </div>
+    </AuthLayout>
   );
-}
+};
 
 SignIn.getLayout = page => <AuthPublic>{page}</AuthPublic>;
+
+export default SignIn;
