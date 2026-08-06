@@ -50,12 +50,7 @@ const FileDropzone = ({ onChange, onError, allowExtention = [] }) => {
 
   return (
     <div className="absolute left-0 top-0 h-full w-full p-5">
-      <div
-        className={clsx(
-          'h-full border-[3px] border-dashed border-gray-400',
-          isDragActive && 'border-red-500'
-        )}
-      >
+      <div className={clsx('h-full', isDragActive && 'border-red-500')}>
         <div
           className="flex h-full items-center justify-center"
           onDragEnter={handleDrag}

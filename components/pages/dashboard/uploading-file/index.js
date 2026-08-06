@@ -76,7 +76,7 @@ const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
           const fileInfo = {
             name: file.name,
             size: bytesToSize(file.size),
-            extention: mime.getExtension(file.type),
+            extention: mime.getExtension(mime.getType(file.name) || file.type),
           };
 
           cookieServices.set(CURRENT_FILE_KEY, JSON.stringify(fileInfo));
@@ -100,7 +100,13 @@ const UploadingFile = ({ file, onError = () => {}, onSuccess = null }) => {
             router.push('/app/exploration');
           }
         },
-        onError: err => errorHandler(err?.message ?? 'Failed to upload file'),
+        onError: err =>
+          errorHandler(
+            err?.response?.data?.message ||
+              err?.response?.data?.detail ||
+              err?.message ||
+              'Failed to upload file'
+          ),
       }
     );
   };
