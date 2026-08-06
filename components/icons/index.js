@@ -12,6 +12,9 @@ import UploadIcon from './UploadIcon';
 import EyeIcon from './EyeIcon';
 import EyeSlashIcon from './EyeSlashIcon';
 import ShareIcon from './ShareIcon';
+import GitHubIcon from './GitHubIcon';
+import GitLabIcon from './GitLabIcon';
+import GoogleIcon from './GoogleIcon';
 
 export {
   RightArrowIcon,
@@ -28,4 +31,7 @@ export {
   EyeIcon,
   EyeSlashIcon,
   ShareIcon,
+  GitHubIcon,
+  GitLabIcon,
+  GoogleIcon,
 };
