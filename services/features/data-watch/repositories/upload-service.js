@@ -7,6 +7,7 @@ import ALLOWED_EXTENTION from '@/constants/allowed-extention';
  * @param {object} dto
  * @param {File} dto.originFile
  * @param {File} dto.file
+ * @param {string} dto.uploadId
  * @param {import('axios').AxiosRequestConfig<any>} dto.config
  */
 const uploadService = async dto => {

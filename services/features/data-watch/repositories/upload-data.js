@@ -4,6 +4,7 @@ import dataWatchHttp from '@/services/http/data-watch-http';
  *
  * @param {object} dto
  * @param {File} dto.file
+ * @param {string} dto.uploadId
  * @param {import('axios').AxiosRequestConfig<any>} dto.config
  */
 const uploadData = async dto => {
@@ -14,6 +15,7 @@ const uploadData = async dto => {
   data.append('size', dto.originFile.size);
   data.append('total_completed', dto.completed);
   data.append('original_filename', dto.originFile.name);
+  data.append('upload_id', dto.uploadId);
 
   console.log({
     file: dto.file,
