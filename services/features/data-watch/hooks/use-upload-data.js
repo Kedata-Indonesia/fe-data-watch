@@ -11,7 +11,8 @@ const useUploadData = (cb = percent => {}) => {
       const uploadId = window.crypto.randomUUID();
 
       const uploadFile = async (start, end) => {
-        const currentChunk = file.slice(start, end);
+        const effectiveEnd = Math.min(end, fileSize);
+        const currentChunk = file.slice(start, effectiveEnd);
 
         const chunkFile = new Blob([currentChunk], { type: file.type });
 
@@ -23,7 +24,7 @@ const useUploadData = (cb = percent => {}) => {
           completed: totalCompleted,
           uploadId,
           start,
-          end,
+          end: effectiveEnd,
           config: {
             signal: config.signal,
             // onUploadProgress: event => {
