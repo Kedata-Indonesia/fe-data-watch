@@ -9,6 +9,7 @@ const useUploadData = (cb = percent => {}) => {
     ({ file, config }) => {
       let totalCompleted = 0;
       const fileSize = file.size;
+      const uploadId = window.crypto.randomUUID();
       const fileType = mime.getType(file.name) || file.type || 'application/octet-stream';
 
       const uploadFile = async (start, end) => {
@@ -23,6 +24,7 @@ const useUploadData = (cb = percent => {}) => {
           originFile: file,
           file: chunkFile,
           completed: totalCompleted,
+          uploadId,
           start,
           end: chunkEnd,
           config: {
