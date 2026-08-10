@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import mime from 'mime';
 import uploadService from '../repositories/upload-service';
 
 const CHUNK_SIZE = 1024 * 1024 * 2; // 2MB
@@ -9,12 +10,13 @@ const useUploadData = (cb = percent => {}) => {
       let totalCompleted = 0;
       const fileSize = file.size;
       const uploadId = window.crypto.randomUUID();
+      const fileType = mime.getType(file.name) || file.type || 'application/octet-stream';
 
       const uploadFile = async (start, end) => {
-        const effectiveEnd = Math.min(end, fileSize);
-        const currentChunk = file.slice(start, effectiveEnd);
+        const chunkEnd = Math.min(end, fileSize);
+        const currentChunk = file.slice(start, chunkEnd);
 
-        const chunkFile = new Blob([currentChunk], { type: file.type });
+        const chunkFile = new Blob([currentChunk], { type: fileType });
 
         totalCompleted += chunkFile.size;
 
@@ -24,7 +26,7 @@ const useUploadData = (cb = percent => {}) => {
           completed: totalCompleted,
           uploadId,
           start,
-          end: effectiveEnd,
+          end: chunkEnd,
           config: {
             signal: config.signal,
             // onUploadProgress: event => {
@@ -42,14 +44,14 @@ const useUploadData = (cb = percent => {}) => {
 
         cb(res?.payload?.upload_progress);
 
-        if (end < file.size) {
-          return uploadFile(end, end + CHUNK_SIZE);
+        if (chunkEnd < file.size) {
+          return uploadFile(chunkEnd, chunkEnd + CHUNK_SIZE);
         }
 
         return res;
       };
 
-      return uploadFile(0, CHUNK_SIZE);
+      return uploadFile(0, Math.min(CHUNK_SIZE, fileSize));
     },
     { retry: false }
   );

@@ -7,7 +7,10 @@ import Cookies from 'js-cookie';
  */
 const setCookie = (key, value) => {
   try {
-    Cookies.set(key, value);
+    // Remove a legacy cookie created without an explicit path before
+    // replacing it with a root-scoped cookie available across the app.
+    Cookies.remove(key);
+    Cookies.set(key, value, { path: '/' });
     return true;
   } catch (err) {
     console.error(err);
@@ -32,6 +35,7 @@ const getCookie = (key, defaultValue) => {
  */
 const removeCookie = (key) => {
   try {
+    Cookies.remove(key, { path: '/' });
     Cookies.remove(key);
     return true;
   } catch (err) {
