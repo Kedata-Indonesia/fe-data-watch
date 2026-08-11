@@ -195,7 +195,7 @@ const DataQualityContent = ({
     );
   }
 
-  if (!report) {
+  if (!report || reportStatus === null) {
     return (
       <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
         <p className="text-gray-600">No data quality report yet.</p>

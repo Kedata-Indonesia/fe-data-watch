@@ -22,6 +22,11 @@ import { ACCESS_TOKEN_KEY, CURRENT_FILE_KEY } from '@/constants/cookie-keys';
 import ExpandLessIcon from '@/components/icons/ExpandLessIcon';
 import clsx from 'clsx';
 
+const truncateFilename = (name, maxLen) => {
+  if (!name || name.length <= maxLen) return name || '';
+  return '...' + name.slice(-maxLen);
+};
+
 const TAB_MENU = /** @type {const} */ ({
   TABLE: '/app/table',
   EXPLORATION: '/app/exploration',
@@ -120,7 +125,7 @@ const DashboardLayout = ({ children }) => {
             <div className="flex items-center gap-2.5 text-gray-600">
               <TableIcon />
               <div className="flex flex-col">
-                <h3 className="text-xl font-bold">{fileInfo?.name}</h3>
+                <h3 className="text-xl font-bold">{truncateFilename(fileInfo?.name, 30)}</h3>
                 <div className="flex items-center gap-1 text-sm text-gray-400">
                   <div>
                     Type: <span className="font-bold">{fileInfo?.extention}</span>
