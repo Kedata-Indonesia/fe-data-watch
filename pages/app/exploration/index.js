@@ -5,6 +5,7 @@ import { DashboardLayout } from '@/components/layouts';
 import Correlations from '@/components/pages/dashboard/exploration-content/correlations';
 import Overview from '@/components/pages/dashboard/exploration-content/overview';
 import Variables from '@/components/pages/dashboard/exploration-content/variables';
+import AiMetadata from '@/components/pages/dashboard/exploration-content/ai-metadata';
 import ExplorationSidebar from '@/components/pages/dashboard/exploration-sidebar';
 import EXPLORATION_LISTS from '@/constants/exploration-lists';
 import useGetAllExploration from '@/services/features/data-watch/hooks/use-get-all-exploration';
@@ -108,6 +109,11 @@ const explorationMenuItems = [
     key: EXPLORATION_LISTS.CORRELATIONS,
     label: 'Correlations',
     component: Correlations,
+  },
+  {
+    key: EXPLORATION_LISTS.AI_METADATA,
+    label: 'AI Metadata',
+    component: AiMetadata,
   },
 ];
 
