@@ -7,8 +7,8 @@ WORKDIR /app
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
+  if [ -f yarn.lock ]; then yarn --frozen-lockfile && yarn cache clean; \
+  elif [ -f package-lock.json ]; then npm ci && npm cache clean --force; \
   elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
   else echo "Lockfile not found." && exit 1; \
   fi
@@ -23,9 +23,9 @@ COPY . .
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 
-ENV BUILD_STANDALONE true
+ENV BUILD_STANDALONE=true
 RUN NEXT_PUBLIC_API_URL=APP_NEXT_PUBLIC_API_URL NEXT_PUBLIC_DATA_WATCH_API_URL=APP_PUBLIC_DATA_WATCH_API_URL NEXT_PUBLIC_ALLOWED_EXTENTION=APP_PUBLIC_ALLOWED_EXTENTION yarn build
 # If using npm comment out above and use below instead
 # RUN npm run build
@@ -36,7 +36,7 @@ WORKDIR /app
 
 # ENV NODE_ENV production
 # Uncomment the following line in case you want to disable telemetry during runtime.
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
