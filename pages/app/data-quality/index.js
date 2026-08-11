@@ -85,9 +85,8 @@ const DataQualityPage = props => {
 
   const reportPayload = reportQuery.data?.payload;
   const reportStatus = reportPayload?.status ?? null;
-  const reportNotFound = reportQuery.isError && reportQuery.error?.response?.status === 404;
-  const reportError =
-    reportQuery.isError && !reportNotFound ? reportQuery.error?.response?.data?.message : null;
+  const reportNotFound = reportStatus === null;
+  const reportError = reportQuery.isError ? reportQuery.error?.response?.data?.message : null;
 
   useEffect(() => {
     if (reportStatus === 'processing' || reportStatus === 'queued') {

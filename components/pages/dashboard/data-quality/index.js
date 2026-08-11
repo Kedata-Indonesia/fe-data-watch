@@ -85,29 +85,6 @@ const DataQuality = ({
       />
       <div className="relative flex h-full">
         <div className="w-[355px] border-r border-gray-300 bg-[#F5F6FA] p-6">
-          <div className="mb-4">
-            <div className="mb-2 flex items-center justify-between">
-              <p className="font-semibold text-gray-600">Dataset</p>
-              {datasetOptions.length > 1 && (
-                <select
-                  className="rounded border border-gray-300 bg-white px-2 py-1 text-xs text-gray-600"
-                  value={dataset.dataset_id}
-                  onChange={event => onSelectDataset(event.target.value)}
-                >
-                  {datasetOptions.map(option => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
-            <p className="truncate text-sm font-bold text-gray-700">{dataset.filename}</p>
-            <p className="text-xs text-gray-400">
-              {formatNumber(dataset.row_count)} rows · {formatNumber(dataset.column_count)} columns
-            </p>
-          </div>
-
           <div className="mb-4 flex items-center justify-between">
             <p className="font-semibold text-gray-600">Data Quality Rule</p>
             <DropdownMenu
