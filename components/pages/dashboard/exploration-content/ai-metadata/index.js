@@ -25,9 +25,7 @@ const AiMetadata = ({ id, title, data }) => {
                 {col.inferred_type || 'unknown'}
               </span>
             </div>
-            {col.description && (
-              <p className="mb-2 text-sm text-gray-600">{col.description}</p>
-            )}
+            {col.description && <p className="mb-2 text-sm text-gray-600">{col.description}</p>}
             <div className="flex flex-wrap gap-2">
               {col.tags?.map(tag => (
                 <span
