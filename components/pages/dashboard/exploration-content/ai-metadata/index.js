@@ -18,10 +18,7 @@ const AiMetadata = ({ id, title, data }) => {
     <ExplorationSection id={id} title={title}>
       <div className="flex flex-col gap-3">
         {columns.map(col => (
-          <div
-            key={col.name}
-            className="rounded border border-gray-200 bg-white p-4"
-          >
+          <div key={col.name} className="rounded border border-gray-200 bg-white p-4">
             <div className="mb-1 flex items-center gap-2">
               <span className="font-mono text-sm font-bold text-gray-700">{col.name}</span>
               <span className="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500">
